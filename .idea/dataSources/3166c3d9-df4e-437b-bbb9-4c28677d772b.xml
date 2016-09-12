@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="BD Trabajo Final">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="2.6">
+    <schema id="1" name="trabajo_final">
+      <visible>1</visible>
+    </schema>
+    <schema id="2" name="bugtracker"/>
+    <schema id="3" name="cake_ap"/>
+    <schema id="4" name="come"/>
+    <schema id="5" name="comedor"/>
+    <schema id="6" name="comedor.dev"/>
+    <schema id="7" name="comedor2"/>
+    <schema id="8" name="comedorApostoles"/>
+    <schema id="9" name="comedor_f"/>
+    <schema id="10" name="comedor_viejo"/>
+    <schema id="11" name="futbol"/>
+    <schema id="12" name="information_schema"/>
+    <schema id="13" name="lara_auth"/>
+    <schema id="14" name="lara_comedor"/>
+    <schema id="15" name="lara_comedor2"/>
+    <schema id="16" name="lara_comedor3"/>
+    <schema id="17" name="lara_per"/>
+    <schema id="18" name="lara_prueba"/>
+    <schema id="19" name="lara_ui"/>
+    <schema id="20" name="LETERCASE"/>
+    <schema id="21" name="letercase2"/>
+    <schema id="22" name="mama"/>
+    <schema id="23" name="myapp"/>
+    <schema id="24" name="mysql"/>
+    <schema id="25" name="paciente"/>
+    <schema id="26" name="performance_schema"/>
+    <schema id="27" name="phpmyadmin"/>
+    <schema id="28" name="prueba"/>
+    <schema id="29" name="rela"/>
+    <schema id="30" name="relaciones_cakeapp"/>
+    <schema id="31" name="relaciones_cakeapp2"/>
+  </database-model>
+</dataSource>
