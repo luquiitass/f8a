@@ -1,10 +1,10 @@
 <?php
 
-namespace TF\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use TF\Http\Requests;
+use App\Http\Requests;
 
 class TestController extends Controller
 {

@@ -151,10 +151,10 @@ return [
         /*
          * Application Service Providers...
          */
-        TF\Providers\AppServiceProvider::class,
-        TF\Providers\AuthServiceProvider::class,
-        TF\Providers\EventServiceProvider::class,
-        TF\Providers\RouteServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
 
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
@@ -162,6 +162,12 @@ return [
 
         Amranidev\ScaffoldInterface\ScaffoldInterfaceServiceProvider::class,
         Amranidev\Ajaxis\AjaxisServiceProvider::class,
+
+        Acacha\AdminLTETemplateLaravel\Providers\AdminLTETemplateServiceProvider::class,
+
+        Yajra\Datatables\DatatablesServiceProvider::class,
+
+        Laracasts\Flash\FlashServiceProvider::class,
 
     ],
 
@@ -211,6 +217,15 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+
+        'AdminLTE' => Acacha\AdminLTETemplateLaravel\Facades\AdminLTE::class,
+
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+
+        'Flash' => Laracasts\Flash\Flash::class,
+
+
+
 
     ],
 
