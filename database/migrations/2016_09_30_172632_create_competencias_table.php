@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTablePermisos extends Migration
+class CreateCompetenciasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,13 @@ class CreateTablePermisos extends Migration
      */
     public function up()
     {
-        Schema::create('permisos', function (Blueprint $table) {
+        Schema::create('competencias', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->string('descripcion');
-            $table->string('tabla');
-            $table->string('accion');
+            $table->text('descripcion');
+            $table->date('fecha_inicio');
+            $table->enum('org_partidos',array('admin_competencia','admin_equipo'));
             $table->timestamps();
-
 
             $table->unique('nombre');
         });
@@ -32,6 +31,6 @@ class CreateTablePermisos extends Migration
      */
     public function down()
     {
-        Schema::drop('permisos');
+        Schema::drop('competencias');
     }
 }

@@ -3,14 +3,16 @@
         <h3>Paises</h3>
         <hr>
         <div class="nuevo text-center ">
+            @permission('pais.create')
             <button data-toggle="modal" data-target="#myModal" class = ' create btn btn-primary'  data-link = '/pais/create'>
                 Nuevo Pais
             </button>
+            @endpermission
         </div>
 
         <div class="tabs">
             <ul id="ul_paises" class="nav nav-pills nav-stacked">
-                @forelse($paises as $pais)
+            @forelse($paises as $pais)
 
                     @include('pais.unPais',array('pais',$pais))
 
@@ -25,7 +27,7 @@
         <h3>Provincias</h3>
         <hr>
         <div class="tab-content" >
-            @foreach($paises as $pais)
+        @foreach($paises as $pais)
                 <div id="p_{{$pais->id}}" class="tab-pane {{isset($paisActivo) && $paisActivo == $pais->id?'active':''}}" >
                     <div class="nuevo text-center ">
                         <button data-toggle="modal" data-target="#myModal" class = "create btn btn-primary "  data-link ="/{{$pais->id}}/provincias/create" > Nueva Provincia</button>

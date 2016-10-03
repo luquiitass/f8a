@@ -39,6 +39,12 @@ $(document).on('click', '.save', function() {
     POST($('#AjaxisForm').serializeArray(), $(this).data('link'));
 })
 
+$(document).on('click', '.saveForm', function() {
+    var form = $(this).data('form');
+    POST($('#'+form).serializeArray(), $(this).data('link'));
+})
+
+
 $(document).on('click','.link',function(){
     var link = $(this).data('link');
     var id = $(this).data('id');
@@ -105,25 +111,28 @@ function operaciones(response) {
         retorno = true;
         for (operacion in json) {
 
-            ocultarModal();
-
             switch (operacion) {
                 case 'cargarTabla':
                     cargarTablas();
+                    ocultarModal();
                     break;
                 case 'html':
                     $(json.id_content).html(json.html);
+                    ocultarModal();
                     break;
                 case "html_append":
                     var html = $(json.id_content).html();
                     $(json.id_content).html(html + json.html_append);
+                    ocultarModal();
                     break;
                 case 'fadeOut':
                     $(json.id_content).fadeOut();
+                    ocultarModal();
                     break;
                 case 'html_remplace':
                     var element = $(json.id_content);
                     element.replaceWith(json.html_remplace);
+                    ocultarModal();
                     break;
                 case 'mensaje':
                     mensaje(json.mensaje,json.tipo_mensaje,json.permanente);

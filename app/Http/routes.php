@@ -68,8 +68,34 @@ Route::get('/seguridad','SeguridadController@index')->name('segutidad.index');
 //Permiso Resources
 //*************Permiso***************
 Route::get('/permiso','PermisoController@index')->name('permiso.index');
-
-
-
+Route::get('/permiso/create','PermisoController@create')->name('permiso.create');
+Route::post('permiso','PermisoController@store');
+Route::get('permiso/{permission}/edit','PermisoController@edit');
+Route::post('permiso/{permission}/update','PermisoController@update');
+Route::get('permiso/{permission}/deleteMsg','PermisoController@deleteMsg');
+Route::get('permiso/{permission}/delete','PermisoController@destroy');
 //*************Permiso***************
 
+//Roll Resource
+
+//************Rol*********************
+Route::get('/rol','RolController@index');
+Route::get('rol/create','RolController@create')->name('rol.reate');
+Route::get('/rol/{role}/edit','RolController@edit');
+Route::post('/rol/{role}/update','RolController@update');
+Route::get('/rol/{role}/deleteMsg','RolController@DeleteMsg');
+Route::get('/rol/{role}/delete','RolController@destroy');
+Route::post('rol','RolController@store');
+//************Rol*********************
+
+
+//**************Competencia***************
+Route::get('competencias','CompetenciaController@index')->name('competencia.index');
+Route::get('competencia/create','CompetenciaController@create')->name('competencia.create');
+Route::post('competencia','CompetenciaController@store');
+Route::get('competencia/{competencia}','CompetenciaController@show')->name('competencia.show');
+Route::get('competencia/{competencia}/edit','CompetenciaController@edit')->name('competencia.edit');
+Route::post('competencia/{competencia}/update','CompetenciaController@update')->name('competencia.update');
+Route::get('competencia/{competencia}/deleteMsg','CompetenciaController@deleteMsg')->name('competencia.deleteMsg');
+Route::get('competencia/{competenci}/delete','CompetenciaController@destroy')->name('competencia.delete');
+//**************Competencia***************

@@ -147,6 +147,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -168,6 +169,9 @@ return [
         Yajra\Datatables\DatatablesServiceProvider::class,
 
         Laracasts\Flash\FlashServiceProvider::class,
+
+        Bican\Roles\RolesServiceProvider::class,
+
 
     ],
 

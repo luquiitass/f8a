@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Bican\Roles\Models\Permission;
 use Illuminate\Http\Request;
+use Amranidev\Ajaxis\Ajaxis;
 
-use App\Http\Requests;
+use App\Http\Requests\PermisoRequestStore;
 
 class PermisoController extends Controller
 {
@@ -25,7 +27,7 @@ class PermisoController extends Controller
      */
     public function create()
     {
-        //
+        return view('seguridad.permiso.create');
     }
 
     /**
@@ -34,9 +36,19 @@ class PermisoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PermisoRequestStore $request)
     {
         //
+        $input = $request->except('_token');
+
+        $permission = new Permission();
+        $permission->name = $input['nombre'];
+        $permission->slug = $input['slug'];
+        $permission->model = $input['model'];
+        $permission->description = $input['descripcion'];
+        $permission->save();
+
+        return redirect()->to('seguridad');
     }
 
     /**
@@ -56,9 +68,9 @@ class PermisoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Permission $permission)
     {
-        //
+        return view('seguridad.permiso.edit',compact('permission'));
     }
 
     /**
@@ -68,9 +80,19 @@ class PermisoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Permission $permission)
     {
         //
+        $input = $request->except('_token');
+
+        $permission->name = $input['nombre'];
+        $permission->slug = $input['slug'];
+        $permission->model = $input['model'];
+        $permission->description = $input['descripcion'];
+
+        $permission->update();
+
+        return redirect()->to('seguridad');
     }
 
     /**
@@ -79,8 +101,18 @@ class PermisoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteMsg(Permission $permission){
+
+        $msg = Ajaxis::BtDeleting('Cuidado!!','¿Esta seguro de eliminar el Permiso'.$permission->name.' ?','/permiso/'. $permission->id . '/delete');
+        if(Request::ajax())
+        {
+            return $msg;
+        }
+        return $msg;
+    }
+
+    public function destroy(Permission $permission)
     {
-        //
+        $permission->delete();
     }
 }

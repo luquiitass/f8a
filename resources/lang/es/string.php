@@ -14,6 +14,11 @@ return [
     'link_localidades' => 'Localidades',
     'link_seguridad' => 'Seguridad',
 
+    'link_competencias'       => 'Competencias',
+    'link_nueva_competencia'       => 'Nueva Competencia',
+    'link_adm_competencia'       => 'Adm Competencias',
+
+
 
 
 

@@ -6,7 +6,7 @@
  * Time: 11:26
  */
 
-namespace app\Http;
+namespace App\Http;
 
 
 class JSON_retorno

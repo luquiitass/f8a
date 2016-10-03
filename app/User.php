@@ -4,8 +4,12 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+use Bican\Roles\Traits\HasRoleAndPermission;
+use Bican\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
+
+class User extends Authenticatable  implements  HasRoleAndPermissionContract
 {
+    use  HasRoleAndPermission;
     /**
      * The attributes that are mass assignable.
      *
@@ -23,4 +27,21 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function competencias(){
+        return $this->belongsToMany(Competencia::class)->withTimestamps();
+    }
+
+    public function misPermisosRoles(){
+        $retorno = array();
+        foreach ($this->getRoles() as $rol){
+            echo $rol->name;
+            dd($rol->permissions);
+            foreach ($rol->permissions() as $permiso){
+                $retorno[]= $permiso;
+            }
+        }
+        return $retorno;
+    }
+
 }

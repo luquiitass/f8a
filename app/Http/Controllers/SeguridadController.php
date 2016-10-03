@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Bican\Roles\Models\Permission;
+use Bican\Roles\Models\Role;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Permiso;
 
 
 class SeguridadController extends Controller
@@ -13,8 +14,9 @@ class SeguridadController extends Controller
     //
     public function index()
     {
-        $permisos = Permiso::get();
-        $roles = [];
-        return view('seguridad.index',compact('permisos','roles'));
+        $permission = Permission::get();
+        $roles = Role::get();
+
+        return view('seguridad.index',compact('permission','roles'));
     }
 }
