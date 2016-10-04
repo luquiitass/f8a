@@ -39,7 +39,7 @@
                         <td>
                             <a class="btn btn-info" href="{{route('competencia.show',array('competencia'=>$competencia->id))}}">Ver</a>
                             <a class="btn btn-success" href="{{route('competencia.edit',array('competencia'=>$competencia->id))}}">Editar</a>
-                            <a class="btn btn-danger" href="{{route('competencia.deleteMsg',array('competencia'=>$competencia->id))}}">Eliminar</a>
+                            <a class="btn btn-danger delete" data-link="/competencia/{{$competencia->id}}/deleteMsg" data-toggle="modal" data-target="#myModal" >Eliminar</a>
                         </td>
                     </tr>
                 @empty

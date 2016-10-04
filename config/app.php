@@ -172,6 +172,7 @@ return [
 
         Bican\Roles\RolesServiceProvider::class,
 
+        Proengsoft\JsValidation\JsValidationServiceProvider::class,
 
     ],
 
@@ -228,8 +229,7 @@ return [
 
         'Flash' => Laracasts\Flash\Flash::class,
 
-
-
+        'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
 
     ],
 

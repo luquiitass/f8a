@@ -42,10 +42,10 @@ class PermisoController extends Controller
         $input = $request->except('_token');
 
         $permission = new Permission();
-        $permission->name = $input['nombre'];
+        $permission->name = $input['name'];
         $permission->slug = $input['slug'];
         $permission->model = $input['model'];
-        $permission->description = $input['descripcion'];
+        $permission->description = $input['description'];
         $permission->save();
 
         return redirect()->to('seguridad');
@@ -85,10 +85,10 @@ class PermisoController extends Controller
         //
         $input = $request->except('_token');
 
-        $permission->name = $input['nombre'];
+        $permission->name = $input['name'];
         $permission->slug = $input['slug'];
         $permission->model = $input['model'];
-        $permission->description = $input['descripcion'];
+        $permission->description = $input['description'];
 
         $permission->update();
 

@@ -97,5 +97,5 @@ Route::get('competencia/{competencia}','CompetenciaController@show')->name('comp
 Route::get('competencia/{competencia}/edit','CompetenciaController@edit')->name('competencia.edit');
 Route::post('competencia/{competencia}/update','CompetenciaController@update')->name('competencia.update');
 Route::get('competencia/{competencia}/deleteMsg','CompetenciaController@deleteMsg')->name('competencia.deleteMsg');
-Route::get('competencia/{competenci}/delete','CompetenciaController@destroy')->name('competencia.delete');
+Route::get('competencia/{competencia}/delete','CompetenciaController@destroy')->name('competencia.delete');
 //**************Competencia***************

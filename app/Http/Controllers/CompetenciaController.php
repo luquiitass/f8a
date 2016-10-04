@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Competencia;
 use Request;
+use App\Http\Requests\CompetenciaRequestStore;
+use Amranidev\Ajaxis\Ajaxis;
 
 class CompetenciaController extends Controller
 {
@@ -35,12 +37,10 @@ class CompetenciaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CompetenciaRequestStore $request)
     {
         //
         $input = Request::except('_token');
-
-        dd($input);
 
         $competencia = new Competencia();
 
@@ -102,7 +102,12 @@ class CompetenciaController extends Controller
 
     public function deleteMsg(Competencia $competencia)
     {
-        return 'mensaje de ajaxis';
+        $msg = Ajaxis::BtDeleting('Cuidado!!','¿Esta seguro de eliminar la competencia '.$competencia->name.' ?','/competencia/'. $competencia->id . '/delete');
+        if(Request::ajax())
+        {
+            return $msg;
+        }
+        return $msg;
     }
 
     /**
@@ -111,8 +116,11 @@ class CompetenciaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Competencia $competencia)
     {
         //
+        $competencia->delete();
+
+        return \URL::to('competencias');
     }
 }

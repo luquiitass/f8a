@@ -16,7 +16,8 @@
         "yajra/laravel-datatables-oracle": "~6.0",
         "laracasts/flash": "2.0.1",
         "doctrine/dbal": "2.3.5",
-        "bican/roles": "2.1.7"
+        "bican/roles": "2.1.7",
+        "proengsoft/laravel-jsvalidation": "~1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -51,7 +52,8 @@
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php artisan optimize"
+            "php artisan optimize",
+            "php artisan vendor:publish --provider=\"Proengsoft\\JsValidation\\JsValidationServiceProvider\" --tag=public --force"
         ]
     },
     "config": {

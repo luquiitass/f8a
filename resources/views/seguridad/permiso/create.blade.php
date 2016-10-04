@@ -23,22 +23,26 @@
                 {{Form::token()}}
                 <div class="form-group">
                     {{Form::label('Nombre')}}
-                    {{Form::text('nombre',null,array('class'=>'form-control'))}}
+                    {{Form::text('name',null,array('class'=>'form-control'))}}
+                    @include('mensajes.error_input',['name'=>'name'])
                 </div>
 
                 <div class="form-group">
                     {{Form::label('slug')}}
                     {{Form::text('slug',null,array('class'=>'form-control'))}}
+                    @include('mensajes.error_input',['name'=>'slug'])
                 </div>
 
                 <div class="form-group">
                     {{Form::label('model')}}
                     {{Form::text('model',null,array('class'=>'form-control'))}}
+                    @include('mensajes.error_input',['name'=>'model'])
                 </div>
 
                 <div class="form-group">
                     {{Form::label('Descripcion')}}
-                    {{Form::textArea('descripcion',null,array('class'=>'form-control','height'=>'117px'))}}
+                    {{Form::textArea('description',null,array('class'=>'form-control','height'=>'117px'))}}
+                    @include('mensajes.error_input',['name'=>'description'])
                 </div>
                 {{Form::submit('Crear',array('class'=>'btn btn-primary'))}}
                 {{Form::close()}}

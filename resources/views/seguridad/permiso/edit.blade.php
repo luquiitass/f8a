@@ -23,22 +23,26 @@
                 {{Form::token()}}
                 <div class="form-group">
                     {{Form::label('Nombre')}}
-                    {{Form::text('nombre',$permission->name,array('class'=>'form-control'))}}
+                    {{Form::text('name',$permission->name,array('class'=>'form-control'))}}
+                    @include('mensajes.error_input',['name'=>'name'])
                 </div>
 
                 <div class="form-group">
                     {{Form::label('slug')}}
                     {{Form::text('slug',$permission->slug,array('class'=>'form-control'))}}
+                    @include('mensajes.error_input',['name'=>'slug'])
                 </div>
 
                 <div class="form-group">
                     {{Form::label('model')}}
                     {{Form::text('model',$permission->model,array('class'=>'form-control'))}}
+                    @include('mensajes.error_input',['name'=>'model'])
                 </div>
 
                 <div class="form-group">
                     {{Form::label('Descripcion')}}
-                    {{Form::textArea('descripcion',$permission->description,array('class'=>'form-control','height'=>'117px'))}}
+                    {{Form::textArea('description',$permission->description,array('class'=>'form-control','height'=>'117px'))}}
+                    @include('mensajes.error_input',['name'=>'description'])
                 </div>
                 {{Form::submit('Modificar',array('class'=>'btn btn-primary'))}}
                 {{Form::close()}}
