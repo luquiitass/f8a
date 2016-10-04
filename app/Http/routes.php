@@ -99,3 +99,5 @@ Route::post('competencia/{competencia}/update','CompetenciaController@update')->
 Route::get('competencia/{competencia}/deleteMsg','CompetenciaController@deleteMsg')->name('competencia.deleteMsg');
 Route::get('competencia/{competencia}/delete','CompetenciaController@destroy')->name('competencia.delete');
 //**************Competencia***************
+
+/******************ultimo git********************/
