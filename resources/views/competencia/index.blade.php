@@ -27,11 +27,11 @@
                     <tr>
                         <td>{{$competencia->nombre}}</td>
                         <td>
-                            @forelse($competencia->users as $user)
-                                {{$competencia->nombre}},
-                            @empty
+                            @if($competencia->users->count()>0)
+                                {{$competencia->users->implode('name',',')}}
+                            @else
                                 Sin administrador
-                            @endforelse
+                            @endif
                         </td>
                         <td>{{$competencia->fecha_inicio}}</td>
                         <td>{{$competencia->org_partidos}}</td>

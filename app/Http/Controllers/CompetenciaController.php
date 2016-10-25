@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Competencia;
 use Request;
-use App\Http\Requests\CompetenciaRequestStore;
 use Amranidev\Ajaxis\Ajaxis;
 
+use App\Http\Requests\CompetenciaRequestStore;
+use App\Http\Requests\CompetenciaRequestUpdate;
 class CompetenciaController extends Controller
 {
     /**
@@ -42,14 +43,18 @@ class CompetenciaController extends Controller
         //
         $input = Request::except('_token');
 
+        $administradores = $input['administradores'];
+
+
         $competencia = new Competencia();
 
         $competencia->nombre = $input['nombre'];
         $competencia->descripcion = $input['descripcion'];
-        $competencia->fecha_inicio = $input['fecha_inicio'];
         $competencia->org_partidos = $input['org_partidos'];
 
         $competencia->save();
+
+        $competencia->addAdministradores($administradores);
 
         return redirect()->to('competencia/'.$competencia->id);
     }
@@ -73,7 +78,15 @@ class CompetenciaController extends Controller
      */
     public function edit(Competencia $competencia)
     {
-        return view('competencia.edit',compact('competencia'));
+        $users = array();
+        $us = array();
+        foreach ($competencia->users as $user)
+        {
+            $users[$user->id]=$user->name;
+            $us[]=$user->id;
+        }
+
+        return view('competencia.edit',compact('competencia','users','us'));
     }
 
     /**
@@ -83,15 +96,22 @@ class CompetenciaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Competencia $competencia)
+    public function update(CompetenciaRequestUpdate $request, Competencia $competencia)
     {
         //
         $input = Request::except('_token');
 
+        $administradores = $input['administradores'];
+
+        //dd($administradores);
+
         $competencia ->nombre = $input['nombre'];
         $competencia ->descripcion = $input['descripcion'];
-        $competencia ->fecha_inicio = $input['fecha_inicio'];
         $competencia ->org_partidos = $input['org_partidos'];
+
+        $competencia->removeAdministradores();
+
+        $competencia->addAdministradores($administradores);
 
         $competencia->update();
 

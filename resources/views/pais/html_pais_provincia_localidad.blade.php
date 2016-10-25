@@ -1,18 +1,19 @@
-<div class="row" style="padding-bottom: 20px; background:#FFF;">
-    <div class="col-xs-4">
-        <h3>Paises</h3>
-        <hr>
-        <div class="nuevo text-center ">
-            @permission('pais.create')
-            <button data-toggle="modal" data-target="#myModal" class = ' create btn btn-primary'  data-link = '/pais/create'>
-                Nuevo Pais
-            </button>
-            @endpermission
-        </div>
+<div class="row" >
+    <div class="{{isset($colPais)?'col-xs-12 col-md-6 col-md-offset-3':'hide'}}" id="columna-paises">
+        <div class="tabs col-form">
+            <h3 class="text-center">Paises</h3>
+            <hr>
+            <div class="nuevo text-center ">
+                {{--@permission('pais.create')--}}
 
-        <div class="tabs">
+                <button data-toggle="modal" data-target="#myModal" class = ' create btn btn-primary'  data-link = '/pais/create'>
+                    Nuevo Pais
+                </button>
+                {{--@endpermission--}}
+            </div>
+
             <ul id="ul_paises" class="nav nav-pills nav-stacked">
-            @forelse($paises as $pais)
+                @forelse($paises as $pais)
 
                     @include('pais.unPais',array('pais',$pais))
 
@@ -23,13 +24,15 @@
         </div>
     </div>
 
-    <div class="col-xs-4" >
-        <h3>Provincias</h3>
-        <hr>
-        <div class="tab-content" >
+    <div class="{{isset($colProvincia)?'col-xs-12 col-md-6 col-md-offset-3':'hide'}}" id="columna-provincias" >
+        <div class="tab-content col-form" >
         @foreach($paises as $pais)
                 <div id="p_{{$pais->id}}" class="tab-pane {{isset($paisActivo) && $paisActivo == $pais->id?'active':''}}" >
+                    <h3 class="text-center">Provincias de <b class="underline">{{$pais->nombre}}</b></h3>
+                    <hr>
+
                     <div class="nuevo text-center ">
+                        <button onclick="mostrarPaises();" class="btn btn-warning">Paises</button>
                         <button data-toggle="modal" data-target="#myModal" class = "create btn btn-primary "  data-link ="/{{$pais->id}}/provincias/create" > Nueva Provincia</button>
                     </div>
                     <ul id="ul_provincias" class="nav nav pills nav-stacked">
@@ -46,20 +49,22 @@
         </div>
     </div>
 
-    <div class="col-xs-4">
-        <h3>Localidades</h3>
-        <hr>
-        <div class="tab-content">
-            @foreach($paises as $pais)
-                @foreach($pais->provincias as $provincia)
+    <div class="{{isset($colLocalidad)?'col-xs-12 col-md-6 col-md-offset-3':'hide'}}" id="columna-localidades">
+        <div class="tab-content col-form">
+        @foreach($paises as $pais)
+            @foreach($pais->provincias as $provincia)
                     <div id="pr_{{$provincia->id}}" class="tab-pane {{isset($provinciaActiva) && $provinciaActiva == $provincia->id?'active':''}}">
 
+                        <h3 class="text-center">Localidades de <b class="underline">{{$pais->nombre}}, {{$provincia->nombre}}</b></h3>
+                        <hr>
+
                         <div class="nuevo text-center ">
+                            <button onclick="mostrarProvincia();" class="btn btn-warning">Provincias</button>
                             <button data-toggle="modal" data-target="#myModal" class = "create btn btn-primary "  data-link ="/{{$provincia->id}}/localidad/create" > Nueva Provincia</button>
                         </div>
 
                         <ul id="ul_localidades" class="nav nav pills nav-stacked">
-                            @forelse($provincia->localidades as $localidad)
+                        @forelse($provincia->localidades as $localidad)
                                 @include('localidad.unaLocalidad',array('localidad'=>$localidad))
 
                             @empty

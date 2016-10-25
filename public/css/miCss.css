@@ -1,0 +1,61 @@
+/*elementos*/
+
+/*Modificando elementos predefinidos*/
+.content-wrapper, .right-side {
+    background-color: #fff;
+}
+
+/**/
+
+
+
+textarea{
+    height: 150px !important;
+}
+
+
+
+.col-form{
+    width: 100%;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid rgb(215, 208, 208);
+    padding-bottom: 10px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    max-width: 700px;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+form .btn
+{
+    min-width:50%;
+}
+
+
+/* ************* Agregados*****************************/
+.centered {
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.borde{
+    border: 2px solid #000;
+}
+
+.borde-bottom{
+    border-bottom: 1px solid rgba(180, 176, 176, 0.58) !important;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

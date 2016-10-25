@@ -180,6 +180,25 @@
             $('.localidad').parents('.tab-pane').removeClass('active');
         });
 
+        mostrarPaises();
+
+        function mostrarPaises() {
+            $('#columna-paises').removeClass().addClass('col-xs-12 col-md-6 col-md-offset-3');
+            $('#columna-provincias').removeClass().addClass('hide');
+            $('#columna-localidades').removeClass().addClass('hide');
+        }
+
+        function mostrarProvincia() {
+            $('#columna-paises').removeClass().addClass('hide');
+            $('#columna-provincias').removeClass().addClass('col-xs-12 col-md-6 col-md-offset-3');
+            $('#columna-localidades').removeClass().addClass('hide');
+        }
+
+        function mostrarLocalidades() {
+            $('#columna-paises').removeClass().addClass('hide');
+            $('#columna-provincias').removeClass().addClass('hide');
+            $('#columna-localidades').removeClass().addClass('col-xs-12 col-md-6 col-md-offset-3');
+        }
 
     </script>
 

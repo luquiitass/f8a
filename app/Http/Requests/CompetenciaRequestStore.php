@@ -27,8 +27,8 @@ class CompetenciaRequestStore extends Request
             //
             'nombre'=>'required|unique:competencias|min:4',
             'descripcion'=>'required',
-            'fecha_inicio'=>'required',
             'org_partidos'=>'required',
+            'administradores'=>'required'
         ];
     }
 }

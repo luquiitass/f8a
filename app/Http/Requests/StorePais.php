@@ -25,7 +25,7 @@ class StorePais extends Request
     {
         return [
             //
-            'nombre'=> 'required|unique:paises|min:4',
+            'nombre'=> 'required|unique:paises|min:4c',
         ];
     }
 }

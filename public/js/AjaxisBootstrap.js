@@ -28,7 +28,7 @@ $(document).on('click', '.destroy', function() {
         type: 'get',
         url: baseURL + $(this).data('link'),
         success: function(response) {
-            var conOperaciones = operaciones(response);
+            var conOperaciones = operacion(response,false);
             if(! conOperaciones){
                 window.location = response;
             }
@@ -57,7 +57,7 @@ function GET(dataLink) {
         type: 'get',
         url: baseURL + dataLink,
         success: function(response) {
-            var conOperaciones = operaciones(response);
+            var conOperaciones = operacion(response,false);
             if(! conOperaciones){
                 $('.AjaxisModal').html(response);
             }
@@ -72,7 +72,7 @@ function POST(postData, dataLink) {
         url: baseURL + dataLink,
         data: postData,
         success: function(response) {
-            var conOperaciones = operaciones(response);
+            var conOperaciones = operacion(response,false);
             if(! conOperaciones){
                 window.location = response;
             }
@@ -102,49 +102,49 @@ function HTML(dataLink,idContent) {
         }
     });
 }
-
-function operaciones(response) {
-    var retorno = false;
-    if(isJson(response))
-    {
-        var json = JSON.parse(response);
-        retorno = true;
-        for (operacion in json) {
-
-            switch (operacion) {
-                case 'cargarTabla':
-                    cargarTablas();
-                    ocultarModal();
-                    break;
-                case 'html':
-                    $(json.id_content).html(json.html);
-                    ocultarModal();
-                    break;
-                case "html_append":
-                    var html = $(json.id_content).html();
-                    $(json.id_content).html(html + json.html_append);
-                    ocultarModal();
-                    break;
-                case 'fadeOut':
-                    $(json.id_content).fadeOut();
-                    ocultarModal();
-                    break;
-                case 'html_remplace':
-                    var element = $(json.id_content);
-                    element.replaceWith(json.html_remplace);
-                    ocultarModal();
-                    break;
-                case 'mensaje':
-                    mensaje(json.mensaje,json.tipo_mensaje,json.permanente);
-                    //mostrar mensaje;
-                    break;
-
-            }
-        }
-
-    }
-    return retorno;
-}
+//
+// function operaciones(response) {
+//     var retorno = false;
+//     if(isJson(response))
+//     {
+//         var json = JSON.parse(response);
+//         retorno = true;
+//         for (operacion in json) {
+//
+//             switch (operacion) {
+//                 case 'cargarTabla':
+//                     cargarTablas();
+//                     ocultarModal();
+//                     break;
+//                 case 'html':
+//                     $(json.id_content).html(json.html);
+//                     ocultarModal();
+//                     break;
+//                 case "html_append":
+//                     var html = $(json.id_content).html();
+//                     $(json.id_content).html(html + json.html_append);
+//                     ocultarModal();
+//                     break;
+//                 case 'fadeOut':
+//                     $(json.id_content).fadeOut();
+//                     ocultarModal();
+//                     break;
+//                 case 'html_remplace':
+//                     var element = $(json.id_content);
+//                     element.replaceWith(json.html_remplace);
+//                     ocultarModal();
+//                     break;
+//                 case 'mensaje':
+//                     mensaje(json.mensaje,json.tipo_mensaje,json.permanente);
+//                     //mostrar mensaje;
+//                     break;
+//
+//             }
+//         }
+//
+//     }
+//     return retorno;
+// }
 
 function isJson(str) {
     try {
@@ -166,17 +166,22 @@ function mensaje(mensaje,tipo,permanente){
 
     var boton = '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 
-    var div = '<div class="'+clase+'">'+ boton + mensaje + '</div>';
+    if($('#div_mensaje').length && $('#div_mensaje').is(":visible")){
+        $('#list_mensaje').append('<li>'+mensaje+'</li>');
+        $('#div_mensaje').removeClass().addClass(clase);
+    }else {
 
-    elemento_mensaje.html(div);
-
-
-    if (permanente == 'true')
-    {
-        elemento_mensaje.fadeIn(400).delay(3000);
-    }else{
-        elemento_mensaje.fadeIn(400).delay(3000).fadeOut(400);
+        elemento_mensaje.html('<div id="div_mensaje" class="'+clase+'">'+ boton +'<ul id="list_mensaje"><li>'+ mensaje +'</li></ul></div>');// '<div id="div_mensaje" class="'+clase+'">'+ boton + mensaje + '</div>';
+        if (permanente == 'true')
+        {
+            elemento_mensaje.fadeIn(400).delay(3000);
+        }else{
+            elemento_mensaje.fadeIn(400).delay(3000).fadeOut(400);
+        }
     }
+
+
+
 }
 
 function ocultarModal()

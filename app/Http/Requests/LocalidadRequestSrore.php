@@ -25,7 +25,7 @@ class LocalidadRequestSrore extends Request
     {
         return [
             //
-            'nombre'=> 'required|unique:localidades,nombre,provincia_id|min:4'
+            'nombre'=> 'required|unique:localidades,nombre,provincia_id|min:4|alpha'
         ];
     }
 }

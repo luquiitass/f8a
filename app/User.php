@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Bican\Roles\Traits\HasRoleAndPermission;
@@ -28,20 +29,31 @@ class User extends Authenticatable  implements  HasRoleAndPermissionContract
         'password', 'remember_token',
     ];
 
+
+    //***********Relaciones******************
+
     public function competencias(){
         return $this->belongsToMany(Competencia::class)->withTimestamps();
     }
 
-    public function misPermisosRoles(){
-        $retorno = array();
-        foreach ($this->getRoles() as $rol){
-            echo $rol->name;
-            dd($rol->permissions);
-            foreach ($rol->permissions() as $permiso){
-                $retorno[]= $permiso;
-            }
-        }
-        return $retorno;
+    public function equipos(){
+        return $this->belongsToMany(Equipo::class)->withTimestamps();
     }
+
+    //**************** Fin de Relaciones**********************
+
+
+
+    //**Consultass**
+
+    public function scopeLike($query,$col,$value)
+    {
+        return $query->orWhere($col,'LIKE',"%$value%");
+    }
+    public function scopeColum($query,$colum)
+    {
+        return $query->select($colum);
+    }
+
 
 }

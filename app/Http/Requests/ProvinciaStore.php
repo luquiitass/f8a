@@ -25,7 +25,7 @@ class ProvinciaStore extends Request
     {
         return [
             //
-            'nombre'=> 'required|unique:provincias,nombre,pais_id|min:4'
+            'nombre'=> 'required|unique:provincias,nombre,pais_id|min:4|alpha'
         ];
     }
 }

@@ -18,6 +18,13 @@ return [
     'link_nueva_competencia'       => 'Nueva Competencia',
     'link_adm_competencia'       => 'Adm Competencias',
 
+    'link_adm_equipos'       => 'Equipos',
+    'link_adm_equipo_administrar'       => 'Administrar Equipos',
+    'link_adm_equipo_nuevo'       => 'Nuevo Equipo',
+
+    'link_adm_estadio_administrar'       => 'Administrar Estadios',
+
+
 
 
 

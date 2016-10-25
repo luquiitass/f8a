@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Localidad;
+use App\Pais;
+use App\Provincia;
+use App\User;
+use App\Competencia;
 use Bican\Roles\Models\Permission;
 use Bican\Roles\Models\Role;
 use App\Http\JSON_retorno;
@@ -9,13 +14,12 @@ use Request;
 use Amranidev\Ajaxis\Ajaxis;
 use App\Http\Requests\RolRequestStore;
 
+
 class RolController extends Controller
 {
     //
     public function index(){
-
-        $role = Role::first();
-        return dd($role->has('5'));
+        return Pais::listForSelect();
     }
 
     public function store(RolRequestStore $request){
@@ -102,6 +106,7 @@ class RolController extends Controller
         $json = new JSON_retorno();
         $json->setMensaje('Rol eliminada','success');
         $json->setFadeOut('#li_roles_id_'.$role->id);
+        $json->newJSON();
         $json->setFadeOut('#tab_rol_'.$role->id);
 
         return $json->getAllJSON();

@@ -20,6 +20,8 @@ class JSON_retorno
     private $tipo_mensaje;
     private $permanente;
 
+    private $allJSON = array();
+
     /**
      * JSON_retorno constructor.
      * @param $mensaje
@@ -38,6 +40,7 @@ class JSON_retorno
         $this->id_content = "" ;
         $this->tipo_mensaje = "";
         $this->permanente = "";
+
     }
 
     /**
@@ -53,9 +56,13 @@ class JSON_retorno
      */
     public function setMensaje($mensaje,$tipo,$permanente = 'false')
     {
-        $this->tipo_mensaje=$tipo;
-        $this->permanente = $permanente;
-        $this->mensaje = $mensaje;
+        if ($this->mensaje == "") {
+            $this->tipo_mensaje = $tipo;
+            $this->permanente = $permanente;
+            $this->mensaje = $mensaje;
+        }else{
+            $this->newJSON();
+        }
     }
 
     /**
@@ -71,8 +78,12 @@ class JSON_retorno
      */
     public function setHtml($id,$html)
     {
-        $this->id_content = $id;
-        $this->html = $html;
+        if ($this->id_content == '') {
+            $this->id_content = $id;
+            $this->html = $html;
+        }else{
+            $this->newJSON();
+        }
     }
 
     /**
@@ -88,8 +99,12 @@ class JSON_retorno
      */
     public function setHtmlAppend($id,$html_append)
     {
-        $this->id_content = $id;
-        $this->html_append = $html_append;
+        if ($this->id_content ==''){
+            $this->id_content = $id;
+            $this->html_append = $html_append;
+        }else{
+            $this->newJSON();
+        }
     }
 
     /**
@@ -105,8 +120,12 @@ class JSON_retorno
      */
     public function setFadeOut($id)
     {
-        $this->id_content = $id;
-        $this->fadeOut = true;
+        if ($this->id_content ==''){
+            $this->id_content = $id;
+            $this->fadeOut = true;
+        }else{
+            $this->newJSON();
+        }
     }
 
     /**
@@ -122,20 +141,56 @@ class JSON_retorno
      */
     public function setHtmlRemplace($id,$html_remplace)
     {
-        $this->id_content = $id;
-        $this->html_remplace = $html_remplace;
+        if ($this->id_content ==''){
+            $this->id_content = $id;
+            $this->html_remplace = $html_remplace;
+        }else{
+            $this->newJSON();
+        }
     }
+
+
+
+
+
+
+
+
+
 
     public function getAllJSON(){
-        $retorno = array();
+        $ultimo = array();
         foreach ($this as $key => $value){
-            if ($value != '')
-            {
-                $retorno[$key]=$value;
+            if ($value != '' && $key!="allJSON") {
+                $retorno[$key] = $value;
             }
         }
-        return json_encode($retorno);
+        array_push($this->allJSON,$retorno);
+
+        return json_encode($this->allJSON);
     }
 
+    public function newJSON(){
+        $retorno = array();
+        foreach ($this as $key => $value){
+            if ($value != '' && $key!="allJSON") {
+                $retorno[$key] = $value;
+            }
+        }
+        $this->allJSON[]=$retorno;
+
+        $this->clear();
+    }
+
+
+    public function clear()
+    {
+        foreach ($this as $key => $value){
+            if ($value != '' && $key != "allJSON" )
+            {
+                $this->{$key} = "";
+            }
+        }
+    }
 
 }

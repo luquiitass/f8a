@@ -14,7 +14,7 @@ class SeguridadController extends Controller
     //
     public function index()
     {
-        $permission = Permission::get();
+        $permission = Permission::orderBy('model')->get();
         $roles = Role::get();
 
         return view('seguridad.index',compact('permission','roles'));

@@ -15,6 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+
+//User
+/* ************** User **************** */
+Route::get('usersSelect2','UserController@select2');
+/* ************** User **************** */
+
 //pais Resources
 /********************* pais ***********************************************/
 Route::resource('pais','\App\Http\Controllers\PaisController');
@@ -53,10 +61,13 @@ Route::get('autoCompleteProvincia/{pais}','ProvinciaController@autoCompleteProvi
 Route::resource('localidad','\App\Http\Controllers\LocalidadController');
 Route::get('/{provincia}/localidad/create','LocalidadController@create');
 Route::post('/{provincia}/localidad/store','LocalidadController@store');
+Route::get('/provincia/listForSelect/{pais}','ProvinciaController@listForSelect');
 
 Route::post('localidad/{localidad}/update','LocalidadController@update');
 Route::get('localidad/{localidad}/delete','LocalidadController@destroy');
 Route::get('localidad/{id}/deleteMsg','\App\Http\Controllers\LocalidadController@DeleteMsg');
+Route::get('/localidad/listForSelect/{provincia}','LocalidadController@listForSelect');
+
 /********************* $localidad ***********************************************/
 
 //Seguridad Resources
@@ -101,3 +112,19 @@ Route::get('competencia/{competencia}/delete','CompetenciaController@destroy')->
 //**************Competencia***************
 
 /******************ultimo git********************/
+
+/*****************  Equipo *****************************/
+Route::resource('equipo','EquipoController');
+Route::get('equipo/{equipo}','EquipoController@show');
+Route::get('equipo/{equipo}/deleteMsg','EquipoController@deleteMsg')->name('equipo.deleteMsg');
+Route::get('equipo/{equipo}/delete','EquipoController@destroy')->name('equipo.delete');
+//Route::get('equipos','EquipoController@index')->name('equipo.index');
+//Route::get('equipo/create','EquipoController@create')->name('equipo.create');
+//Route::post('equipo','EquipoController@store');
+/*****************  Equipo *****************************/
+
+/*************************  Estadio ********************************/
+Route::resource('estadio','EstadioController');
+Route::get('estadio/{estadio}/deleteMsg','EstadioController@DeleteMsg')->name('estadio.deleteMsg');
+Route::get('estadio/{estadio}/delete','EstadioController@destroy@destroy');
+/*************************  Estadio ********************************/
