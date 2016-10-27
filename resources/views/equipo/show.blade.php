@@ -21,6 +21,9 @@
             margin-top:20px;
         }
 
+        a.btn{
+            text-decoration: none;
+        }
 
         .panel-body {
             background: #E6E7E7;
@@ -324,20 +327,20 @@
         
         <div class="borde-bottom">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#perfil" data-toggle="tab">Perfil</a></li>
+                <li class="active"><a href="#perfil" data-toggle="tab"> <span class="glyphicon glyphicon-triangle-top tab-select-span"></span> Perfil</a></li>
                 <li><a href="#resultados" data-toggle="tab">Resultados</a></li>
                 <li><a href="#p_fechas" data-toggle="tab">Proximas Fechas</a></li>
                 <li><a href="#fotos" data-toggle="tab">Fotos</a></li>
+                <li><a href="#config" data-toggle="tab">Configuraciones</a></li>
             </ul>
 
-            <div class="tab-content">
+            <div class="tab-content bg-white resaltar">
 
                 <div class="tab-pane active" id="perfil">
-                    <h3>Perfil</h3>
-                    <hr>
                     <div class="row">
                         <div class="col-xs-12 col-md-4">
-                            <div class="">
+                            <div class="alert">
+                                <h3>Datos de Equippo</h3>
                                 @forelse($equipo->mostrarDatos() as $key=>$value)
                                     @if($value)
                                         <p><strong>{{$key}}: </strong>{{$value}}</p>
@@ -349,10 +352,7 @@
                         </div>{{--Columna de los datos--}}
 
                         <div class="col-xs-12 col-md-4">
-                            <div class="well">
-                                <h4>Datos de Contacto</h4>
-                            </div>
-
+                            @include('contacto.comp_index',array('contacto'=>$equipo->contacto))
                         </div>{{-- Columna --}}
                     </div>
                 </div>{{--Fin tab perfil--}}
@@ -369,6 +369,11 @@
                     <h3>Fotos</h3>
                 </div>{{--Fin tab fotos--}}
 
+                <div class="tab-pane" id="config">
+
+                    @include('equipo.tabs.configuraciones',compact('equipo'))
+                </div>{{--Fin tab fotos--}}
+
             </div>
         </div>
             
@@ -383,6 +388,35 @@
     @parent
 
     <script>
+        function show_edit(id) {
+            $("#display_"+id).fadeOut();
+            $("#edit_"+id).show("slow");
+
+        }
+
+        function show_display(id) {
+            $("#edit_"+id).slideUp(300).fadeOut();
+            var visible = $("#display_"+id).fadeIn();
+            visible.addClass('bg-info').delay(400).queue(function(){
+                $(this).removeClass().dequeue();
+            });
+        }
+
+        $(document).on('click','.addTelefono',function(){
+            var boton = '<span class="glyphicon glyphicon-remove borrar"></span>'
+            var nuevoTelefono = '<div class="form-group dimissable bg-info resaltar">'+boton+' <label for="Telefono 1">Nuevo Telefono</label> <input class="form-control" name="telefono[]" type="text">';
+            $('#form-telefonos').append(nuevoTelefono);
+        });
+
+        $(document).on("mousemove",".separador_in_tabs",function () {
+           $(this).find("a").show();
+        });
+        $(document).on("mouseleave",".separador_in_tabs",function () {
+            $(this).find("a").hide();
+        });
+
+
+
     </script>
 
 @endsection

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTorneosTable extends Migration
+class CreateContactosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,10 @@ class CreateTorneosTable extends Migration
      */
     public function up()
     {
-        Schema::create('torneos', function (Blueprint $table) {
+        Schema::create('contactos', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('fecha_inicio');
-            $table->text('descripcion');
-            $table->enum('estado',array('activo','inactivo'));
+            $table->string('nombre');
+            $table->string('email');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateTorneosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('torneos');
+        Schema::drop('contactos');
     }
 }

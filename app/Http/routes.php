@@ -115,7 +115,6 @@ Route::get('competencia/{competencia}/delete','CompetenciaController@destroy')->
 
 /*****************  Equipo *****************************/
 Route::resource('equipo','EquipoController');
-Route::get('equipo/{equipo}','EquipoController@show');
 Route::get('equipo/{equipo}/deleteMsg','EquipoController@deleteMsg')->name('equipo.deleteMsg');
 Route::get('equipo/{equipo}/delete','EquipoController@destroy')->name('equipo.delete');
 //Route::get('equipos','EquipoController@index')->name('equipo.index');
@@ -128,3 +127,13 @@ Route::resource('estadio','EstadioController');
 Route::get('estadio/{estadio}/deleteMsg','EstadioController@DeleteMsg')->name('estadio.deleteMsg');
 Route::get('estadio/{estadio}/delete','EstadioController@destroy@destroy');
 /*************************  Estadio ********************************/
+
+
+/* ************************ Telefono  ***************************************/
+Route::resource('telefono','TelefonoController');
+/* ************************ Telefono  ***************************************/
+
+
+/* ************************ Contacto  ***************************************/
+Route::resource('contacto','ContactoController');
+/* ************************ Contacto  ***************************************/

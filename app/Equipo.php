@@ -21,6 +21,10 @@ class Equipo extends Model
         return $this->belongsToMany(Estadio::class)->withTimestamps();
     }
 
+    public function contacto(){
+        return $this->belongsTo(Contacto::class);
+    }
+
 
 
 
@@ -38,8 +42,11 @@ class Equipo extends Model
             'Fundado' => $this->fundado,
             'Fundadores' => $this->fundadores,
             'Direccion' =>$this->estadios()->first()->direccion->direccionCompleta(),
-            'Estadio' => $this->estadios()->first()->nombre,
+            'Estadio' => $this->estadios()->first()->nombre
         );
+    }
+
+    public function getDireccion(){
     }
 
 }

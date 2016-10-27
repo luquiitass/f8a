@@ -2,7 +2,16 @@
 
 /*Modificando elementos predefinidos*/
 .content-wrapper, .right-side {
-    background-color: #fff;
+    background-color: #E9EBEE;
+}
+
+.nav-stacked > li > a {
+    color: #00000080;
+}
+
+.nav-stacked > li.active > a, .nav-stacked > li.active > a:hover {
+
+    font-weight: bold;
 }
 
 /**/
@@ -54,8 +63,85 @@ form .btn
     border: 2px solid #000;
 }
 
+.borde-left{
+    border-left: 1px solid rgba(180, 176, 176, 0.58) !important;
+}
+
 .borde-bottom{
     border-bottom: 1px solid rgba(180, 176, 176, 0.58) !important;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+
+.separador_in_tabs{
+    padding-bottom: 10px;
+    position: relative;
+}
+.separador_in_tabs a{
+    display: none;
+    position: absolute;
+    top: 5px;
+    right: 15px;
+}
+
+.separador_in_tabs span{
+    color: #90949c;
+    font-weight: bold;
+
+}
+
+.separador_in_tabs .titulo{
+    line-height: 2em;
+    border-bottom: 1px solid #dddfe2;
+}
+
+.lista-datos{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: rgba(5, 0, 3, 0.73) !important;
+    font-size: 1.1em;
+}
+
+.lista-datos>li>span{
+    text-decoration: none;
+    color: #07080766 !important;
+    font-weight: normal !important;
+}
+
+.lista-datos li{
+    margin-top: 7px;
+    border-bottom: 1px solid rgba(31, 48, 31, 0.23);
+}
+
+.bg-white{
+    background: #fff !important;
+}
+
+.resaltar{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(215, 208, 208);
+    padding-bottom: 10px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.dimissable{
+    position: relative;
+    margin-top: 7px;
+}
+
+.dimissable .borrar{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+}
+
+.manita{
+    cursor: pointer;
 }

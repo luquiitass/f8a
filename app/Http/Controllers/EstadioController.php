@@ -6,6 +6,7 @@ use Amranidev\Ajaxis\Ajaxis;
 use App\Direccion;
 use App\Equipo;
 use App\Estadio;
+use App\Http\JSON_retorno;
 use Request;
 
 
@@ -72,7 +73,13 @@ class EstadioController extends Controller
      */
     public function edit(Estadio $estadio)
     {
-        //
+        $view =  view('estadio.comp_edit',compact('estadio'));
+        if (Request::ajax())
+        {
+            $json = new JSON_retorno();
+
+        }
+        return $view;
     }
 
     /**

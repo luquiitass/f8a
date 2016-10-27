@@ -20,6 +20,9 @@ $(function(){
         return false;
     })
 
+    $(document).on('click','.borrar',function () {
+        $(this).parent('.dimissable').slideUp(300).fadeOut();
+    });
 });
 
 function f_Get(url) {
@@ -207,3 +210,4 @@ function sortResults(json,prop, asc) {
     });
     return retorno;
 }
+
