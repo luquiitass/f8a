@@ -29,7 +29,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="skin-blue sidebar-mini sidebar-collapse">
+<body class="skin-blue sidebar-mini ">
 
 <div class="wrapper">
     <?php echo $__env->make('layouts.partials.mainheader', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
@@ -44,7 +44,7 @@ desired effect
             <!-- Main content -->
             <section class="content">
                 <!-- Your Page Content Here -->
-                <div id="mensaje"></div>
+                <div id="mensaje" class="mensaje_flot"></div>
                 <?php echo $__env->yieldContent('main-content'); ?>
             </section><!-- /.content -->
         </div><!-- /.content-wrapper -->
@@ -52,11 +52,13 @@ desired effect
 
         <?php echo $__env->make('layouts.partials.controlsidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
-        <?php echo $__env->make('layouts.partials.modal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-
         <?php echo $__env->make('layouts.partials.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 </div><!-- ./wrapper -->
+
+<?php $__env->startSection('modals'); ?>
+    <?php echo $__env->make('layouts.partials.modal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->yieldSection(); ?>
 
 <?php $__env->startSection('scripts'); ?>
     <?php echo $__env->make('layouts.partials.scripts', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

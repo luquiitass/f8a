@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html>
 
-@include('layouts.partials.htmlheader')
+@section('htmlheader')
+    @include('layouts.partials.htmlheader')
+@show
 
 @yield('content')
+
+@section('scripts')
+    @include('layouts.partials.scripts')
+@show
 
 </html>

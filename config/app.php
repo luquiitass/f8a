@@ -174,6 +174,7 @@ return [
 
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
 
+        Intervention\Image\ImageServiceProvider::class
     ],
 
     /*
@@ -231,6 +232,7 @@ return [
 
         'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
 
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

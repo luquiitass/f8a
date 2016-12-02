@@ -65,7 +65,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                     <li><a href="<?php echo e(url('/login')); ?>"><?php echo e(trans('adminlte_lang::message.login')); ?></a></li>
                     <li><a href="<?php echo e(url('/register')); ?>"><?php echo e(trans('adminlte_lang::message.register')); ?></a></li>
                 <?php else: ?>
-                    <li><a href="<?php echo e(asset('/home')); ?>"><?php echo e(Auth::user()->name); ?></a></li>
+                    <li><a href="<?php echo e(asset('/home')); ?>"><?php echo e(Auth::user()->apellido); ?> <?php echo e(Auth::user()->nombre); ?></a></li>
                 <?php endif; ?>
             </ul>
         </div><!--/.nav-collapse -->

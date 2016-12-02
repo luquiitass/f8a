@@ -7,7 +7,10 @@ use App\Direccion;
 use App\Equipo;
 use App\Estadio;
 use App\Http\JSON_retorno;
+use Dompdf\Exception;
 use Request;
+use App\Http\Requests\EstadioRequestStore;
+use App\Http\Requests\EstadioRequestUpdate;
 
 
 class EstadioController extends Controller
@@ -43,14 +46,27 @@ class EstadioController extends Controller
      */
     public function store(Request $request)
     {
+        $json = new JSON_retorno();
         $input = Request::except('_token');
+        $equipo = Equipo::find(Request::get('equipo_id'));
         $direccion = new Direccion($input);
-        //$direccion->save();
-        //dd($direccion->localidad()->with('provincia.pais')->get());
-        //dd($direccion);
-        $estadio = new Estadio($input);
-        $estadio->save();
-        $estadio->direccion()->save($direccion);
+
+        try
+        {
+            $estadio =  $equipo->addEstadio($input);
+
+            $estadio->direccion()->save($direccion);
+
+        }catch (Exception $e){
+            $json->setMensaje($e->getMessage(),'danger','true');
+            return $json->getAllJSON();
+        }
+
+
+        $json->setMensaje('Se ha creado exitosamente el Estadio','success');
+        $json->setHtml('#tabs',view('equipo.tabs.tabs',compact('equipo'))->render());
+
+        return $json->getAllJSON();
         //dd($estadio);
     }
 
@@ -89,8 +105,12 @@ class EstadioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Estadio $estadio)
     {
+        dd(Request::all());
+        $json = new JSON_retorno();
+        $json->setMensaje('Medio anda','success','true');
+        return $json->getAllJSON();
         //
     }
 
@@ -114,7 +134,13 @@ class EstadioController extends Controller
      */
     public function destroy(Estadio $estadio)
     {
+        $estadio->direccion()->delete();
         $estadio->delete();
+        if (Request::ajax()){
+            $json = new JSON_retorno();
+            $json->setMensaje('Estadio Eliminado','success');
+            return $json->getAllJSON();
+        }
         return \URL::to('estadio');
     }
 }

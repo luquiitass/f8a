@@ -15,4 +15,13 @@ class Telefono extends Model
     {
         return $this->belongsToMany(Contacto::class)->withTimestamps();
     }
+
+    public static function exist($numero){
+        return Telefono::where('numero','=',$numero)->get()->count() > 0?true:false;
+    }
+
+    public static function getTelefono($telefono)
+    {
+        return Telefono::where('numero','=',$telefono)->first();
+    }
 }

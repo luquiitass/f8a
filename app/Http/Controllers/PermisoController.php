@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\JSON_retorno;
 use Bican\Roles\Models\Permission;
-use Illuminate\Http\Request;
+use Request;
 use Amranidev\Ajaxis\Ajaxis;
 
 use App\Http\Requests\PermisoRequestStore;
@@ -48,6 +49,26 @@ class PermisoController extends Controller
         $permission->description = $input['description'];
         $permission->save();
 
+        if (\Request::ajax())
+        {
+            $permisos = Permission::get();
+
+            $json = new JSON_retorno();
+
+            $tabSeleccionado = $permission->id;
+
+
+            $html = view('seguridad.tabs.permission',['permission'=>$permisos],compact('tabSeleccionado'))->render();
+
+            $json->setHtml('#tab_permission',$html);
+
+            $json->setMensaje('Permiso "'.$permission->name.'" guardado','success');
+
+            $json->setSelectElement('select_permiso_'.$permission->id);
+
+            return $json->getAllJSON();
+        }
+
         return redirect()->to('seguridad');
     }
 
@@ -60,6 +81,7 @@ class PermisoController extends Controller
     public function show($id)
     {
         //
+        return \Redirect::route('segutidad.index',['nombre'=>'Lucas','apellido'=>'Larrea']);
     }
 
     /**
@@ -70,6 +92,10 @@ class PermisoController extends Controller
      */
     public function edit(Permission $permission)
     {
+        if (\Request::ajax())
+        {
+            return view('otros.modal2',array('body'=>view('seguridad.permiso.comp_edit',compact('permission'))->render()))->render();
+        }
         return view('seguridad.permiso.edit',compact('permission'));
     }
 
@@ -83,16 +109,31 @@ class PermisoController extends Controller
     public function update(Request $request,Permission $permission)
     {
         //
-        $input = $request->except('_token');
+        $input = Request::except('_token');
 
-        $permission->name = $input['name'];
-        $permission->slug = $input['slug'];
-        $permission->model = $input['model'];
-        $permission->description = $input['description'];
+        //$permission->name = $input['name'];
+        //$permission->slug = $input['slug'];
+        //$permission->model = $input['model'];
+        //$permission->description = $input['description'];
+        $json = new JSON_retorno();
 
-        $permission->update();
+        if ($permission->update($input))
+        {
+            $tabSeleccionado = $permission->id;
+            $view = view('seguridad.tabs.permission',compact('tabSeleccionado'))->render();
 
-        return redirect()->to('seguridad');
+            $json->setHtml('#tab_permission',$view);
+
+            $json->setMensaje('Permiso modificado','success');
+
+            $json->setSelectElement('select_permiso_'.$permission->id);
+
+            return $json->getAllJSON();
+        }
+
+        $json->setMensaje('No see ha podido eliminar el permiso','danger','true');
+
+        return $json->getAllJSON();
     }
 
     /**
@@ -103,7 +144,7 @@ class PermisoController extends Controller
      */
     public function deleteMsg(Permission $permission){
 
-        $msg = Ajaxis::BtDeleting('Cuidado!!','¿Esta seguro de eliminar el Permiso'.$permission->name.' ?','/permiso/'. $permission->id . '/delete');
+        $msg = Ajaxis::BtDeleting('Cuidado!!','¿Esta seguro de eliminar el Permiso "'.$permission->name.'" ?','/permission/'. $permission->id . '/delete');
         if(Request::ajax())
         {
             return $msg;
@@ -114,5 +155,15 @@ class PermisoController extends Controller
     public function destroy(Permission $permission)
     {
         $permission->delete();
+        if (Request::ajax())
+        {
+            $json = new JSON_retorno();
+            $permisos = Permission::get();
+            $view = view('seguridad.tabs.permission',['permission'=>$permisos])->render();
+
+            $json->setHtml('#tab_permission',$view);
+            $json->setMensaje('Permiso eliminado','success');
+            return $json->getAllJSON();
+        }
     }
 }

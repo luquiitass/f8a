@@ -29,7 +29,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="skin-blue sidebar-mini sidebar-collapse">
+<body class="skin-blue sidebar-mini ">
 
 <div class="wrapper">
     @include('layouts.partials.mainheader')
@@ -44,7 +44,7 @@ desired effect
             <!-- Main content -->
             <section class="content">
                 <!-- Your Page Content Here -->
-                <div id="mensaje"></div>
+                <div id="mensaje" class="mensaje_flot"></div>
                 @yield('main-content')
             </section><!-- /.content -->
         </div><!-- /.content-wrapper -->
@@ -52,11 +52,13 @@ desired effect
 
         @include('layouts.partials.controlsidebar')
 
-        @include('layouts.partials.modal')
-
         @include('layouts.partials.footer')
 
 </div><!-- ./wrapper -->
+
+@section('modals')
+    @include('layouts.partials.modal')
+@show
 
 @section('scripts')
     @include('layouts.partials.scripts')

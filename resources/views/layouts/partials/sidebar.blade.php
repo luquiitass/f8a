@@ -11,7 +11,7 @@
                     <img src="{{asset('/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image" />
                 </div>
                 <div class="pull-left info">
-                    <p>{{ Auth::user()->name }}</p>
+                    <p>{{ Auth::user()->apellido }} {{Auth::user()->nombre}}</p>
                     <!-- Status -->
                     <a href="#"><i class="fa fa-circle text-success"></i> {{ trans('adminlte_lang::message.online') }}</a>
                 </div>
@@ -41,23 +41,30 @@
             </li>
             {{--}}<li><a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.anotherlink') }}</span></a></li>--}}
 
-            {{--Menu de Competenci --}}
-            <li class="treeview @yield('menu_competencias','')">
-                <a href="#">
+            <li class="@yield('menu_competencias','')">
+                <a href="{{ route('competencia.index') }}">
                     <i class='fa fa-link'></i>
                     <span>{{ trans('string.link_competencias') }}</span>
-                    <i class="fa fa-angle-left pull-right"></i>
                 </a>
-                <ul class="treeview-menu">
+            </li>
+
+            {{--Menu de Competenci --}}
+            {{--<li class="treeview @yield('menu_competencias','')">--}}
+                {{--<a href="#">--}}
+                    {{--<i class='fa fa-link'></i>--}}
+                    {{--<span>{{ trans('string.link_competencias') }}</span>--}}
+                    {{--<i class="fa fa-angle-left pull-right"></i>--}}
+                {{--</a>--}}
+                {{--<ul class="treeview-menu">--}}
                     {{--@role('admin')--}}
-                    <li class="@yield('menu2_nuevaCompetencia','')"><a href="{{route('competencia.create')}}">{{ trans('string.link_nueva_competencia') }}</a></li>
-                    <li class="@yield('menu2_admCompetencia','')"><a href="{{route('competencia.index')}}">{{ trans('string.link_adm_competencia') }}</a></li>
-                    @foreach( App\Competencia::get() as $competencia)
-                        <li class="@yield('menu2_'.$competencia->nombre,'')"><a href="{{url('competencia/'.$competencia->id)}}">Comp. {{$competencia->nombre}}</a></li>
-                    @endforeach
+                    {{--<li class="@yield('menu2_nuevaCompetencia','')"><a href="{{route('competencia.create')}}">{{ trans('string.link_nueva_competencia') }}</a></li>--}}
+                    {{--<li class="@yield('menu2_admCompetencia','')"><a href="{{route('competencia.index')}}">{{ trans('string.link_adm_competencia') }}</a></li>--}}
+                    {{--@foreach( App\Competencia::get() as $competencia)--}}
+                        {{--<li class="@yield('menu2_'.$competencia->nombre,'')"><a href="{{url('competencia/'.$competencia->id)}}">Comp. {{$competencia->nombre}}</a></li>--}}
+                    {{--@endforeach--}}
                     {{--@endrole--}}
-                </ul>
-            </li>{{--Fin de menu de parametros--}}
+                {{--</ul>--}}
+            {{--</li>--}}{{--Fin de menu de parametros--}}
             {{--Menu de Parametros --}}
             <li class="treeview @yield('menu_parametros','')">
                 <a href="#">
@@ -73,21 +80,28 @@
                 </ul>
             </li>{{--Fin de menu de parametros--}}
 
-            <li class="treeview @yield('menu_equipos','')">
-                <a href="#">
+            <li class="@yield('menu_equipos','')">
+                <a href="{{ route('equipo.index') }}">
                     <i class='fa fa-link'></i>
-                    <span>Equipos</span>
-                    <i class="fa fa-angle-left pull-right"></i>
+                    <span>{{ trans('string.link_adm_equipos') }}</span>
                 </a>
-                <ul class="treeview-menu">
-                    <li class="@yield('menu2_equipos','')">
-                        <a href="{{route('equipo.index')}}">{{ trans('string.link_adm_equipo_administrar') }}</a>
-                    </li>
-                    <li class="@yield('menu2_nuevoEquipo','')">
-                        <a href="{{route('equipo.create')}}">{{ trans('string.link_adm_equipo_nuevo') }}</a>
-                    </li>
-                </ul>
             </li>
+
+            {{--<li class="treeview @yield('menu_equipos','')">--}}
+                {{--<a href="#">--}}
+                    {{--<i class='fa fa-link'></i>--}}
+                    {{--<span>Equipos</span>--}}
+                    {{--<i class="fa fa-angle-left pull-right"></i>--}}
+                {{--</a>--}}
+                {{--<ul class="treeview-menu">--}}
+                    {{--<li class="@yield('menu2_equipos','')">--}}
+                        {{--<a href="{{route('equipo.index')}}">{{ trans('string.link_adm_equipo_administrar') }}</a>--}}
+                    {{--</li>--}}
+                    {{--<li class="@yield('menu2_nuevoEquipo','')">--}}
+                        {{--<a href="{{route('equipo.create')}}">{{ trans('string.link_adm_equipo_nuevo') }}</a>--}}
+                    {{--</li>--}}
+                {{--</ul>--}}
+            {{--</li>--}}
 
             <li class="treeview @yield('menu_estadios','')">
                 <a href="#">

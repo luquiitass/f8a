@@ -122,14 +122,14 @@
                             <!-- The user image in the navbar-->
                             <img src="<?php echo e(asset('/img/user2-160x160.jpg')); ?>" class="user-image" alt="User Image"/>
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                            <span class="hidden-xs"><?php echo e(Auth::user()->name); ?></span>
+                            <span class="hidden-xs"><?php echo e(Auth::user()->apellido); ?> <?php echo e(Auth::user()->nombre); ?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
                                 <img src="<?php echo e(asset('/img/user2-160x160.jpg')); ?>" class="img-circle" alt="User Image" />
                                 <p>
-                                    <?php echo e(Auth::user()->name); ?>
+                                    <?php echo e(Auth::user()->apellido); ?> <?php echo e(Auth::user()->nombre); ?>
 
                                     <small><?php echo e(trans('adminlte_lang::message.login')); ?> Nov. 2012</small>
                                 </p>

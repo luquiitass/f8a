@@ -1,9 +1,6 @@
 <div class="">
     @if(isset($contacto))
         <ul class="list-unstyled">
-            @if(isset($contacto->nombre))
-                <li><strong>Nombre: </strong>{{$contacto->nombre}}</li>
-            @endif
 
             @if(isset($contacto->email))
                 <li><strong>Email: </strong>{{$contacto->email}}</li>

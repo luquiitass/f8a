@@ -38,7 +38,7 @@ trait Administradores
         $users= array();
         $us = array();
         foreach ($this->users as $user){
-            $users[$user->id] = $user->name;
+            $users[$user->id] = $user->nombre;
             $us[] = $user->id;
         }
         return view('otros.selectUser',compact('us','users'))->render();

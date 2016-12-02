@@ -179,8 +179,8 @@ class ProvinciaController extends Controller
             $provincia = Provincia::findOrfail($provincia->id);
             $provincia->delete();
 
-            $json->setMensaje('Provincia eliminada','info');
             $json->setFadeOut('#li_provincia_id_'.$provincia->id);
+            $json->setMensaje('Provincia eliminada','info');
         }else{
             $json->setMensaje('No se puede eliminar esta provincias debido a que posee localidades asociasda','danger','true');
         }

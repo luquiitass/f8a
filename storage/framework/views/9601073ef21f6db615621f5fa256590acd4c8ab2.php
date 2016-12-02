@@ -5,6 +5,9 @@
 <?php $__env->startSection('htmlheader'); ?>
     @parent
     <?php /*Vincular los css*/ ?>
+    <link href="<?php echo e(asset('plugins/select2/select2.min.css')); ?>" rel="stylesheet" type="text/css" />
+        <link href="<?php echo e(asset('/plugins/switch/bootstrap-switch.min.css')); ?>"  rel="stylesheet" type="text/css">
+        <link href="<?php echo e(asset('/plugins/autocomplete/styles.css')); ?>"  rel="stylesheet" type="text/css">
     <style>
 
 /*  *******************Css de Foto de Portada*********************/
@@ -23,6 +26,16 @@
 
         a.btn{
             text-decoration: none;
+        }
+
+        .portada{
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid rgb(215, 208, 208);
+            padding-bottom: 10px;
+            margin: auto;
+            margin-bottom: 10px;
+            margin-top: 10px;
         }
 
         .panel-body {
@@ -303,8 +316,8 @@
 
 <?php $__env->startSection('main-content'); ?>
 
-    <div class="container bootstrap snippet">
-        <div class="row">
+    <div class="bootstrap snippet">
+        <div class="row portada">
             <div class="panel">
                 <div class="cover-photo">
                     <div class="fb-timeline-img">
@@ -323,75 +336,33 @@
                     <h2 class="nombre-equipo"><?php echo e($equipo->nombre); ?></h2>
                 </div>
             </div>
-        </div>
+        </div><?php /*Foto de Portada, Escudo, y nombre*/ ?>
         
-        <div class="borde-bottom">
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#perfil" data-toggle="tab"> <span class="glyphicon glyphicon-triangle-top tab-select-span"></span> Perfil</a></li>
-                <li><a href="#resultados" data-toggle="tab">Resultados</a></li>
-                <li><a href="#p_fechas" data-toggle="tab">Proximas Fechas</a></li>
-                <li><a href="#fotos" data-toggle="tab">Fotos</a></li>
-                <li><a href="#config" data-toggle="tab">Configuraciones</a></li>
-            </ul>
-
-            <div class="tab-content bg-white resaltar">
-
-                <div class="tab-pane active" id="perfil">
-                    <div class="row">
-                        <div class="col-xs-12 col-md-4">
-                            <div class="alert">
-                                <h3>Datos de Equippo</h3>
-                                <?php $__empty_1 = true; foreach($equipo->mostrarDatos() as $key=>$value): $__empty_1 = false; ?>
-                                    <?php if($value): ?>
-                                        <p><strong><?php echo e($key); ?>: </strong><?php echo e($value); ?></p>
-                                    <?php endif; ?>
-                                <?php endforeach; if ($__empty_1): ?>
-                                    <div class="alert alert-danger">Sindatos</div>
-                                <?php endif; ?>
-                            </div>
-                        </div><?php /*Columna de los datos*/ ?>
-
-                        <div class="col-xs-12 col-md-4">
-                            <?php echo $__env->make('contacto.comp_index',array('contacto'=>$equipo->contacto), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-                        </div><?php /* Columna */ ?>
-                    </div>
-                </div><?php /*Fin tab perfil*/ ?>
-
-                <div class="tab-pane" id="resultados">
-                    <h3>Resultados</h3>
-                </div><?php /*Fin tab resultados*/ ?>
-
-                <div class="tab-pane" id="p_fechas">
-                    <h3>Proximas Fechas</h3>
-                </div><?php /*Fin tab Proximas Fechas*/ ?>
-
-                <div class="tab-pane" id="fotos">
-                    <h3>Fotos</h3>
-                </div><?php /*Fin tab fotos*/ ?>
-
-                <div class="tab-pane" id="config">
-
-                    <?php echo $__env->make('equipo.tabs.configuraciones',compact('equipo'), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-                </div><?php /*Fin tab fotos*/ ?>
-
-            </div>
-        </div>
+        <?php echo $__env->make('equipo.tabs.tabs',compact($equipo), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <?php /*Vista que incluye los tabs DATOS DEL EQUIPO, RESULTADOS, FECHAS, TOTOS ,CONFIGURACION*/ ?>
             
-            
-            
-    </div>
+    </div><?php /*Div container*/ ?>
 <?php $__env->stopSection(); ?>
 
 
 
 <?php $__env->startSection('scripts'); ?>
     @parent
+    <script type="text/javascript" src="<?php echo e(asset('vendor/jsvalidation/js/jsvalidation.js')); ?>"></script>
+    <script src="<?php echo e(asset('/plugins/switch/bootstrap-switch.min.js')); ?>"></script>
+
+    <script src="<?php echo e(asset('/plugins/autocomplete/jquery.autocomplete.min.js')); ?>"></script>
+
+    <script src="/plugins/select2/select2.min.js"></script>
+    <script src="/plugins/select2/i18n/es.js"></script>
 
     <script>
+
+        cargarSelect2();
+
         function show_edit(id) {
             $("#display_"+id).fadeOut();
             $("#edit_"+id).show("slow");
-
         }
 
         function show_display(id) {
@@ -404,7 +375,7 @@
 
         $(document).on('click','.addTelefono',function(){
             var boton = '<span class="glyphicon glyphicon-remove borrar"></span>'
-            var nuevoTelefono = '<div class="form-group dimissable bg-info resaltar">'+boton+' <label for="Telefono 1">Nuevo Telefono</label> <input class="form-control" name="telefono[]" type="text">';
+            var nuevoTelefono = '<div class="form-group dimissable bg-info resaltar">'+boton+' <label for="Telefono 1">Nuevo Telefono</label> <input class="form-control valid" name="telefono[]" type="text">';
             $('#form-telefonos').append(nuevoTelefono);
         });
 
@@ -414,7 +385,6 @@
         $(document).on("mouseleave",".separador_in_tabs",function () {
             $(this).find("a").hide();
         });
-
 
 
     </script>

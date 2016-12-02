@@ -19,4 +19,14 @@ class Estadio extends Model
     {
         return $this->belongsToMany(Equipo::class)->withTimestamps();
     }
+
+    public static function exist($estadio)
+    {
+        return Estadio::where('nombre','=',$estadio)->get()->count() > 0?true:false;
+    }
+
+    public  static function getEstadio($nomberEstadio)
+    {
+        return Estadio::where('nombre','=',$nomberEstadio)->first();
+    }
 }

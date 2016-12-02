@@ -21,6 +21,7 @@ Route::get('/', function () {
 //User
 /* ************** User **************** */
 Route::get('usersSelect2','UserController@select2');
+Route::get('usersSelect','UserController@select');
 /* ************** User **************** */
 
 //pais Resources
@@ -78,25 +79,28 @@ Route::get('/seguridad','SeguridadController@index')->name('segutidad.index');
 
 //Permiso Resources
 //*************Permiso***************
-Route::get('/permiso','PermisoController@index')->name('permiso.index');
-Route::get('/permiso/create','PermisoController@create')->name('permiso.create');
-Route::post('permiso','PermisoController@store');
-Route::get('permiso/{permission}/edit','PermisoController@edit');
-Route::post('permiso/{permission}/update','PermisoController@update');
-Route::get('permiso/{permission}/deleteMsg','PermisoController@deleteMsg');
-Route::get('permiso/{permission}/delete','PermisoController@destroy');
+Route::resource('permission','PermisoController');
+//Route::get('/permiso','PermisoController@index')->name('permiso.index');
+//Route::get('/permiso/{permission}','PermisoController@show')->name('permiso.show');
+//Route::get('/permiso/create','PermisoController@create')->name('permiso.create');
+//Route::post('permiso','PermisoController@store');
+//Route::get('permiso/{permission}/edit','PermisoController@edit');
+//Route::post('permiso/{permission}/update','PermisoController@update');
+Route::get('permission/{permission}/deleteMsg','PermisoController@deleteMsg');
+Route::get('permission/{permission}/delete','PermisoController@destroy');
 //*************Permiso***************
 
 //Roll Resource
 
 //************Rol*********************
-Route::get('/rol','RolController@index');
-Route::get('rol/create','RolController@create')->name('rol.reate');
-Route::get('/rol/{role}/edit','RolController@edit');
-Route::post('/rol/{role}/update','RolController@update');
-Route::get('/rol/{role}/deleteMsg','RolController@DeleteMsg');
-Route::get('/rol/{role}/delete','RolController@destroy');
-Route::post('rol','RolController@store');
+Route::resource('role','RolController');
+//Route::get('/rol','RolController@index');
+//Route::get('rol/create','RolController@create')->name('rol.reate');
+//Route::get('/rol/{role}/edit','RolController@edit');
+//Route::post('/rol/{role}/update','RolController@update');
+Route::get('/role/{role}/deleteMsg','RolController@DeleteMsg');
+Route::get('/role/{role}/delete','RolController@destroy');
+//Route::post('rol','RolController@store');
 //************Rol*********************
 
 
@@ -137,3 +141,23 @@ Route::resource('telefono','TelefonoController');
 /* ************************ Contacto  ***************************************/
 Route::resource('contacto','ContactoController');
 /* ************************ Contacto  ***************************************/
+
+/***************       Jugador   ***********************/
+Route::resource('jugador','JugadorController');
+Route::post('jugador/{equipo}','JugadorController@store')->name('jugador.store');
+Route::get('/jugador/{equipo}/{jugador}','JugadorController@edit')->name('jugador.edit');
+Route::get('/jugador/{jugador}/{equipo}/bajaJugadorMsg','JugadorController@bajaJugadorMsg');
+Route::get('/jugador/{jugador}/{equipo}/bajaJugador','JugadorController@bajaJugador');
+Route::get('/jugador/{jugador}/{equipo}/deleteMsg','JugadorController@deleteMsg');
+Route::get('/jugador/{jugador}/{equipo}/delete','JugadorController@destroy');
+
+/***************       Jugador   ***********************/
+
+/*********************** Imagenes ***********************/
+Route::get('imagen/seleccionar','ImagenController@seleccionar')->name('imagen.seleccionar');
+Route::post('/imagen/recortar','ImagenController@recortar')->name('imagen.recortar');
+Route::post('/imagen/cortar','ImagenController@cortar')->name('imagen.cortar');
+Route::post('/imagen/guardar','ImagenController@store')->name('imagen.store');
+
+
+/***********************Fin Imagenes ***********************/

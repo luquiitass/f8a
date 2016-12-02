@@ -15,6 +15,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <h3>Equipos</h3>
+            <a href="/equipo/create" class="btn btn-primary">Nuevo Equipo</a>
             <table class="table table-striped table-bordered">
                 <thead>
                     <th>Nombre</th>
@@ -22,17 +23,19 @@
                     <th>Operaciones</th>
                 </thead>
                 <tbody>
-                    @foreach($equipos as $equipo)
+                    @forelse($equipos as $equipo)
                         <tr>
                             <td>{{$equipo->nombre}}</td>
                             <td>{{$equipo->users->implode('name',', ')}}</td>
                             <td>
-                                <a href="{{route('equipo.show',array('$equipo'=>$equipo->id))}}">Ver</a>
-                                <a href="{{route('equipo.edit',array('equipo'=>$equipo->id))}}">Editar</a>
-                                <a class="delete" data-toggle="modal" data-target="#myModal" data-link="/estadio/{{$equipo->id}}/deleteMsg" href="#">Eliminar</a>
+                                <a class="btn btn-info" href="{{route('equipo.show',array('$equipo'=>$equipo->id))}}">Ver</a>
+                                <a class="btn btn-success" href="{{route('equipo.edit',array('equipo'=>$equipo->id))}}">Editar</a>
+                                <a class="btn btn-danger delete" data-toggle="modal" data-target="#myModal" data-link="/estadio/{{$equipo->id}}/deleteMsg" href="#">Eliminar</a>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr><td colspan="3" class="bg-danger">Sin Equipos</td></tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

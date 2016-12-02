@@ -14,7 +14,7 @@
 
 
     <script>
-        var a = {!!  Request::input('a') !!};
+        var a = {{  Request::input('a')->json() }};
 
         alert(a);
 

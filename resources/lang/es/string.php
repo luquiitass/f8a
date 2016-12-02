@@ -37,4 +37,13 @@ return [
     'provincia'=> 'Provincia',
     'localidad' => 'Localidad',
 
+
+
+    /* Registro*/
+    'nombre' => 'Nombre',
+    'apellido' => 'Apellido',
+    'fecha_nacimiento' => 'Fecha de Nacimiento',
+    /* Registro*/
+
+
 ];

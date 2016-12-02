@@ -14,6 +14,7 @@
 
 @section('main-content')
     <h3>Competencias</h3>
+    <a class="btn btn-primary" href="{{route('competencia.create')}} " style="margin-bottom: 10px;"> Nueva Competencia</a>
         <table class="table table-striped table-bordered" style="background-color: white">
             <thead>
             <th>Nombre</th>

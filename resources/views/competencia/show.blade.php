@@ -15,10 +15,11 @@
 @section('main-content')
     <div class="row">
         <div class="col-xs-12 col-md-6">
-            <h3>comp. {{$competencia->nombre}}</h3>
+            <h3>{{$competencia->nombre}}</h3>
             <div class="row">
                 <div class="col-xs-12">
                     <div class="well bg-success">
+                        descrpcion:
                         <p >{{$competencia->descripcion}}</p>
                     </div>
                 </div>
@@ -31,12 +32,11 @@
                     </ul>
                 </div>
             </div>
-
-
         </div>
+
         <div class="col-xs-12 col-md-6">
             <h3>Torneos</h3>
-            <a class="btn btn-primary btn-block" href="/torneo/create">Crer Torneo</a>
+
         </div>
 
     </div>

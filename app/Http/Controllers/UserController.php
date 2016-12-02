@@ -87,7 +87,15 @@ class UserController extends Controller
     public function select2(){
         $busq = \Request::get('term');
 
-        $retorno = User::like('name',$busq);
-        return json_encode($retorno->select('id','name as text')->get());
+        $retorno = User::like('nombre',$busq);
+        return json_encode($retorno->select('id','nombre as text')->get());
+    }
+
+    public function select()
+    {
+        $busq = \Request::get('term');
+
+        $retorno = User::like('nombre',$busq);
+        return json_encode(array('suggestions'=>$retorno->select('id as data','nombre as value','apellido','fecha_nacimiento')->get()));
     }
 }

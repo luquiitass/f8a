@@ -1,10 +1,8 @@
 /**
  * Created by lucas on 18/09/16.
  */
-$(function(){
-    var dataTable;
 
-    $(document).on('display','.datepicker',function () {
+    $(document).on('focus','.datepicker',function () {
         $(this).datepicker({
             format: "dd-mm-yyyy",
             language: "es",
@@ -12,6 +10,19 @@ $(function(){
         });
     });
 
+    $(document).on('focus','.autocomplete',function () {
+        var url = $(this).data('link');
+        var form = $(this).data('form');
+
+        $(this).autocomplete({
+            serviceUrl:url,
+            onSelect: function (suggestion) {
+                completarForm(form,suggestion);
+                //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+            }
+        });
+
+    });
 
     $(document).on('click','.link',function (e) {
         var url = $(this).attr('href');
@@ -22,8 +33,22 @@ $(function(){
 
     $(document).on('click','.borrar',function () {
         $(this).parent('.dimissable').slideUp(300).fadeOut();
+        $(this).parent('.dimissable').replaceWith("");
     });
-});
+
+    $('.switch_edit').bootstrapToggle().change(function () {
+        var estado = $(this).prop('checked');
+        var div_contenedor = $(this).parents('.col-form')[0];
+        var form = $(div_contenedor).find('form')[0];
+
+        $(form).find(':input').each(function () {
+            $(this).prop('disabled', estado);
+        });
+
+        $(form).find('a').toggle(!estado);
+
+
+    }).bootstrapToggle('on');
 
 function f_Get(url) {
 
@@ -55,37 +80,48 @@ function operacion(response,isJSON) {
 
         for(obj in json){
 
-            if (typeof json[obj] == 'object')
+            if (typeof json[obj] == 'object'){
                 operacion(json[obj],true);
+            }else{
 
+                switch (obj) {
+                    case 'cargarTabla':
+                        cargarTablas();
+                        ocultarModal();
+                        break;
+                    case 'html':
+                        $(json.id_content).html(json.html);
+                        ocultarModal();
+                        break;
+                    case "html_append":
+                        var html = $(json.id_content).html();
+                        $(json.id_content).html(html + json.html_append);
+                        ocultarModal();
+                        break;
+                    case 'fadeOut':
+                        $(json.id_content).fadeOut();
+                        ocultarModal();
+                        break;
+                    case 'html_remplace':
+                        var element = $(json.id_content);
+                        element.replaceWith(json.html_remplace);
+                        ocultarModal();
+                        break;
+                    case 'mensaje':
+                        mensaje(json.mensaje,json.tipo_mensaje,json.permanente);
+                        //mostrar mensaje;
+                        break;
+                    case 'tab_activo':
+                        activarTab(json.tab_activo);
+                        break;
+                    case 'desactivar_tabs':
+                        desactivarTabs();
+                        break;
+                    case 'selectElement':
+                        selectElement_a(json.id_content);
+                        break;
 
-            switch (obj) {
-                case 'cargarTabla':
-                    cargarTablas();
-                    ocultarModal();
-                    break;
-                case 'html':
-                    $(json.id_content).html(json.html);
-                    ocultarModal();
-                    break;
-                case "html_append":
-                    var html = $(json.id_content).html();
-                    $(json.id_content).html(html + json.html_append);
-                    ocultarModal();
-                    break;
-                case 'fadeOut':
-                    $(json.id_content).fadeOut();
-                    ocultarModal();
-                    break;
-                case 'html_remplace':
-                    var element = $(json.id_content);
-                    element.replaceWith(json.html_remplace);
-                    ocultarModal();
-                    break;
-                case 'mensaje':
-                    mensaje(json.mensaje,json.tipo_mensaje,json.permanente);
-                    //mostrar mensaje;
-                    break;
+                }
 
             }
 
@@ -134,11 +170,16 @@ function cargarTablas(){
 function cargarSelect() {
     $('.selectAC').each(function () {
         var select_id = $(this).attr('id');
-        var link = (this).data('link');
+        var link = $(this).data('link');
 
         $("#" + select_id).autocomplete({
-            source: link,
-            minLength: 2
+            minLength: 1,
+            //source: baseURL + link
+            source: function(term, response){
+                $.getJSON(baseURL + link, { q: term }, function(data){
+                    response(data);
+                });
+            }
         });
     });
 }
@@ -186,6 +227,22 @@ function getProvincia(obj,pais) {
     return objects;
 }
 
+function desactivarTabs() {
+    $('li').removeClass('active');
+    $('.tab-pane').removeClass('in active');
+}
+
+function activarTab(id) {
+    $('#'+id).addClass('in active');
+    $("a[href=#"+id+"]").parent('li').addClass('active');
+}
+
+function activarTabs(array_tab) {
+    desactivarTabs();
+    $.each(array_tab,function (index,       tab) {
+        activarTab(tab);
+    });
+}
 
 function getObjects(obj, key, val) {
     var objects = [];
@@ -211,3 +268,66 @@ function sortResults(json,prop, asc) {
     return retorno;
 }
 
+function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
+function selectTabsOfUrl() {
+    var sParam= 'tab'
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    var borrarTab=true;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+
+            if ( sParameterName[1])
+            {
+                if(borrarTab){
+                    desactivarTabs();
+                    borrarTab=false;
+                }
+                activarTab(sParameterName[1])
+            }
+            //return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
+function selectElement_a(id) {
+    // $('<a href="#'+id+'" ></a>').trigger( "click" );
+    window.location.href =decodeURIComponent(window.location.search.substring(1))+'#'+id ;
+
+}
+
+function limpiarForm(form) {
+
+    var arr = $(form).find(':input').each(function () {
+        if(($(this).attr('name') != '_token') && ! $(this).prop('hide'))
+        {
+            if($(this).attr('type') == 'checkbox'){
+                $(this ).prop( "checked", false );
+            }else{
+                $(this).prop('value', '');
+            }
+
+        }
+    });
+
+}

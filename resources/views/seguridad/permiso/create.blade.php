@@ -16,8 +16,8 @@
 
     <div class="row">
         <div class="col-xs-8 col-xs-offset-2">
-            <div class="well">
-                <h3>Nuevo Permiso</h3>
+            <div class="col-form">
+                <h3 class="centered">Nuevo Permiso</h3>
                 <hr>
                 {{Form::open(array('url'=>url('permiso')))}}
                 {{Form::token()}}
@@ -44,7 +44,9 @@
                     {{Form::textArea('description',null,array('class'=>'form-control','height'=>'117px'))}}
                     @include('mensajes.error_input',['name'=>'description'])
                 </div>
-                {{Form::submit('Crear',array('class'=>'btn btn-primary'))}}
+                <div class="centered">
+                    {{Form::submit('Crear',array('class'=>'btn btn-primary'))}}
+                </div>
                 {{Form::close()}}
             </div>
         </div>

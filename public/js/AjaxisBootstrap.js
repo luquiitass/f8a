@@ -30,26 +30,53 @@ $(document).on('click', '.destroy', function() {
         success: function(response) {
             var conOperaciones = operacion(response,false);
             if(! conOperaciones){
-                window.location = response;
+                //window.location = response;
             }
         }
     })
 })
+
 $(document).on('click', '.save', function() {
     POST($('#AjaxisForm').serializeArray(), $(this).data('link'));
 })
 
 $(document).on('click', '.saveForm', function() {
-    var form = $(this).data('form');
+    var form = $(this).data('form')[0];
     POST($('#'+form).serializeArray(), $(this).data('link'));
 })
 
 
-$(document).on('click','.link',function(){
-    var link = $(this).data('link');
-    var id = $(this).data('id');
-    HTML(link,id);
+
+
+
+
+
+/* *************** Mios **********************/
+$(document).on('click', '.save_edit', function() {
+    var form = $(this).parents('form');
+    PUT($(form).serializeArray(), $(this).data('link'));
 })
+
+$(document).on('click', '.save_ajax', function() {
+    var form = $(this).parents('form');
+    POST($(form).serializeArray(), $(this).data('link'));
+})
+
+$(document).on('hidden.bs.modal','#myModal', function () {
+    $('.AjaxisModal').html('');
+})
+
+$(document).on('hidden.bs.modal','.modal', function () {
+    $('.AjaxisModal').html('');
+
+    var form = $(this).find('form')[0];
+
+    limpiarForm(form);
+})
+
+
+
+
 
 function GET(dataLink) {
     $.ajax({
@@ -65,16 +92,16 @@ function GET(dataLink) {
     })
 }
 
-function POST(postData, dataLink) {
+function PUT(postData, dataLink) {
     $.ajax({
         async: true,
-        type: 'post',
+        type: 'put',
         url: baseURL + dataLink,
         data: postData,
         success: function(response) {
             var conOperaciones = operacion(response,false);
             if(! conOperaciones){
-                window.location = response;
+                //window.location = response;
             }
         },
         error:function(xhr){
@@ -90,18 +117,32 @@ function POST(postData, dataLink) {
     })
 }
 
-function HTML(dataLink,idContent) {
+
+function POST(postData, dataLink) {
     $.ajax({
         async: true,
-        type: 'get',
+        type: 'post',
         url: baseURL + dataLink,
-        success: function (response) {
-
-            $('#' + idContent).html(response)
-            //window.location = response;
+        data: postData,
+        success: function(response) {
+            var conOperaciones = operacion(response,false);
+            if(! conOperaciones){
+                //window.location = response;
+            }
+        },
+        error:function(xhr){
+            if (xhr.status == 422 ){
+                var html='<ul>';
+                $.each(xhr.responseJSON,function(index,value){
+                    html=html+"<li>"+value+"</li>";
+                });
+                html=html+"</ul>";
+                mensaje(html,'danger','true');
+            }
         }
-    });
+    })
 }
+
 //
 // function operaciones(response) {
 //     var retorno = false;
@@ -156,22 +197,21 @@ function isJson(str) {
 }
 
 function mensaje(mensaje,tipo,permanente){
-    if ($('#myModal').hasClass('in')){
-        var elemento_mensaje = $('#mensaje_modal');
+    if (modalIsActiv()){
+        var elemento_mensaje = $(modalIsActiv()).find('.mensaje_modal');
     }else{
         var elemento_mensaje = $('#mensaje');
     }
 
-    var clase = 'alert alert-'+tipo+' alert-dismissible';
+    var clase = ' dimissable resaltar forma forma-'+tipo;
 
-    var boton = '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+    var boton = '<span class="glyphicon glyphicon-remove borrar"></span>';
 
     if($('#div_mensaje').length && $('#div_mensaje').is(":visible")){
-        $('#list_mensaje').append('<li>'+mensaje+'</li>');
+        $('#list_mensaje').html('<li>'+mensaje+'</li>');
         $('#div_mensaje').removeClass().addClass(clase);
     }else {
-
-        elemento_mensaje.html('<div id="div_mensaje" class="'+clase+'">'+ boton +'<ul id="list_mensaje"><li>'+ mensaje +'</li></ul></div>');// '<div id="div_mensaje" class="'+clase+'">'+ boton + mensaje + '</div>';
+        elemento_mensaje.html('<div id="div_mensaje" class="'+clase+'">'+ boton +'<ul class="list-unstyled" id="list_mensaje"><li>'+ mensaje +'</li></ul></div>');// '<div id="div_mensaje" class="'+clase+'">'+ boton + mensaje + '</div>';
         if (permanente == 'true')
         {
             elemento_mensaje.fadeIn(400).delay(3000);
@@ -183,8 +223,19 @@ function mensaje(mensaje,tipo,permanente){
 
 
 }
+function modalIsActiv() {
+    var retorno= false;
+    $.each($('.modal'),function () {
+       if ($(this).hasClass('in'))
+       {
+           retorno = this;
+       }
+    });
+    return retorno;
+}
 
 function ocultarModal()
 {
     $('#myModal').modal('hide');
+    $('.modal').modal('hide');
 }

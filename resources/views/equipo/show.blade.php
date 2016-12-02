@@ -5,6 +5,9 @@
 @section('htmlheader')
     @parent
     {{--Vincular los css--}}
+    <link href="{{ asset('plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('/plugins/switch/bootstrap-switch.min.css')}}"  rel="stylesheet" type="text/css">
+        <link href="{{asset('/plugins/autocomplete/styles.css')}}"  rel="stylesheet" type="text/css">
     <style>
 
 /*  *******************Css de Foto de Portada*********************/
@@ -23,6 +26,16 @@
 
         a.btn{
             text-decoration: none;
+        }
+
+        .portada{
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid rgb(215, 208, 208);
+            padding-bottom: 10px;
+            margin: auto;
+            margin-bottom: 10px;
+            margin-top: 10px;
         }
 
         .panel-body {
@@ -303,8 +316,8 @@
 
 @section('main-content')
 
-    <div class="container bootstrap snippet">
-        <div class="row">
+    <div class="bootstrap snippet">
+        <div class="row portada">
             <div class="panel">
                 <div class="cover-photo">
                     <div class="fb-timeline-img">
@@ -323,75 +336,33 @@
                     <h2 class="nombre-equipo">{{$equipo->nombre}}</h2>
                 </div>
             </div>
-        </div>
+        </div>{{--Foto de Portada, Escudo, y nombre--}}
         
-        <div class="borde-bottom">
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#perfil" data-toggle="tab"> <span class="glyphicon glyphicon-triangle-top tab-select-span"></span> Perfil</a></li>
-                <li><a href="#resultados" data-toggle="tab">Resultados</a></li>
-                <li><a href="#p_fechas" data-toggle="tab">Proximas Fechas</a></li>
-                <li><a href="#fotos" data-toggle="tab">Fotos</a></li>
-                <li><a href="#config" data-toggle="tab">Configuraciones</a></li>
-            </ul>
-
-            <div class="tab-content bg-white resaltar">
-
-                <div class="tab-pane active" id="perfil">
-                    <div class="row">
-                        <div class="col-xs-12 col-md-4">
-                            <div class="alert">
-                                <h3>Datos de Equippo</h3>
-                                @forelse($equipo->mostrarDatos() as $key=>$value)
-                                    @if($value)
-                                        <p><strong>{{$key}}: </strong>{{$value}}</p>
-                                    @endif
-                                @empty
-                                    <div class="alert alert-danger">Sindatos</div>
-                                @endforelse
-                            </div>
-                        </div>{{--Columna de los datos--}}
-
-                        <div class="col-xs-12 col-md-4">
-                            @include('contacto.comp_index',array('contacto'=>$equipo->contacto))
-                        </div>{{-- Columna --}}
-                    </div>
-                </div>{{--Fin tab perfil--}}
-
-                <div class="tab-pane" id="resultados">
-                    <h3>Resultados</h3>
-                </div>{{--Fin tab resultados--}}
-
-                <div class="tab-pane" id="p_fechas">
-                    <h3>Proximas Fechas</h3>
-                </div>{{--Fin tab Proximas Fechas--}}
-
-                <div class="tab-pane" id="fotos">
-                    <h3>Fotos</h3>
-                </div>{{--Fin tab fotos--}}
-
-                <div class="tab-pane" id="config">
-
-                    @include('equipo.tabs.configuraciones',compact('equipo'))
-                </div>{{--Fin tab fotos--}}
-
-            </div>
-        </div>
+        @include('equipo.tabs.tabs',compact($equipo))
+        {{--Vista que incluye los tabs DATOS DEL EQUIPO, RESULTADOS, FECHAS, TOTOS ,CONFIGURACION--}}
             
-            
-            
-    </div>
+    </div>{{--Div container--}}
 @endsection
 
 
 
 @section('scripts')
     @parent
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    <script src="{{asset('/plugins/switch/bootstrap-switch.min.js')}}"></script>
+
+    <script src="{{asset('/plugins/autocomplete/jquery.autocomplete.min.js')}}"></script>
+
+    <script src="/plugins/select2/select2.min.js"></script>
+    <script src="/plugins/select2/i18n/es.js"></script>
 
     <script>
+
+        cargarSelect2();
+
         function show_edit(id) {
             $("#display_"+id).fadeOut();
             $("#edit_"+id).show("slow");
-
         }
 
         function show_display(id) {
@@ -404,7 +375,7 @@
 
         $(document).on('click','.addTelefono',function(){
             var boton = '<span class="glyphicon glyphicon-remove borrar"></span>'
-            var nuevoTelefono = '<div class="form-group dimissable bg-info resaltar">'+boton+' <label for="Telefono 1">Nuevo Telefono</label> <input class="form-control" name="telefono[]" type="text">';
+            var nuevoTelefono = '<div class="form-group dimissable bg-info resaltar">'+boton+' <label for="Telefono 1">Nuevo Telefono</label> <input class="form-control valid" name="telefono[]" type="text">';
             $('#form-telefonos').append(nuevoTelefono);
         });
 
@@ -414,7 +385,6 @@
         $(document).on("mouseleave",".separador_in_tabs",function () {
             $(this).find("a").hide();
         });
-
 
 
     </script>

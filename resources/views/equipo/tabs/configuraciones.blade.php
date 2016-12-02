@@ -1,5 +1,5 @@
-<div class="">
-    <h3>Configuraciones</h3>
+<div id="">
+    {{--<h3>Configuraciones</h3>--}}
     <div>
         <div class="row">
             <div class="hidden-xs col-md-3">
@@ -14,47 +14,55 @@
             <div class="col-xs-12 col-md-9 borde-left">
                 <div class="tab-content">
                     <div id="conf_datos_generales" class="tab-pane fade in active">
-                        <div class="row">
+                        <h3>Datos generales</h3>
+                        @include('equipo.comp_edit',compact('estadio'))
 
-                            <div class="col-xs-12 col-md-6">
-                                <div class="separador_in_tabs resaltar">
-                                    <div class="titulo">
-                                        <span>Datos Del Equipo</span>
-                                    </div>
-                                    @include('equipo.comp_show',compact('equipo'))
-                                    <a class="manita" data-toggle="tab"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</a>
-                                </div>{{--Datos del equipo--}}
+                    </div>{{--Tab de Datos Del equiopo--}}
 
-                                <br>
-
-                                <div class="separador_in_tabs resaltar">
-                                    <div class="titulo">
-                                        <span>Datos de Estadio</span>
-                                    </div>
-                                    @forelse($equipo->estadios as $estadio)
-                                        @include('estadio.comp_show',['estadio'=>$estadio])
-                                        <a class="manita" data-toggle="tab"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</a>
-
-                                    @empty
-                                        Sin Estadios
-                                    @endforelse
-                                </div>
-
-                            </div>{{--Columna datos de equipo--}}
-
-                            <div class="col-xs-12 col-md-6"></div>
-                        </div>
-
-
-                    </div>
-
+                    {{--Tabs de los Estadios de un equipo--}}
                     <div id="conf_estadios" class="tab-pane fade">
                         <h3>Estadios</h3>
-                        @forelse($equipo->estadios as $estadio)
-                            @include('estadio.comp_edit',['estadio'=>$estadio])
-                        @empty
-                            Sin Estadios
-                        @endforelse
+                        <table class="table">
+                            @forelse($equipo->estadios as $estadio)
+                                <tr>
+                                    <td>
+                                        <h3 style="padding: 0px;margin: 0px;">Estadio {{$estadio->nombre}}</h3>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <a data-toggle="collapse" href="#collapse_estadio_{{$estadio->id}}" class="btn btn-info ver" >Ver</a>
+                                            <a class="btn btn-danger delete" data-link="/estadio/{{$estadio->id}}/deleteMsg" data-toggle="modal" data-target="#myModal" >Eliminar</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="collapse" id="collapse_estadio_{{$estadio->id}}">
+                                            @include('estadio.comp_edit',['estadio'=>$estadio])
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr >
+                                    <td colspan="2" class="alert bg-info">
+                                        * {{$equipo->nombre}} no posee Estadios
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </table>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class=" btn-block text-left" data-toggle="collapse" href="#edit_estadio_create">Crear Estadio</a>
+                                    </h4>
+                                </div>
+                                <div id="edit_estadio_create" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        @include('estadio.comp_create')
+                                    </div>
+                                </div>
+                            </div>
                     </div>
 
                     <div id="conf_contacto" class="tab-pane fade">
@@ -62,16 +70,29 @@
                         @if(isset($equipo->contacto))
                             @include('contacto.comp_edit',['contacto'=>$equipo->contacto])
                         @else
-                            Crear Contacto
                             @include('contacto.comp_create')
                         @endif
-                    </div>
+                    </div>{{--Tab de Contacto de un Equipo--}}
 
                     <div id="conf_otro" class="tab-pane fade">
                         <h3>Otros</h3>
-                    </div>
+                    </div>{{--Tabd eOtros--}}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section('scripts')
+    @parent
+    <script>
+        $(document).on('click','.ver',function () {
+            if ($(this).text() == 'Ver'){
+                $(this).text('Oculra');
+            }else{
+                $(this).text('Ver');
+            }
+        });
+
+    </script>
+@endsection

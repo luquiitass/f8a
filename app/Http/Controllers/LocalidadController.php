@@ -185,8 +185,8 @@ class LocalidadController extends Controller
      	$localidad->delete();
 
         $json = new JSON_retorno();
-        $json->setMensaje('Localidad eliminada','success');
         $json->setFadeOut('#li_localidad_id_'.$localidad->id);
+        $json->setMensaje('Localidad eliminada','success');
 
         return $json->getAllJSON();
     }

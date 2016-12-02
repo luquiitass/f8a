@@ -28,7 +28,7 @@
             <div class="well">
                 <h3 class="">Nuevo Rol</h3>
                 {{Form::open(array('url'=>url('rol')))}}
-                    {{Form::token()}}
+                {{Form::token()}}
                     <div class="row">
                         <div class="col-xs-6">
                             <div class="form-group">
@@ -60,8 +60,10 @@
                         </div>
                     </div>
 
-    
-                    {{Form::submit('Crear',array('class'=>'btn btn-primary'))}}
+                
+                    <div class="centered">
+                        <a class="btn btn-primary save_ajax" data-link="/role">Crear</a>
+                    </div>
 
                 {{Form::close()}}
             </div>

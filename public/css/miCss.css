@@ -1,6 +1,6 @@
 /*elementos*/
 
-/*Modificando elementos predefinidos*/
+/*Modificando elementos predefinidos* !important*/
 .content-wrapper, .right-side {
     background-color: #E9EBEE;
 }
@@ -14,7 +14,6 @@
     font-weight: bold;
 }
 
-/**/
 
 
 
@@ -137,11 +136,95 @@ form .btn
 
 .dimissable .borrar{
     position: absolute;
-    right: 5px;
-    top: 5px;
+    right: 3px;
+    top: 3px;
     cursor: pointer;
+}
+.dimissable .borrar:hover{
+    color: #fff;
+    padding: 5px;
+    background-color: rgba(230, 0, 42, 0.76);
+    border-radius: 5px;
+
 }
 
 .manita{
     cursor: pointer;
+}
+
+
+.mensaje_flot{
+    font-weight: normal;
+    position: fixed;
+    z-index: 10000;
+    right: 30px;
+    top: 30px;
+}
+
+.mensaje_flot>.formaa{
+    border: none;
+    border-radius: 60px 0px 60px 60px;
+    color: #fff;
+}
+
+.forma-success {
+    background-color: #008d4c !important;
+    color: #fff;
+}
+.forma-danger,
+.forma-error {
+    background-color: #d73925 !important;
+    color: #fff;
+}
+.forma-warning {
+    background-color: #e08e0b !important;
+    color: #fff;
+}
+.forma-info {
+    background-color: #00acd6 !important;
+    color: #fff;
+}
+
+#list_mensaje{
+    list-style: none;
+}
+
+.tab-pane> h3{
+    width: 100%;
+    width: 100%;
+    background: #78787833;
+    color: #575454;
+    margin-bottom: 20px;
+    padding: 0;
+    margin: 0;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.editar-switch>h3>span{
+    font-size: 20px;
+}
+
+.box_permisos{
+    max-height: 340px;
+    overflow-y: scroll;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
 }
