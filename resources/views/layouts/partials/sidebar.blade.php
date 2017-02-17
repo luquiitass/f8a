@@ -39,6 +39,13 @@
                     <span>{{ trans('adminlte_lang::message.home') }}</span>
                 </a>
             </li>
+
+            <li class="@yield('menu_usuarios','')">
+                <a href="{{ url('user') }}">
+                    <i class='fa fa-link'></i>
+                    <span>{{ trans('string.link_usuarios') }}</span>
+                </a>
+            </li>
             {{--}}<li><a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.anotherlink') }}</span></a></li>--}}
 
             <li class="@yield('menu_competencias','')">
@@ -77,6 +84,14 @@
                     <li class="@yield('menu2_pasies','')"><a href="{{route('pais')}}">{{ trans('string.link_pais,provincia,localidad') }}</a></li>
                     {{--@endrole--}}
                     <li class="@yield('menu2_seguridad','')"><a href="{{route('segutidad.index')}}">{{trans('string.link_seguridad')}}</a></li>
+
+                    <li class="@yield('menu2_estados','')"><a href="{{route('estado.index')}}">{{trans('string.link_estados')}}</a></li>
+
+                    <li class="@yield('menu2_configuraciones','')"><a href="{{route('configuracion.index')}}">{{trans('string.link_configuraciones')}}</a></li>
+
+                    <li class="@yield('menu2_tipo_torneo','')"><a href="{{route('tipoTorneo.index')}}">{{trans('string.link_adm_tipos_de_Torneo')}}</a></li>
+
+                    <li class="@yield('menu2_tipo_fase','')"><a href="{{route('tipoFase.index')}}">{{trans('string.link_adm_tipos_de_Fase')}}</a></li>
                 </ul>
             </li>{{--Fin de menu de parametros--}}
 

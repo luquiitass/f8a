@@ -13,7 +13,10 @@ return [
     'link_provincias'=> 'Provincias',
     'link_localidades' => 'Localidades',
     'link_seguridad' => 'Seguridad',
+    'link_estados' => 'Estados',
+    'link_configuraciones' => 'Preferencias',
 
+    'link_usuarios'       => 'Usuarios',
     'link_competencias'       => 'Competencias',
     'link_nueva_competencia'       => 'Nueva Competencia',
     'link_adm_competencia'       => 'Adm Competencias',
@@ -23,6 +26,8 @@ return [
     'link_adm_equipo_nuevo'       => 'Nuevo Equipo',
 
     'link_adm_estadio_administrar'       => 'Administrar Estadios',
+    'link_adm_tipos_de_Torneo'       => 'Tipos de Torneo',
+    'link_adm_tipos_de_Fase'       => 'Tipos de Fase',
 
 
 

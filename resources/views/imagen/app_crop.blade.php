@@ -32,15 +32,7 @@
     </div>
 
     @section('scripts')
-        {{--Mios--}}
-        {{--<script src="{{asset('js/miScript.js')}}"></script>--}}
 
-        {{--Fin Mios--}}
-
-        {{--Jcrop--}}
-        <script src="{{asset('plugins/jcrop/js/jquery.min.js')}}"></script>
-        <script src="{{asset('plugins/jcrop/js/jquery.Jcrop.js')}}"></script>
-        {{--Fin Jcrop--}}
     @show
 
 </body>

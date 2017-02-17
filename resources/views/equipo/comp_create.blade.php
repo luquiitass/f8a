@@ -1,33 +1,33 @@
 <div>
-    <div class="col-form">
-        {{Form::open()}}
-        {{Form::token()}}
+    <div class="">
+        <div id="form_create_equipo">
+            {{Form::open(array('url'=>url('equipo'),'id'=>'form_equipo'))}}
+            {{Form::token()}}
+            <div class="form-group">
+                @include('crop.otros.escudo')
+                {{Form::label('nombre')}}
+                {{Form::text('nombre',null,array('class'=>'form-control'))}}
+            </div>
 
-        <div class="form-group">
-            {{Form::label('nombre')}}
-            {{Form::text('nombre',null,array('class'=>'form-control'))}}
+            <div class="form-group">
+                {{Form::label('alias')}}
+                {{Form::text('alias',null,array('class'=>'form-control'))}}
+            </div>
+
+
+            @include('otros.selectUser')
+
+            @include('categoria.comp_select')
+
+
+            <a class="manita save_ajax btn btn-primary center-block" data-link="/equipo"  >Crear</a>
+
+            {{--Form::submit('Crear',array('class'=>'fomr-control btn btn-primary center-block'))--}}
+            {{Form::close()}}
         </div>
 
-        <div class="form-group">
-            {{Form::label('alias')}}
-            {{Form::text('alias',null,array('class'=>'form-control'))}}
-        </div>
-        <div class="form-group">
-            {{Form::label('fundado')}}
-            {{Form::text('fundado',null,array('class'=>'form-control'))}}
-        </div>
-        <div class="form-group">
-            {{Form::label('fundadores')}}
-            {{Form::text('fundadores',null,array('class'=>'form-control'))}}
-        </div>
-        <div class="form-group">
-            {{Form::label('descripcion')}}
-            {{Form::textArea('descripcion',null,array('class'=>'form-control'))}}
-        </div>
 
-        <div class="centered">
-            <a class="btn btn-primary save_ajax">Guardar</a>
-        </div>
-        {{Form::close()}}
+        {{--@include('otros.direccion.direccion')--}}
+
     </div>
 </div>

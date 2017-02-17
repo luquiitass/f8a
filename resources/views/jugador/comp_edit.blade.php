@@ -12,7 +12,7 @@
 
             @if(!is_null($jugador->user_id))
                 <div class="alert alert-info">
-                    <p>Este jugador fue asignado a un usuario, Usted puede modificar solo la "posicion" y el "número" del jugador.</p>
+                    <p>Este jugador fue asignado a un usuario, Usted puede modificar solo la "posición" y el "número" del jugador.</p>
                 </div>
             @endif
 
@@ -21,6 +21,8 @@
             {{Form::hidden('user_id',$jugador->id)}}
 
             <div class="row-fluid">
+
+                @include('imagen.perfil.imagen_perfil',['foto'=>$jugador->getFotoPerfilThumb()])
 
 
                 <div class="col-xs-12 col-md-6">
@@ -55,7 +57,7 @@
                     </div>
 
                     <div class="form-group">
-                        {{Form::label('posicion')}}
+                        {{Form::label('posición')}}
                         {{Form::select('posicion_id',App\Posicion::forSelect(),App\Posicion::forSelect()['seleccionar'],array('class'=>'form-control'))}}
                     </div>
 

@@ -2,6 +2,8 @@
 
 <?php $__env->startSection('titulo','Inicio'); ?>
 
+<?php echo $__env->make('crop.incluir_librerias_jcrop', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
 <?php $__env->startSection('htmlheader'); ?>
     @parent
     <?php /*Vincular los css*/ ?>
@@ -31,7 +33,7 @@
         .portada{
             padding: 10px;
             border-radius: 5px;
-            border: 1px solid rgb(215, 208, 208);
+            /*border: 1px solid rgb(215, 208, 208);*/
             padding-bottom: 10px;
             margin: auto;
             margin-bottom: 10px;
@@ -317,28 +319,31 @@
 <?php $__env->startSection('main-content'); ?>
 
     <div class="bootstrap snippet">
-        <div class="row portada">
-            <div class="panel">
-                <div class="cover-photo">
-                    <div class="fb-timeline-img">
-                        <img src="<?php echo e(asset('img/port.jpg')); ?>" alt="Portada">
-                    </div>
-                    <div class="fb-name">
+        <?php /*<div class="row portada">*/ ?>
+            <?php /*<div class="panel">*/ ?>
+                <?php /*<div class="cover-photo">*/ ?>
+                    <?php /*<div class="fb-timeline-img">*/ ?>
+                        <?php /*<img src="<?php echo e(asset('img/port.jpg')); ?>" alt="Portada">*/ ?>
+                    <?php /*</div>*/ ?>
+                    <?php /*<div class="fb-name">*/ ?>
                         <?php /*<h2><a href="#">Deyson Bejarano</a></h2>*/ ?>
-                    </div>
-                </div>
+                    <?php /*</div>*/ ?>
+                <?php /*</div>*/ ?>
 
-                <div class="panel-body">
-                    <div class="profile-thumb">
-                        <img class="" src="<?php echo e(asset('/img/esc.png')); ?>" alt="Escudo">
-                    </div>
+                <?php /*<div class="panel-body">*/ ?>
+                    <?php /*<div class="profile-thumb">*/ ?>
+                        <?php /*<img class="" src="<?php echo e(asset('/img/esc.png')); ?>" alt="Escudo">*/ ?>
+                    <?php /*</div>*/ ?>
                     <?php /*<a href="#" class="fb-user-mail">dbjarano@bootdey.com</a>*/ ?>
-                    <h2 class="nombre-equipo"><?php echo e($equipo->nombre); ?></h2>
-                </div>
-            </div>
-        </div><?php /*Foto de Portada, Escudo, y nombre*/ ?>
-        
-        <?php echo $__env->make('equipo.tabs.tabs',compact($equipo), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                    <?php /*<h2 class="nombre-equipo"><?php echo e($equipo->nombre); ?></h2>*/ ?>
+                <?php /*</div>*/ ?>
+            <?php /*</div>*/ ?>
+        <?php /*</div>*/ ?><?php /*Foto de Portada, Escudo, y nombre*/ ?>
+        <?php /**/ ?>
+        <div class="">
+            <?php echo $__env->make('equipo.unEquipo.submenu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        </div>
+        <?php /*<?php echo $__env->make('equipo.tabs.tabs',compact($equipo), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>*/ ?>
         <?php /*Vista que incluye los tabs DATOS DEL EQUIPO, RESULTADOS, FECHAS, TOTOS ,CONFIGURACION*/ ?>
             
     </div><?php /*Div container*/ ?>

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Tabla_dataTable;
 use App\User;
 
 use Requests;
+use Yajra\Datatables\Facades\Datatables;
 
 class UserController extends Controller
 {
@@ -16,6 +18,16 @@ class UserController extends Controller
     public function index()
     {
         //
+        $users = User::get();
+        $columnas = [
+            ['Nombre','nombre',true,true],
+            ['Apellido','apellido',true,true],
+            ['Email','email',true,true]
+        ];
+
+        $tabla = Tabla_dataTable::create('dt_users',rand(1,1000),$columnas);
+
+        return view('users.index',compact('tabla'));
     }
 
     /**
@@ -85,17 +97,34 @@ class UserController extends Controller
     }
 
     public function select2(){
+        $retorno = [];
         $busq = \Request::get('term');
-
-        $retorno = User::like('nombre',$busq);
-        return json_encode($retorno->select('id','nombre as text')->get());
+        $query = User::like(['nombre','apellido','email'],$busq);
+        foreach ($query->select('id','nombre','apellido','email')->get() as $user)
+        {
+            $retorno[]= array('id'=>$user->id,'text'=>'('.$user->email.')     '.$user->nombre .' '.$user->apellido);
+        }
+        return json_encode($retorno);
     }
 
     public function select()
     {
-        $busq = \Request::get('term');
+        $retorno = [];
+        $busq = \Request::get('query');
+        $query = User::like(['nombre','apellido','email'],$busq);
+        foreach ($query->select('id','nombre','apellido','email','fecha_nacimiento')->get() as $user)
+        {
+            $retorno[]= array('data'=>$user->id,'value'=>'('.$user->email.')     '.$user->nombre .' '.$user->apellido,'nombre'=>$user->nombre ,'apellido'=>$user->apellido,'fecha_nacimiento'=>$user->fecha_nacimiento);
+        }
+        return json_encode(array('suggestions'=>$retorno));
+    }
 
-        $retorno = User::like('nombre',$busq);
-        return json_encode(array('suggestions'=>$retorno->select('id as data','nombre as value','apellido','fecha_nacimiento')->get()));
+    public function dt_users(){
+        $query = User::select('id','nombre','apellido','email');
+        return Datatables::of($query)
+            ->editColumn('nombre',function ($user){
+                return '<a class="manita" href="perfil/'.$user->id.'">'.$user->nombre.'</a>';
+            })
+            ->make(true);
     }
 }

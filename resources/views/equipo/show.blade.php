@@ -2,6 +2,8 @@
 
 @section('titulo','Inicio')
 
+@include('crop.incluir_librerias_jcrop')
+
 @section('htmlheader')
     @parent
     {{--Vincular los css--}}
@@ -31,7 +33,7 @@
         .portada{
             padding: 10px;
             border-radius: 5px;
-            border: 1px solid rgb(215, 208, 208);
+            /*border: 1px solid rgb(215, 208, 208);*/
             padding-bottom: 10px;
             margin: auto;
             margin-bottom: 10px;
@@ -317,28 +319,31 @@
 @section('main-content')
 
     <div class="bootstrap snippet">
-        <div class="row portada">
-            <div class="panel">
-                <div class="cover-photo">
-                    <div class="fb-timeline-img">
-                        <img src="{{asset('img/port.jpg')}}" alt="Portada">
-                    </div>
-                    <div class="fb-name">
+        {{--<div class="row portada">--}}
+            {{--<div class="panel">--}}
+                {{--<div class="cover-photo">--}}
+                    {{--<div class="fb-timeline-img">--}}
+                        {{--<img src="{{asset('img/port.jpg')}}" alt="Portada">--}}
+                    {{--</div>--}}
+                    {{--<div class="fb-name">--}}
                         {{--<h2><a href="#">Deyson Bejarano</a></h2>--}}
-                    </div>
-                </div>
+                    {{--</div>--}}
+                {{--</div>--}}
 
-                <div class="panel-body">
-                    <div class="profile-thumb">
-                        <img class="" src="{{asset('/img/esc.png')}}" alt="Escudo">
-                    </div>
+                {{--<div class="panel-body">--}}
+                    {{--<div class="profile-thumb">--}}
+                        {{--<img class="" src="{{asset('/img/esc.png')}}" alt="Escudo">--}}
+                    {{--</div>--}}
                     {{--<a href="#" class="fb-user-mail">dbjarano@bootdey.com</a>--}}
-                    <h2 class="nombre-equipo">{{$equipo->nombre}}</h2>
-                </div>
-            </div>
-        </div>{{--Foto de Portada, Escudo, y nombre--}}
-        
-        @include('equipo.tabs.tabs',compact($equipo))
+                    {{--<h2 class="nombre-equipo">{{$equipo->nombre}}</h2>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}{{--Foto de Portada, Escudo, y nombre--}}
+        {{----}}
+        <div class="">
+            @include('equipo.unEquipo.submenu')
+        </div>
+        {{--@include('equipo.tabs.tabs',compact($equipo))--}}
         {{--Vista que incluye los tabs DATOS DEL EQUIPO, RESULTADOS, FECHAS, TOTOS ,CONFIGURACION--}}
             
     </div>{{--Div container--}}

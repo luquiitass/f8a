@@ -25,8 +25,8 @@ class CompetenciaRequestStore extends Request
     {
         return [
             //
-            'nombre'=>'required|unique:competencias|min:4',
-            'descripcion'=>'required',
+            'nombre'=>'required|unique:competencias|min:4|string',
+            'descripcion'=>'required|string|min:10',
             'org_partidos'=>'required',
             'administradores'=>'required'
         ];

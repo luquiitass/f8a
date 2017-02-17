@@ -174,7 +174,17 @@ return [
 
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
 
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+
+        Barryvdh\Debugbar\ServiceProvider::class,
+
+        Jenssegers\Date\DateServiceProvider::class,
+
+        //Migrations Genetator
+        Way\Generators\GeneratorsServiceProvider::class,
+
+        Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
+
     ],
 
     /*
@@ -233,6 +243,10 @@ return [
         'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
 
         'Image' => Intervention\Image\Facades\Image::class,
+
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
+        'Date' => Jenssegers\Date\Date::class,
     ],
 
 ];

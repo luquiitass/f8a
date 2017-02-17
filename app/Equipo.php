@@ -3,21 +3,25 @@
 namespace App;
 
 use Barryvdh\Reflection\DocBlock\Type\Collection;
+use Dompdf\Exception;
+use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Database\Eloquent\Model;
 use App\Administradores;
 
 class Equipo extends Model
 {
-    use Administradores;
+    use Administradores,Funciones,Trait_Fechas;
 
     protected $table='equipos';
 
-    protected $relations =['jugadores','users'];
-
-    protected $fillable = ['nombre','apodo','fundado','fundadores','descripcion'];
+    protected $fillable = ['nombre','alias','fundado','fundadores','descripcion','categoria_id'];
 
 
     /* **********************  Relaciones   *****************************/
+
+    public function users(){
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
 
     public function jugadores()
     {
@@ -37,10 +41,23 @@ class Equipo extends Model
         return $this->belongsTo(Contacto::class);
     }
 
+    public function categoria(){
+        return $this->belongsTo(Categoria::class);
+    }
+
     public function hasEstadio($value){
         return $this->estadios()->where('nombre',$value)->count() > 0?true:false;
     }
 
+
+    public function getFotoEscudo(){
+        $default = '/img/avatar.png';
+        if (isset($this->foto_escudo))
+        {
+            return file_exists('imagenes/escudo/'.$this->foto_escudo)?'/imagenes/escudo/' . $this->foto_escudo : $default;
+        }
+        return $default;
+    }
 
     /* **********************  Relaciones   *****************************/
 
@@ -89,7 +106,9 @@ class Equipo extends Model
         $jugador->save();
         $this->jugadores()->attach($jugador);
 
+        $jugador->setFotoPerfil($data['foto_perfil']);
     }
+
 
     /****************** Mettodos Add relaciones ******************************/
 
@@ -123,6 +142,40 @@ class Equipo extends Model
             }
         }
         return $retorno;
+    }
+
+    public function setFotoEscudo($url){
+        $url = !empty($url)?$url:'nada.jpl';
+        $ruta_imagen_temporal = 'imagenes/temp/'.$url;
+        $ruta_escudo = 'imagenes/escudo/';
+
+        if (file_exists($ruta_imagen_temporal))
+        {
+            $img_escudo = Image::make($ruta_imagen_temporal);
+            $nombre_imagen = $this->id.'.'.$img_escudo->extension;
+            copy($ruta_imagen_temporal,$ruta_escudo . $nombre_imagen);
+            //rename($ruta_imagen_temporal,$ruta_escudo . $nombre_imagen);
+            Image::make($ruta_escudo . $nombre_imagen)->fit(128)->save();
+
+            $this->foto_escudo = $nombre_imagen;
+            $this->save();
+        }
+    }
+
+
+    public static function valiadarEquipo($input){
+        //dd($input);
+        $equipos = Equipo::where('nombre','=',$input['nombre'])->get();
+        if ($equipos->count()>0) {
+            if ($equipos->where('categoria_id',$input['categoria'])->count()>0) {
+                if ($equipos->where('alias',$input['alias'])->count()>0) {
+                    throw new Exception('Ya existe un equipo con este nombre,categoria y alias registrado');
+                }else{
+                    return true;
+                }
+                throw new Exception('Ya existe un equipo con este nombre y categoria. Debe asignarle un Alias para diferenciarlos');
+            }
+        }
     }
 
 }

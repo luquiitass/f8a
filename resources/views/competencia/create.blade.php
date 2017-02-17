@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="form-group">
-                    {{Form::label('descripcion')}}
+                    {{Form::label('descripción')}}
                     {{Form::textArea('descripcion',null,array('class'=>'form-control'))}}
                 </div>
 
@@ -41,10 +41,9 @@
                     {{Form::label('organizador de partido')}}
                     {{Form::select('org_partidos',array('admin_competencia'=>'administrado por organizador de la competencia','admin_equipo'=>'administrado por equipos'),null,array('class'=>'form-control'))}}
                 </div>
-                {{Form::token()}}
-                <div class="form-group">
-                </div>
-                {{Form::submit('Guadar',array('class'=>'btn btn-primary btn-guardar center-block'))}}
+                {{Form::submit('Guardar',array('class'=>'btn btn-primary btn-guardar center-block','type'=>'button'))}}
+
+
                 {{Form::close()}}
             </div>
         </div>
@@ -69,6 +68,6 @@
     </script>
 
 
-    {!! JsValidator::formRequest('App\Http\Requests\CompetenciaRequestStore', '#form_comp') !!}
+    {{--{!! JsValidator::formRequest('App\Http\Requests\CompetenciaRequestStore', '#form_comp') !!}--}}
 
 @endsection

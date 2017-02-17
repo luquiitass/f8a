@@ -29,7 +29,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="skin-blue sidebar-mini ">
+<body class="skin-blue sidebar-mini sidebar-collapse">
 
 <div class="wrapper">
     <?php echo $__env->make('layouts.partials.mainheader', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
@@ -42,7 +42,7 @@ desired effect
             <?php /*<?php echo $__env->make('layouts.partials.contentheader', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>*/ ?>
 
             <!-- Main content -->
-            <section class="content">
+            <section class="content content-alignment">
                 <!-- Your Page Content Here -->
                 <div id="mensaje" class="mensaje_flot"></div>
                 <?php echo $__env->yieldContent('main-content'); ?>
@@ -64,7 +64,9 @@ desired effect
     <?php echo $__env->make('layouts.partials.scripts', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php echo $__env->yieldSection(); ?>
 
-<div id="temp" style="width: 0; height: 0"></div>
+<div id="temp" style="display: none">
+    <?php echo $__env->make('layouts.partials.cargando', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+</div>
 
 </body>
 </html>

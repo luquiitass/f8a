@@ -30,11 +30,12 @@ $(document).on('click', '.destroy', function() {
         success: function(response) {
             var conOperaciones = operacion(response,false);
             if(! conOperaciones){
-                //window.location = response;
+                window.location = response;
             }
         }
     })
 })
+
 
 $(document).on('click', '.save', function() {
     POST($('#AjaxisForm').serializeArray(), $(this).data('link'));
@@ -54,12 +55,18 @@ $(document).on('click', '.saveForm', function() {
 /* *************** Mios **********************/
 $(document).on('click', '.save_edit', function() {
     var form = $(this).parents('form');
-    PUT($(form).serializeArray(), $(this).data('link'));
+    //VALID(form,$(form).serializeArray(),'PUT',$(this).data('link'));
+    //if(validar(form)) {
+        PUT($(form).serializeArray(), $(this).data('link'));
+    //}
 })
 
-$(document).on('click', '.save_ajax', function() {
+$(document).on('click', '.save_ajax', function(event) {
     var form = $(this).parents('form');
+    //if(validar(form)) {
+    //VALID(form,$(form).serializeArray(),'POST',$(this).data('link'));
     POST($(form).serializeArray(), $(this).data('link'));
+    //}
 })
 
 $(document).on('hidden.bs.modal','#myModal', function () {
@@ -74,8 +81,32 @@ $(document).on('hidden.bs.modal','.modal', function () {
     limpiarForm(form);
 })
 
+$(document).on('change paste keyup', '.input_change_ajax', function() {
+    var form = $(this).parents('form');
+    POST($(form).serializeArray(), $(this).data('link'));
+})
 
 
+function GET_Imagen(dataLink) {
+    $.ajax({
+        async: true,
+        type: 'get',
+        url: baseURL + dataLink,
+        success: function(response) {
+            var conOperaciones = operacion(response,false);
+            if(! conOperaciones){
+                var a = $('.AjaxisModal').html();
+                if (a != ''){
+                    $('.Modal_Imagen_Crop').html(response);
+                    $('.AjaxisModal').hide();
+                }else{
+                    $('.AjaxisModal').html(response);
+                }
+            }
+        }
+    });
+    $('#myModal').modal('show');
+}
 
 
 function GET(dataLink) {
@@ -111,11 +142,12 @@ function PUT(postData, dataLink) {
                     html=html+"<li>"+value+"</li>";
                 });
                 html=html+"</ul>";
-                mensaje(html,'danger',true);
+                mensaje(html,'danger','true');
             }
         }
     })
 }
+
 
 
 function POST(postData, dataLink) {
@@ -141,6 +173,27 @@ function POST(postData, dataLink) {
             }
         }
     })
+}
+
+function VALID(form,data,metodo,link) {
+    var inpp = $(form).find(':input').not('').addClass('a_validado');
+
+
+    $.ajax({
+        async: true,
+        type: metodo,
+        url: baseURL + link,
+        data: data,
+        success: function(response) {
+            //$(form).attr('name',)
+        },
+        error:function(xhr){
+            if (xhr.status == 422 ){
+
+            }
+        }
+    })
+
 }
 
 //

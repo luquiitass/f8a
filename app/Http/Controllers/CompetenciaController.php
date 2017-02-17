@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Competencia;
+use App\Http\JSON_retorno;
 use Request;
 use Amranidev\Ajaxis\Ajaxis;
 
@@ -10,6 +11,38 @@ use App\Http\Requests\CompetenciaRequestStore;
 use App\Http\Requests\CompetenciaRequestUpdate;
 class CompetenciaController extends Controller
 {
+
+    public function portada(Competencia $competencia)
+    {
+        return view('competencia.unaCompetencia.portada',compact('competencia'));
+
+    }
+
+    public function index_configuraciones(Competencia $competencia)
+    {
+        $id_temporada = Request::get('temporada');
+        $id_torneo = Request::get('torneo');
+        if (empty($id_temporada)){
+            $temporada = $competencia->temporadas->first();
+            if (!empty($temporada)){
+                $id_temporada = $temporada->id;
+            }
+        }
+        if (empty($id_torneo)){
+            if (!empty($temporada)){
+                if ($temporada->t_has('torneos')){
+                    //dd($temporada->torneos->first()->id);
+                    $id_torneo = $temporada->torneos->first()->id;
+                }
+            }
+        }
+        return view('competencia.unaCompetencia.index_configuraciones',compact('competencia','id_temporada','id_torneo'));
+
+    }
+
+    public function show_configuraciones(Competencia $competencia){
+        return view('competencia.unaCompetencia.show_configuraciones',compact('competencia'));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -114,6 +147,9 @@ class CompetenciaController extends Controller
         $competencia->addAdministradores($administradores);
 
         $competencia->update();
+        if (Request::ajax()){
+            return JSON_retorno::create()->setUrl(\URL::previous())->getAllJSON();
+        }
 
         return  redirect()->to('competencia/'.$competencia->id);
 

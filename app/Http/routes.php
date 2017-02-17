@@ -16,11 +16,24 @@ Route::get('/', function () {
 });
 
 
+//*******Pruebas***
+Route::get('p','PruebaController@index');
+//*******Pruebas***
+
 
 
 //User
-/* ************** User **************** */
+Route::resource('user','UserController');
+Route::get('dt_users','UserController@dt_users');
+//FinUsers
+
+
+/* ************** Select **************** */
 Route::get('usersSelect2','UserController@select2');
+Route::get('categoriasSelect2','CategoriaController@select2');
+Route::get('equiposSelect2','EquipoController@select2');
+Route::get('equiposSelect2/{torneo}','EquipoController@categoriasSelect2');
+
 Route::get('usersSelect','UserController@select');
 /* ************** User **************** */
 
@@ -33,6 +46,7 @@ Route::post('pais/{id}/update','\App\Http\Controllers\PaisController@update');
 Route::get('pais/{pais}/delete','\App\Http\Controllers\PaisController@destroy');
 Route::get('pais/{id}/deleteMsg','\App\Http\Controllers\PaisController@DeleteMsg');
 //****DataTables***********
+Route::post('/pais/buscar','PaisController@buscar');
 Route::get('dt_paises','PaisController@DT_paises')->name('dt_paises');
 Route::get('autoCompletePais','PaisController@autoCompletePais')->name('autoCompletePais');
 /********************* pais ***********************************************/
@@ -105,12 +119,18 @@ Route::get('/role/{role}/delete','RolController@destroy');
 
 
 //**************Competencia***************
-Route::get('competencias','CompetenciaController@index')->name('competencia.index');
-Route::get('competencia/create','CompetenciaController@create')->name('competencia.create');
-Route::post('competencia','CompetenciaController@store');
-Route::get('competencia/{competencia}','CompetenciaController@show')->name('competencia.show');
-Route::get('competencia/{competencia}/edit','CompetenciaController@edit')->name('competencia.edit');
-Route::post('competencia/{competencia}/update','CompetenciaController@update')->name('competencia.update');
+Route::resource('competencia','CompetenciaController');
+Route::get('competencia/{competencia}/portada','CompetenciaController@portada')->name('competencia.portada');
+//Route::get('competencia/{competencia}/configuraciones','CompetenciaController@configuraciones')->name('competencia.configuraciones');
+Route::get('configuraciones/competencia/{competencia}/general','CompetenciaController@index_configuraciones')->name('competencias.configuraciones');
+Route::get('configuraciones/competencia/{competencia}','CompetenciaController@show_configuraciones')->name('competencia.configuraciones');
+
+//Route::get('competencias','CompetenciaController@index')->name('competencia.index');
+//Route::get('competencia/create','CompetenciaController@create')->name('competencia.create');
+//Route::post('competencia','CompetenciaController@store');
+//Route::get('competencia/{competencia}','CompetenciaController@show')->name('competencia.show');
+//Route::get('competencia/{competencia}/edit','CompetenciaController@edit')->name('competencia.edit');
+//Route::post('competencia/{competencia}/update','CompetenciaController@update')->name('competencia.update');
 Route::get('competencia/{competencia}/deleteMsg','CompetenciaController@deleteMsg')->name('competencia.deleteMsg');
 Route::get('competencia/{competencia}/delete','CompetenciaController@destroy')->name('competencia.delete');
 //**************Competencia***************
@@ -119,8 +139,21 @@ Route::get('competencia/{competencia}/delete','CompetenciaController@destroy')->
 
 /*****************  Equipo *****************************/
 Route::resource('equipo','EquipoController');
+
+
+Route::get('equipo/{equipo}/perfil','EquipoController@perfil')->name('equipo.perfil');
+Route::get('equipo/{equipo}/partidos','EquipoController@partidos')->name('equipo.partidos');
+Route::get('equipo/{equipo}/calendario','EquipoController@calendario')->name('equipo.calendario');
+Route::get('equipo/{equipo}/jugadores','EquipoController@jugadores')->name('equipo.jugadores');
+Route::get('equipo/{equipo}/fotos','EquipoController@fotos')->name('equipo.fotos');
+Route::get('equipo/{equipo}/configuraciones','EquipoController@configuraciones')->name('equipo.configuraciones');
+
+
 Route::get('equipo/{equipo}/deleteMsg','EquipoController@deleteMsg')->name('equipo.deleteMsg');
 Route::get('equipo/{equipo}/delete','EquipoController@destroy')->name('equipo.delete');
+Route::get('datatable','EquipoController@dataTable');
+Route::get('dt_equipos','EquipoController@DT_equipos');
+Route::get('equiposPorCategoria','EquipoController@equiposPorCategorias');
 //Route::get('equipos','EquipoController@index')->name('equipo.index');
 //Route::get('equipo/create','EquipoController@create')->name('equipo.create');
 //Route::post('equipo','EquipoController@store');
@@ -143,8 +176,12 @@ Route::resource('contacto','ContactoController');
 /* ************************ Contacto  ***************************************/
 
 /***************       Jugador   ***********************/
-Route::resource('jugador','JugadorController');
+//Route::resource('jugador','JugadorController');
+Route::get('equipo/{equipo}/jugadores','JugadorController@index');
+Route::get('jugador/{equipo}/create','JugadorController@create');
+Route::get('jugador/{jugador}','JugadorController@show');
 Route::post('jugador/{equipo}','JugadorController@store')->name('jugador.store');
+Route::put('jugador/{jugador}','JugadorController@update')->name('jugador.update');
 Route::get('/jugador/{equipo}/{jugador}','JugadorController@edit')->name('jugador.edit');
 Route::get('/jugador/{jugador}/{equipo}/bajaJugadorMsg','JugadorController@bajaJugadorMsg');
 Route::get('/jugador/{jugador}/{equipo}/bajaJugador','JugadorController@bajaJugador');
@@ -154,10 +191,99 @@ Route::get('/jugador/{jugador}/{equipo}/delete','JugadorController@destroy');
 /***************       Jugador   ***********************/
 
 /*********************** Imagenes ***********************/
-Route::get('imagen/seleccionar','ImagenController@seleccionar')->name('imagen.seleccionar');
-Route::post('/imagen/recortar','ImagenController@recortar')->name('imagen.recortar');
-Route::post('/imagen/cortar','ImagenController@cortar')->name('imagen.cortar');
-Route::post('/imagen/guardar','ImagenController@store')->name('imagen.store');
+//Route::resource('imagen','ImagenController');
+Route::get('imagen','ImagenController@index');
+Route::get('imagen/seleccionar_perfil','ImagenController@seleccionar_perfil')->name('imagen_selecccionar_perfil');
+Route::post('imagen/cortar_perfil','ImagenController@cortar_perfil');
+Route::post('imagen/cortar_escudo','ImagenController@cortar_escudo');
+//Route::get('imagen/seleccionar','ImagenController@seleccionar')->name('imagen.seleccionar');
+//Route::post('/imagen/recortar','ImagenController@recortar')->name('imagen.recortar');
+//Route::post('/imagen/cortar','ImagenController@cortar')->name('imagen.cortar');
+//Route::post('/imagen/guardar','ImagenController@store')->name('imagen.store');
 
 
 /***********************Fin Imagenes ***********************/
+
+/***************************Estados**********************************/
+Route::resource('estado','EstadosController');
+Route::get('estado/{estado}/deleteMsg','EstadosController@DeleteMsg');
+Route::get('estado/{estado}/delete','EstadosController@destroy');
+/***************************Fin Estados**********************************/
+
+/***************************Configuracion**********************************/
+Route::resource('configuracion','ConfiguracionController');
+Route::get('configuracion/{configuracion}/deleteMsg','ConfiguracionController@DeleteMsg');
+Route::get('configuracion/{configuracion}/delete','ConfiguracionController@destroy');
+/***************************Fin Estados**********************************/
+
+/***************************Temporada**********************************/
+Route::resource('temporada','TemporadaController');
+Route::get('temporada/{temporada}/edit','TemporadaController@edit')->name('temporada.edit');
+Route::get('temporada/{competencia}/create','TemporadaController@create')->name('temporada.create');
+Route::get('temporada/{temporada}/deleteMgs','TemporadaController@deleteMsg')->name('temporada.deleteMsg');
+Route::get('temporada/{temporada}/delete','TemporadaController@destroy')->name('temporada.delete');
+
+Route::get('configuracion/competencia/{competencia}/temporadas','TemporadaController@index_conf')->name('temporadas.configuraciones');
+Route::get('configuraciones/temporada/{temporada}','TemporadaController@show_configuraciones')->name('temporada.configuraciones');
+/***************************Fin Temporada**********************************/
+
+/***************************Configuracion**********************************/
+Route::resource('categoria','CategoriaController');
+Route::get('categoria/{categoria}/deleteMsg','CategoriaController@DeleteMsg');
+Route::get('categoria/{categoria}/delete','CategoriaController@destroy');
+/***************************Fin Estados**********************************/
+
+/*************************** Torneo **************************/
+Route::resource('torneo','TorneoController');
+Route::get('torneo/{temporada}/create','TorneoController@create')->name('torneo.create');
+Route::get('torneo/{torneo}/deleteMgs','TorneoController@deleteMsg')->name('torneo.deleteMsg');
+Route::get('torneo/{torneo}/delete','TorneoController@destroy')->name('torneo.delete');
+Route::post('torneo/{torneo}/addEquipo','TorneoController@addEquipo');
+Route::get('torneo/{torneo}/{equipo}/removeEquipo','TorneoController@removeEquipo');
+
+Route::get('configuraciones/competencia/temporada/{temporada}/torneos','TorneoController@indexConfiguraciones')->name('torneos.configuraciones');
+Route::get('configuraciones/torneo/{torneo}','TorneoController@showConfiguraciones')->name('torneo.configuraciones');
+/**************************** Fin Torneo**************************/
+
+Route::get('crop/perfil','CropController@crop_perfil');
+Route::post('crop/perfil/store','CropController@store_perfil');
+
+Route::get('crop/escudo','CropController@crop_escudo');
+Route::post('crop/escudo/store','CropController@store_escudo');
+
+Route::get('crop/portada','CropController@crop_portada');
+Route::post('crop/portada/store','CropController@store_portada');
+
+
+/*_________________________Pergil ___________________*/
+Route::get('perfil/{user}','PerfilController@index')->name('perfil.index');
+
+
+/*_________________________Pergil ___________________*/
+
+
+
+/*_________________________Tipo Tornoe ___________________*/
+Route::get('tipoTorneo','TipoTorneoController@index')->name('tipoTorneo.index');
+Route::get('tipoTorneo/create','TipoTorneoController@create')->name('tipoTorneo.create');
+Route::post('tipoTorneo','TipoTorneoController@store')->name('tipoTorneo.store');
+Route::get('tipoTorneo/{tipoTorneo}','TipoTorneoController@show')->name('tipoTorneo.show');
+Route::get('tipoTorneo/{tipoTorneo}/edit','TipoTorneoController@edit')->name('tipoTorneo.edit');
+Route::put('tipoTorneo/{tipoTorneo}','TipoTorneoController@update')->name('tipoTorneo.update');
+Route::get('tipoTorneo/{tipoTorneo}/deleteMsg','TipoTorneoController@deleteMsg')->name('tipoTorneo.deleteMsg');
+Route::get('tipoTorneo/{tipoTorneo}/delete','TipoTorneoController@destroy')->name('tipoTorneo.delete');
+/*_________________________Tipo Torneo ___________________*/
+
+/*_________________________Tipo Fase ___________________*/
+Route::get('tipoFase','TipoFaseController@index')->name('tipoFase.index');
+Route::get('tipoFase/create','TipoFaseController@create')->name('tipoFase.create');
+Route::post('tipoFase','TipoFaseController@store')->name('tipoFase.store');
+Route::get('tipoFase/{tipoFase}','TipoFaseController@show')->name('tipoFase.show');
+Route::get('tipoFase/{tipoFase}/edit','TipoFaseController@edit')->name('tipoFase.edit');
+Route::put('tipoFase/{tipoFase}','TipoFaseController@update')->name('tipoFase.update');
+Route::get('tipoFase/{tipoFase}/deleteMsg','TipoFaseController@deleteMsg')->name('tipoFase.deleteMsg');
+Route::get('tipoFase/{tipoFase}/delete','TipoFaseController@destroy')->name('tipoFase.delete');
+/*_________________________Tipo Fase ___________________*/
+
+
+

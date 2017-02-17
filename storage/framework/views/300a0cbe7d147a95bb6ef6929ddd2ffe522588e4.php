@@ -16,8 +16,18 @@
     <link href="<?php echo e(asset('/css/skins/skin-blue.css')); ?>" rel="stylesheet" type="text/css" />
     <!-- iCheck -->
     <link href="<?php echo e(asset('/plugins/iCheck/square/blue.css')); ?>" rel="stylesheet" type="text/css" />
+
+    <link href="<?php echo e(asset('/plugins/bootstrapHelper/css/bootstrap-formhelpers.css')); ?>" rel="stylesheet" type="text/css" />
+
+
+    <?php /*<link href="<?php echo e(asset('/plugins/datatables/jquery.dataTables.min.css')); ?>" rel="stylesheet" type="text/css" />*/ ?>
+
+    <link href="<?php echo e(asset('/plugins/datatables/jquery.dataTables.css')); ?>" rel="stylesheet" type="text/css" />
     <?php /*Mi Estilos*/ ?>
     <link href="<?php echo e(asset('/css/miCss.css')); ?>" rel="stylesheet" type="text/css" />
+
+    <link href="<?php echo e(asset('plugins/datepicker/datepicker3.css')); ?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo e(asset('plugins/select2/select2.min.css')); ?>" rel="stylesheet" type="text/css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -28,5 +38,12 @@
     <!-- Ionicons -->
     <link href="<?php echo e(asset('css/font-awesome.min.css')); ?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo e(asset('/css/ionicons.min.css')); ?>" rel="stylesheet" type="text/css" />
+
+
+
+    <link href="https://cdn.datatables.net/buttons/1.2.3/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo e(asset('plugins/datatables/responsive.bootstrap.css')); ?>" rel="stylesheet" type="text/css" />
+
+
     <!--[endif]-->
 </head>

@@ -29,7 +29,7 @@
                 {{Form::text('fundadores',$equipo->fundadores,array('class'=>'form-control'))}}
             </div>
             <div class="form-group">
-                {{Form::label('descripcion')}}
+                {{Form::label('descripción')}}
                 {{Form::textArea('descripcion',$equipo->descripcion,array('class'=>'form-control'))}}
             </div>
 

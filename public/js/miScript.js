@@ -10,6 +10,7 @@
         });
     });
 
+
     $(document).on('focus','.autocomplete',function () {
         var url = $(this).data('link');
         var form = $(this).data('form');
@@ -26,7 +27,7 @@
 
     $(document).on('click','.link',function (e) {
         var url = $(this).attr('href');
-        f_Get(url);
+        f_Gett(url);
         e.preventDefault();
         return false;
     })
@@ -50,20 +51,71 @@
 
     }).bootstrapToggle('on');
 
-function f_Get(url) {
+    $(document).on('focus click','.autocomplete',function () {
+        var url = $(this).data('link');
+        var form = $(this).data('form');
 
-    $.ajax({
-        async: true,
-        type: 'get',
-        url: baseURL + url,
-        success: function(response) {
-            var conOperaciones = operacion(response,false);
-            if(! conOperaciones){
-               alert('No se devuelve un json... fijate que onda');
+        $(this).autocomplete({
+            serviceUrl: url,
+            onSelect: function (suggestion) {
+                completarForm(form, suggestion);
+                //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
             }
+        });
+    });
+
+
+    /*  -------------------Alta-Edit  de Jugador--------------------*/
+        conUsuario('#form_create_jugador');
+
+        function conUsuario(form) {
+            if ($(form).find('.con_usuario').length > 0){
+                $(form).find('.sin_usuario').show();
+                $(form).find('.con_usuario').hide();
+                limpiarForm(form);
+            }
+
+            $(form).find('.autocomplete').prop('disabled', false);
+
+            $(form).find('#div_imagen_jcrop > a').addClass('disabled');
+            $(form).find('input[name=nombre]').prop('disabled', true);
+            $(form).find('input[name=apellido]').prop('disabled', true);
+            $(form).find('input[name=fecha_nacimiento]').prop('disabled', true);
+            $(form).find('input[name=alias]').prop('disabled', true);
+            $(form).find('input[name=peso]').prop('disabled', true);
+            $(form).find('input[name=altura]').prop('disabled', true);
         }
-    })
-}
+
+        function sinUsuario(form) {
+            if ($(form).find('.con_usuario').length > 0){
+                $(form).find('.con_usuario').show();
+                $(form).find('.sin_usuario').hide();
+                limpiarForm(form);
+            }
+            $(form).find('.autocomplete').prop('disabled', true);
+
+            $(form).find('#div_imagen_jcrop >a').removeClass('disabled');
+            $(form).find('input[name=user_id]').prop('value','');
+            $(form).find('input[name=nombre]').prop('disabled', false);
+            $(form).find('input[name=apellido]').prop('disabled', false);
+            $(form).find('input[name=fecha_nacimiento]').prop('disabled', false);
+            $(form).find('input[name=alias]').prop('disabled', false);
+            $(form).find('input[name=peso]').prop('disabled', false);
+            $(form).find('input[name=altura]').prop('disabled', false);
+        }
+
+        function completarForm(form,data) {
+            $(form).find('input[name=user_id]').prop('value', data.data);
+            $(form).find('input[name=nombre]').prop('value', data.nombre);
+            $(form).find('input[name=apellido]').prop('value', data.apellido);
+            $(form).find('input[name=fecha_nacimiento]').prop('value', data.fecha_nacimiento);
+
+            $(form).find('input[name=alias]').prop('value', 'a completar');
+            $(form).find('input[name=peso]').prop('value', 'a completar');
+            $(form).find('input[name=altura]').prop('value', 'a completar');
+        }
+
+/*  -------------------Alta-Edit  de Jugador--------------------*/
 
 function operacion(response,isJSON) {
     var retorno = false;
@@ -99,7 +151,7 @@ function operacion(response,isJSON) {
                         ocultarModal();
                         break;
                     case 'fadeOut':
-                        $(json.id_content).fadeOut();
+                        $(json.id_content).fadeOut("slow");
                         ocultarModal();
                         break;
                     case 'html_remplace':
@@ -120,7 +172,15 @@ function operacion(response,isJSON) {
                     case 'selectElement':
                         selectElement_a(json.id_content);
                         break;
-
+                    case 'url':
+                        window.location = json.url;
+                        break;
+                    case 'limpiar_form':
+                        limpiarForm(json.limpiar_form)
+                        break;
+                    case 'hide_modal':
+                        ocultarModal();
+                        break
                 }
 
             }
@@ -133,37 +193,52 @@ function operacion(response,isJSON) {
 
 function cargarTablas(){
     var sum=0;
-    $('.datatable').each(function(){
-        sum=sum+1;
-        var table_id =$(this).attr('id');
+    $('.datatable').each(function() {
+        sum = sum + 1;
+        var table_id = $(this).attr('id');
         var link = $(this).attr('value');
-        var columnas= new Array();
+        var columnas = new Array();
 
-        $(this).find('.col_table').each(function(){
+        $(this).find('.col_table').each(function () {
             var name = $(this).data('name');
             if (name == 'operaciones') {
-                columnas.push({data: 'action'/*, name: 'action',*/, orderable: false, searchable: $(this).data('searchable') || false, orderable:$(this).data('searchable') || false });
-            }else{
-                var unaColumna={ data: $(this).data('name')/*, name: $(this).text(),*/,searchable: $(this).data('searchable') ||false, orderable:$(this).data('searchable')|| false };
+                columnas.push({
+                    data: 'action'/*, name: 'action',*/,
+                    orderable: false,
+                    searchable: $(this).data('searchable') == 1 ? 'true' : 'false',
+                    orderable: $(this).data('searchable') == 1 ? 'true' : 'false'
+                });
+            } else {
+                var unaColumna = {
+                    data: $(this).data('name')/*, name: $(this).text(),*/,
+                    searchable: $(this).data('searchable') == 1 ? 'true' : 'false',
+                    orderable: $(this).data('searchable') == 1 ? 'true' : 'false'
+                };
                 columnas.push(unaColumna);
             }
         });
 
-        if ( $.fn.DataTable.isDataTable( '#'+table_id ) ) {
-            dataTable.destroy();
-        };
 
-        dataTable = $('#'+table_id).DataTable({
-            //paging: false,
-            //searching: false,
-            language:{ url: public_path +'plugins/datatables/dt_es.json'},
-            responsive: true,
-            processing: true,
-            serverSide: true,
-            ajax:link,
-            columns: columnas
-            //columnas
-        });
+        if ($.fn.DataTable.isDataTable('#' + table_id)) {
+            dataTable.destroy();
+        } else{
+            dataTable = $('#' + table_id).DataTable({
+                //paging: false,
+                //searching: false,
+                // dom: 'Bfrtip',
+                // buttons: [
+                //     'copy', 'csv', 'excel', 'pdf', 'print'
+                // ],
+                responsive: true,
+                language: {url: baseURL + '/plugins/datatables/dt_es.json'},
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                ajax: link,
+                columns: columnas
+                //columnas
+            });
+        }
     });
 }
 
@@ -331,3 +406,53 @@ function limpiarForm(form) {
     });
 
 }
+
+function validar(form) {
+    var val = form.validate();
+    return val.form();
+}
+
+function readURL(input,id_img){
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+
+            $('#div_fot').replaceWith('<div id="div_fot"><img id="fot" src="" alt=""></div>');
+
+            $(id_img).attr('src', e.target.result);
+
+            $(id_img).load(function () {
+
+                addCrop(id_img);
+                $('.con_imagen').show();
+            });
+
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function cargando(elem) {
+    if (false)
+    {
+        var alfa = elem;
+    }else{
+        var alfa = $(elem).parents('.alfa')[0];
+    }
+    var html_cargando =
+        '<div class="cargando" id="div_cargando">' +
+            '<a class="center-block text-center " href="#">' +
+                '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+                '<p class="text-blue">Cargando</p>' +
+            '</a>' +
+        '</div>';
+    $(alfa).append(html_cargando);
+    }
+
+function eliminarCargando()
+{
+    $('#div_cargando').replaceWith('');
+}
+
+
+

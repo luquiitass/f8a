@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="form-group">
-                    {{Form::label('descripcion')}}
+                    {{Form::label('descripción')}}
                     {{Form::textArea('descripcion',$competencia->descripcion,array('class'=>'form-control'))}}
                 </div>
 
@@ -42,7 +42,7 @@
                     {{Form::select('org_partidos',array('admin_competencia'=>'administrado por organizador de la competencia','admin_equipo'=>'administrado por equipos'),$competencia->org_partidos,array('class'=>'form-control'))}}
                 </div>
                 {{Form::token()}}
-                {{Form::submit('Modificar',array('class'=>'btn btn-primary center-block'))}}
+                {{Form::submit('Modificar',array('class'=>'btn btn-primary center-block save_edit'))}}
                 {{Form::close()}}
 
             </div>

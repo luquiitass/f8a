@@ -29,7 +29,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="skin-blue sidebar-mini ">
+<body class="skin-blue sidebar-mini sidebar-collapse">
 
 <div class="wrapper">
     @include('layouts.partials.mainheader')
@@ -42,7 +42,7 @@ desired effect
             {{--@include('layouts.partials.contentheader')--}}
 
             <!-- Main content -->
-            <section class="content">
+            <section class="content content-alignment">
                 <!-- Your Page Content Here -->
                 <div id="mensaje" class="mensaje_flot"></div>
                 @yield('main-content')
@@ -64,7 +64,9 @@ desired effect
     @include('layouts.partials.scripts')
 @show
 
-<div id="temp" style="width: 0; height: 0"></div>
+<div id="temp" style="display: none">
+    @include('layouts.partials.cargando')
+</div>
 
 </body>
 </html>

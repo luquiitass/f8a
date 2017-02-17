@@ -1,41 +1,37 @@
 @if(isset($jugadores))
     <div>
         @if($jugadores->count()>0)
-        <table class="table table-striped">
-            <thead>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Posicion</th>
-            <th>Numeros</th>
-            <th>Operciones</th>
-            </thead>
-
-            <tbody>
-                @forelse($jugadores as $jugador)
-                    <tr>
-                        <td>{{$jugador->nombre}}</td>
-                        <td>{{$jugador->apellido}}</td>
-                        <td>{{$jugador->posicion->nombre}}</td>
-                        <td>{{$jugador->numero}}</td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="glyphicon glyphicon-cog"></i>
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a href="#">Ver</a></li>
-                                    <li><a class="edit" data-toggle="modal" data-target="#myModal" data-link="/jugador/{{$equipo->id}}/{{$jugador->id}}">Editar</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#" class="delete" data-toggle="modal" data-target="#myModal" data-link="/jugador/{{$jugador->id}}/{{$equipo->id}}/bajaJugadorMsg">Eliminar</a></li>
-                                </ul>
+        <div >
+            <h3>Plantilla de Jugadores</h3>
+            <div>
+                <ul style="display: inline-block;font-size: x-small;float: none;vertical-align: top;">
+                    @foreach($jugadores as $jugador)
+                        <li class="divisor-5p-right" style="float: left;display: block">
+                            <div style="position: relative;overflow: hidden;">
+                                <a href="{{url("jugador/$jugador->id")}}">
+                                    <div style="padding: 10px">
+                                        <img src="{{asset($jugador->getFotoPerfil())}}" alt="" style="width:250px;max-width: 100%;display: block;">
+                                    </div>
+                                </a>
                             </div>
-                        </td>
-                    </tr>
-                @empty
-                @endforelse
-            </tbody>
-        </table>
+
+                            <div class="" style="display: table;background: #FFFFFF;width: 100%">
+                                <div style="    display: table-row;border: 1px solid red;vertical-align: top;
+}">
+                                    <strong style="padding: 10px 0;display: table-cell;width: 45px;border-right: 1px solid #EBEBEB;font-size: 2.9em;text-align: center;">{{$jugador->numero}}</strong>
+                                    <p style="display: table-cell;vertical-align: middle;text-align: left;">
+                                        <a href="" style="font-size: x-small; text-decoration: none;font-size: 1.2em;color: #666666;padding-left: 10px">{{$jugador->nombre}} {{$jugador->apellido}}</a>
+                                        <span style="font-size: .8em;color: #666666;">({{$jugador->posicion->nombre}})</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    @endforeach
+
+                </ul>
+            </div>
+
+        </div>
         @else
         <div class="alert alert-info">
             No posee jugadores

@@ -2,6 +2,8 @@
 
 @section('titulo','Inicio')
 
+@include('crop.incluir_librerias_jcrop')
+
 @section('htmlheader')
     @parent
     {{--Vincular los css--}}
@@ -16,15 +18,17 @@
 @section('main-content')
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="col-form">
-                <h3>Nuevo Equipo</h3>
 
-                {{Form::open(array('url'=>url('equipo'),'id'=>'form_equipo'))}}
-                    {{Form::token()}}
-                    <div class="form-group">
-                        {{Form::label('nombre')}}
-                        {{Form::text('nombre',null,array('class'=>'form-control'))}}
-                    </div>
+            @include('equipo.comp_create')
+            {{--<div class="col-form">--}}
+                {{--<h3>Nuevo Equipo</h3>--}}
+
+                {{--{{Form::open(array('url'=>url('equipo'),'id'=>'form_equipo'))}}--}}
+                    {{--{{Form::token()}}--}}
+                    {{--<div class="form-group">--}}
+                        {{--{{Form::label('nombre')}}--}}
+                        {{--{{Form::text('nombre',null,array('class'=>'form-control'))}}--}}
+                    {{--</div>--}}
                     {{--<div class="form-group">--}}
                         {{--{{Form::label('apodo')}}--}}
                         {{--{{Form::text('apodo',null,array('class'=>'form-control'))}}--}}
@@ -46,13 +50,15 @@
                         {{--{{Form::select('administradores[]',array(),null,array('class'=>'form-control select2','multiple'=>'multiple','data-url'=>'/usersSelect2','data-holder'=>'Bucas usuario'))}}--}}
                         {{--<br>--}}
                     {{--</div>--}}
-                    @include('otros.selectUser')
+                    {{--@include('categoria.comp_select')--}}
+
+                    {{--@include('otros.selectUser')--}}
 
                     {{--@include('otros.direccion.direccion')--}}
 
-                    {{Form::submit('Crear',array('class'=>'fomr-control btn btn-primary center-block'))}}
-                {{Form::close()}}
-            </div>
+                    {{--{{Form::submit('Crear',array('class'=>'fomr-control btn btn-primary center-block'))}}--}}
+                {{--{{Form::close()}}--}}
+            {{--</div>--}}
         </div>
     </div>
 @endsection

@@ -11,6 +11,7 @@ use Bican\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
 class User extends Authenticatable  implements  HasRoleAndPermissionContract
 {
     use  HasRoleAndPermission;
+    use Funciones;
     /**
      * The attributes that are mass assignable.
      *
@@ -49,16 +50,6 @@ class User extends Authenticatable  implements  HasRoleAndPermissionContract
 
 
     //**Consultass**
-
-    public function scopeLike($query,$col,$value)
-    {
-        return $query->orWhere($col,'LIKE',"%$value%");
-    }
-    public function scopeColum($query,$colum)
-    {
-        return $query->select($colum);
-    }
-
 
     /************* Metodos add *********************/
 

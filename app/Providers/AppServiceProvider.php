@@ -27,5 +27,10 @@ class AppServiceProvider extends ServiceProvider
 //        $this->app->bind('path.public', function() {
 //            return /*base_path().'/public_html*/'';
 //        });
+
+        if ($this->app->environment() !== 'production') {
+            $this->app->register(\Way\Generators\GeneratorsServiceProvider::class);
+            $this->app->register(\Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class);
+        }
     }
 }

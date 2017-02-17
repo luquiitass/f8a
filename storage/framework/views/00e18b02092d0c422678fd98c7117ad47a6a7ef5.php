@@ -39,6 +39,13 @@
                     <span><?php echo e(trans('adminlte_lang::message.home')); ?></span>
                 </a>
             </li>
+
+            <li class="<?php echo $__env->yieldContent('menu_usuarios',''); ?>">
+                <a href="<?php echo e(url('user')); ?>">
+                    <i class='fa fa-link'></i>
+                    <span><?php echo e(trans('string.link_usuarios')); ?></span>
+                </a>
+            </li>
             <?php /*}}<li><a href="#"><i class='fa fa-link'></i> <span><?php echo e(trans('adminlte_lang::message.anotherlink')); ?></span></a></li>*/ ?>
 
             <li class="<?php echo $__env->yieldContent('menu_competencias',''); ?>">
@@ -77,6 +84,14 @@
                     <li class="<?php echo $__env->yieldContent('menu2_pasies',''); ?>"><a href="<?php echo e(route('pais')); ?>"><?php echo e(trans('string.link_pais,provincia,localidad')); ?></a></li>
                     <?php /*<?php endif; ?>*/ ?>
                     <li class="<?php echo $__env->yieldContent('menu2_seguridad',''); ?>"><a href="<?php echo e(route('segutidad.index')); ?>"><?php echo e(trans('string.link_seguridad')); ?></a></li>
+
+                    <li class="<?php echo $__env->yieldContent('menu2_estados',''); ?>"><a href="<?php echo e(route('estado.index')); ?>"><?php echo e(trans('string.link_estados')); ?></a></li>
+
+                    <li class="<?php echo $__env->yieldContent('menu2_configuraciones',''); ?>"><a href="<?php echo e(route('configuracion.index')); ?>"><?php echo e(trans('string.link_configuraciones')); ?></a></li>
+
+                    <li class="<?php echo $__env->yieldContent('menu2_tipo_torneo',''); ?>"><a href="<?php echo e(route('tipoTorneo.index')); ?>"><?php echo e(trans('string.link_adm_tipos_de_Torneo')); ?></a></li>
+
+                    <li class="<?php echo $__env->yieldContent('menu2_tipo_fase',''); ?>"><a href="<?php echo e(route('tipoFase.index')); ?>"><?php echo e(trans('string.link_adm_tipos_de_Fase')); ?></a></li>
                 </ul>
             </li><?php /*Fin de menu de parametros*/ ?>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Tabla_dataTable;
 use Laracasts\Flash\Flash;
 use Request;
 use App\Http\Requests\StorePais;
@@ -33,10 +34,17 @@ class PaisController extends Controller
     public function pais(){
         $paises = Pais::with('provincias.localidades')->get();
 
+        $columnas =[
+            ['Pais','pais',true,true],
+            ['Provincia','provincia',true,true],
+            ['Localidad','localidad',true,true]
+        ];
+
+        $tabla = Tabla_dataTable::create('/dt_ppl',rand(0,100),$columnas);
         //$provincias = Provincia::with('localidades')->get();
 
         //dd($paises);
-        return view('pais.pais',compact('paises'));
+        return view('pais.pais',compact('paises','tabla'));
     }
 
     public function index()
@@ -168,7 +176,7 @@ class PaisController extends Controller
      */
     public function DeleteMsg($id)
     {
-        $msg = Ajaxis::BtDeleting('Cuidado!!','¿Esta seguro de Eliminar este pais?','/pais/'. $id . '/delete/');
+        $msg = Ajaxis::BtDeleting('Cuidado!!','¿Esta seguro de Eliminar este pais ?','/pais/'. $id . '/delete/');
 
         if(Request::ajax())
         {
@@ -220,5 +228,25 @@ class PaisController extends Controller
             return $paises = array('value'=> 'No existe el Pais');
         }
         return response()->json($paises);
+    }
+
+    public function buscar()
+    {
+        $busq = Request::get('busqueda');
+        if (!empty($busq)) {
+            $paises = Pais::select('id', 'nombre')->like(['nombre'], $busq)->get();
+            $provincias = Provincia::select('id', 'nombre')->like(['nombre'], $busq)->get();
+            $localidades = Localidad::select('id', 'nombre')->like(['nombre'], $busq)->get();
+        }else{
+            $paises = [];
+            $provincias=[];
+            $localidades=[];
+        }
+        $view = view('pais.comp_tabla_busqueda',compact('provincias','paises','localidades','busq'))->render();
+
+        $json = JSON_retorno::create();
+        $json->setHtml('#tabla_busqueda',$view);
+
+        return $json->getAllJSON();
     }
 }
