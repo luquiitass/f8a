@@ -19,7 +19,7 @@
         <div class="col-xs-12 col-md-8 col-md-offset-2">
             <div class="col-form">
                 <h3>Modificar Competencia</h3>
-                {{Form::open(array('url'=>url('competencia/'.$competencia->id.'/update'),'id'=>'form_comp'))}}
+                {{Form::open(array('url'=>url('competencias'.$competencia->id.'/update'),'id'=>'form_comp'))}}
                 <div class="form-group">
                     {{Form::label('nombre')}}
                     {{Form::text('nombre',$competencia->nombre,array('class'=>'form-control'))}}

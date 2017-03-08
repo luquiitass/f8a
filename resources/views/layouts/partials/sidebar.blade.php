@@ -33,23 +33,23 @@
         <ul class="sidebar-menu">
             <li class="header">{{ trans('adminlte_lang::message.header') }}</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="@yield('menu_inicio','')">
-                <a href="{{ url('home') }}">
-                    <i class='fa fa-link'></i>
-                    <span>{{ trans('adminlte_lang::message.home') }}</span>
-                </a>
-            </li>
+            {{--<li class="@yield('menu_inicio','')">--}}
+                {{--<a href="{{ url('home') }}">--}}
+                    {{--<i class='fa fa-link'></i>--}}
+                    {{--<span>{{ trans('adminlte_lang::message.home') }}</span>--}}
+                {{--</a>--}}
+            {{--</li>--}}
 
-            <li class="@yield('menu_usuarios','')">
-                <a href="{{ url('user') }}">
-                    <i class='fa fa-link'></i>
-                    <span>{{ trans('string.link_usuarios') }}</span>
-                </a>
-            </li>
+            {{--<li class="@yield('menu_usuarios','')">--}}
+                {{--<a href="{{ url('user') }}">--}}
+                    {{--<i class='fa fa-link'></i>--}}
+                    {{--<span>{{ trans('string.link_usuarios') }}</span>--}}
+                {{--</a>--}}
+            {{--</li>--}}
             {{--}}<li><a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.anotherlink') }}</span></a></li>--}}
 
             <li class="@yield('menu_competencias','')">
-                <a href="{{ route('competencia.index') }}">
+                <a href="{{ route('admin.competencia.index') }}">
                     <i class='fa fa-link'></i>
                     <span>{{ trans('string.link_competencias') }}</span>
                 </a>
@@ -73,34 +73,34 @@
                 {{--</ul>--}}
             {{--</li>--}}{{--Fin de menu de parametros--}}
             {{--Menu de Parametros --}}
-            <li class="treeview @yield('menu_parametros','')">
-                <a href="#">
-                    <i class='fa fa-link'></i>
-                    <span>{{ trans('string.link_parametros') }}</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
+            {{--<li class="treeview @yield('menu_parametros','')">--}}
+                {{--<a href="#">--}}
+                    {{--<i class='fa fa-link'></i>--}}
+                    {{--<span>{{ trans('string.link_parametros') }}</span>--}}
+                    {{--<i class="fa fa-angle-left pull-right"></i>--}}
+                {{--</a>--}}
+                {{--<ul class="treeview-menu">--}}
                     {{--@role('abm.pais|admin')--}}
-                    <li class="@yield('menu2_pasies','')"><a href="{{route('pais')}}">{{ trans('string.link_pais,provincia,localidad') }}</a></li>
+                    {{--<li class="@yield('menu2_pasies','')"><a href="{{route('pais')}}">{{ trans('string.link_pais,provincia,localidad') }}</a></li>--}}
                     {{--@endrole--}}
-                    <li class="@yield('menu2_seguridad','')"><a href="{{route('segutidad.index')}}">{{trans('string.link_seguridad')}}</a></li>
+                    {{--<li class="@yield('menu2_seguridad','')"><a href="{{route('segutidad.index')}}">{{trans('string.link_seguridad')}}</a></li>--}}
 
-                    <li class="@yield('menu2_estados','')"><a href="{{route('estado.index')}}">{{trans('string.link_estados')}}</a></li>
+                    {{--<li class="@yield('menu2_estados','')"><a href="{{route('estado.index')}}">{{trans('string.link_estados')}}</a></li>--}}
 
-                    <li class="@yield('menu2_configuraciones','')"><a href="{{route('configuracion.index')}}">{{trans('string.link_configuraciones')}}</a></li>
+                    {{--<li class="@yield('menu2_configuraciones','')"><a href="{{route('configuracion.index')}}">{{trans('string.link_configuraciones')}}</a></li>--}}
 
-                    <li class="@yield('menu2_tipo_torneo','')"><a href="{{route('tipoTorneo.index')}}">{{trans('string.link_adm_tipos_de_Torneo')}}</a></li>
+                    {{--<li class="@yield('menu2_tipo_organizacion_competencia','')"><a href="{{route('tipoOrganizacionCompetencia.index')}}">{{trans('string.link_adm_tipos_de_Organizacion_competencia')}}</a></li>--}}
 
-                    <li class="@yield('menu2_tipo_fase','')"><a href="{{route('tipoFase.index')}}">{{trans('string.link_adm_tipos_de_Fase')}}</a></li>
-                </ul>
-            </li>{{--Fin de menu de parametros--}}
+                    {{--<li class="@yield('menu2_tipo_fase','')"><a href="{{route('tipoFase.index')}}">{{trans('string.link_adm_tipos_de_Fase')}}</a></li>--}}
+                {{--</ul>--}}
+            {{--</li>--}}{{--Fin de menu de parametros--}}
 
-            <li class="@yield('menu_equipos','')">
-                <a href="{{ route('equipo.index') }}">
-                    <i class='fa fa-link'></i>
-                    <span>{{ trans('string.link_adm_equipos') }}</span>
-                </a>
-            </li>
+            {{--<li class="@yield('menu_equipos','')">--}}
+                {{--<a href="{{ route('equipo.index') }}">--}}
+                    {{--<i class='fa fa-link'></i>--}}
+                    {{--<span>{{ trans('string.link_adm_equipos') }}</span>--}}
+                {{--</a>--}}
+            {{--</li>--}}
 
             {{--<li class="treeview @yield('menu_equipos','')">--}}
                 {{--<a href="#">--}}
@@ -118,18 +118,18 @@
                 {{--</ul>--}}
             {{--</li>--}}
 
-            <li class="treeview @yield('menu_estadios','')">
-                <a href="#">
-                    <i class='fa fa-link'></i>
-                    <span>Estadios</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="@yield('menu2_administrarEstadios','')">
-                        <a href="{{route('estadio.index')}}">{{ trans('string.link_adm_estadio_administrar') }}</a>
-                    </li>
-                </ul>
-            </li>
+            {{--<li class="treeview @yield('menu_estadios','')">--}}
+                {{--<a href="#">--}}
+                    {{--<i class='fa fa-link'></i>--}}
+                    {{--<span>Estadios</span>--}}
+                    {{--<i class="fa fa-angle-left pull-right"></i>--}}
+                {{--</a>--}}
+                {{--<ul class="treeview-menu">--}}
+                    {{--<li class="@yield('menu2_administrarEstadios','')">--}}
+                        {{--<a href="{{route('estadio.index')}}">{{ trans('string.link_adm_estadio_administrar') }}</a>--}}
+                    {{--</li>--}}
+                {{--</ul>--}}
+            {{--</li>--}}
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

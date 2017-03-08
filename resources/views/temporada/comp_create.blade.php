@@ -8,7 +8,7 @@
         <div class="centered">
             <h3>Nueva Temporada</h3>
         </div>
-        <div>
+        <div class="centered">
             {{Form::open(array('id'=>'form_create_temporada','class'=>'form-inline','id'=>'form_create_temporada'))}}
 
                 {{Form::hidden('competencia_id',$competencia->id)}}

@@ -9,7 +9,7 @@
         <div class="tab-content bg-white resaltar">
 
             <div class="tab-pane active" id="inicio">
-                @include('competencia.tabs.inicio',compact('competencia'))
+                @include('competencia.tabs.inicio',compact('competencias'))
             </div>{{--Fin tab perfil--}}
 
             <div class="tab-pane" id="fotos">

@@ -25,9 +25,17 @@
     <link href="{{ asset('/plugins/datatables/jquery.dataTables.css') }}" rel="stylesheet" type="text/css" />
     {{--Mi Estilos--}}
     <link href="{{ asset('/css/miCss.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/css/main1.css') }}" rel="stylesheet" type="text/css" />
+{{--
 
+--}}
     <link href="{{ asset('plugins/datepicker/datepicker3.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('plugins/timepicker/bootstrap-timepicker.css') }}" rel="stylesheet" type="text/css" />
+
+
     <link href="{{ asset('plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <link href="{{ asset('plugins/jQueryUI/css.css') }}" rel="stylesheet" type="text/css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

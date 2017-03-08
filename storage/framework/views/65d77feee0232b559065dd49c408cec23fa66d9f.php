@@ -41,10 +41,18 @@ desired effect
 
             <?php /*<?php echo $__env->make('layouts.partials.contentheader', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>*/ ?>
 
+
             <!-- Main content -->
-            <section class="content content-alignment">
-                <!-- Your Page Content Here -->
-                <div id="mensaje" class="mensaje_flot"></div>
+                <section class=" content content-alignment">
+                    <section class="content-header">
+                        <?php echo $__env->yieldContent('titulo_seccion'); ?>
+                    </section>
+                    <!-- Your Page Content Here -->
+                <div id="mensaje" class="mensaje_flot">
+                    <?php echo $__env->make('mensajes.msj', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                </div>
+
+
                 <?php echo $__env->yieldContent('main-content'); ?>
             </section><!-- /.content -->
         </div><!-- /.content-wrapper -->

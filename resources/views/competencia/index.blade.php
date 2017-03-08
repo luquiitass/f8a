@@ -36,7 +36,7 @@
                         <td>{{$competencia->org_partidos}}</td>
                         <td>{{$competencia->org_partidos}}</td>
                         <td>
-                            <a class="btn btn-info" href="{{route('competencia.portada',array('competencia'=>$competencia->id))}}">Ver</a>
+
                             <a class="btn btn-success" href="{{route('competencia.edit',array('competencia'=>$competencia->id))}}">Editar</a>
                             <a class="btn btn-danger delete" data-link="/competencia/{{$competencia->id}}/deleteMsg" data-toggle="modal" data-target="#myModal" >Eliminar</a>
                         </td>

@@ -9,9 +9,11 @@ class Competencia extends Model
 {
     use Administradores,Funciones;
     //
+
     protected $table = 'competencias';
+    protected $fillable = ['nombre','nombre','descripcion','estado'];
 
-
+    public static $estados=['visible'=>'visible','oculto'=>'oculto'];
 
     /*                  Relaciones                   */
     public function temporadas()
@@ -19,6 +21,9 @@ class Competencia extends Model
         return $this->hasMany(Temporada::class)->orderBy('inicio','sub');
     }
 
+    public function tipoOrganizacionCompetencia(){
+        return $this->belongsTo(TipoOrganizacionCompetencia::class);
+    }
     /*                  Relaciones                   */
 
 
@@ -58,5 +63,9 @@ class Competencia extends Model
             $retorno = $temporada->t_has('torneo');
         }
         return $retorno;
+    }
+
+    public function url(){
+        return $this->tipoOrganizacionCompetencia->nombre.'/competencia/'.$this->id.'/portada';
     }
 }

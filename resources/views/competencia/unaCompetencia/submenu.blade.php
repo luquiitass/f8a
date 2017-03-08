@@ -24,7 +24,7 @@
                             <a href="{{route('competencia.portada',['competencia'=>$competencia->id])}}">Portada</a>
                         </li>
                         <li class="@yield('competencia_submenu_configuraciones','')">
-                            <a href="{{route('competencias.configuraciones',['competencia'=>$competencia->id])}}">Configuraciones</a>
+                            <a href="{{route('competencias.configuraciones',['competencias'=>$competencia->id])}}">Configuraciones</a>
                         </li>
                     </ul>
                 </div>

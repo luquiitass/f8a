@@ -80,7 +80,7 @@
             </div>
             <div class="filtro">
                 {{--<button class="btn btn-primary create" data-toggle="modal" data-target="#myModal" data-link="/torneo/{{$competencia->temporadaActiva()->id}}/create">Nueva Temporada</button>--}}
-                {{--@include('temporada.comp_index',['temporadas'=>$competencia->temporadas])--}}
+                {{--@include('temporadas.comp_index',['temporadas'=>$competencia->temporadas])--}}
             </div>
         </div>
     </div>

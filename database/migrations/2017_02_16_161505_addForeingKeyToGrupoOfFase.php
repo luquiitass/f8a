@@ -15,9 +15,9 @@ class AddForeingKeyToGrupoOfFase extends Migration
         Schema::table('grupos', function (Blueprint $table) {
             //
 
-            $table->string('estado')->nullable();
-            $table->unsignedInteger('fase_id');
-            $table->foreign('fase_id')->references('id')->on('fases');
+            //$table->string('estado')->nullable();
+            //$table->unsignedInteger('fase_id');
+            //$table->foreign('fase_id')->references('id')->on('fases');
         });
     }
 

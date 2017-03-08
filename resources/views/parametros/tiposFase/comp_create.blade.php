@@ -7,7 +7,7 @@
         @if(isset($tipoTorneo))
         {{Form::hidden('tipo_torneo_id',$tipoTorneo->id)}}
         @else
-            @include('parametros.tiposTorneo.comp_select')
+            @include('parametros.tiposOrganizacionCompetencia.comp_select')
         @endif
 
         <div class="form-group">

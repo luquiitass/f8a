@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Competencia;
+use App\Http\Controllers\Controller;
 use App\Http\JSON_retorno;
 use Request;
 use Amranidev\Ajaxis\Ajaxis;
@@ -20,7 +21,7 @@ class CompetenciaController extends Controller
 
     public function index_configuraciones(Competencia $competencia)
     {
-        $id_temporada = Request::get('temporada');
+        $id_temporada = Request::get('temporadas');
         $id_torneo = Request::get('torneo');
         if (empty($id_temporada)){
             $temporada = $competencia->temporadas->first();
@@ -31,7 +32,7 @@ class CompetenciaController extends Controller
         if (empty($id_torneo)){
             if (!empty($temporada)){
                 if ($temporada->t_has('torneos')){
-                    //dd($temporada->torneos->first()->id);
+                    //dd($temporadas->torneos->first()->id);
                     $id_torneo = $temporada->torneos->first()->id;
                 }
             }
@@ -41,7 +42,8 @@ class CompetenciaController extends Controller
     }
 
     public function show_configuraciones(Competencia $competencia){
-        return view('competencia.unaCompetencia.show_configuraciones',compact('competencia'));
+        return view('admin.liga.competencia.conf_competencia',compact('competencia'));
+        //return view('competencia.unaCompetencia.show_configuraciones',compact('competencia'));
     }
     /**
      * Display a listing of the resource.
@@ -79,17 +81,22 @@ class CompetenciaController extends Controller
         $administradores = $input['administradores'];
 
 
-        $competencia = new Competencia();
-
-        $competencia->nombre = $input['nombre'];
-        $competencia->descripcion = $input['descripcion'];
-        $competencia->org_partidos = $input['org_partidos'];
-
+        $competencia = new Competencia($input);
         $competencia->save();
 
-        $competencia->addAdministradores($administradores);
+//        $competencias->nombre = $input['nombre'];
+//        $competencias->descripcion = $input['descripcion'];
+//        $competencias->org_partidos = $input['org_partidos'];
+//        $competencias->tipo_organizacion_id=$
+//        $competencias->estado = Competencia::$estados['activo'];
 
-        return redirect()->to('competencia/'.$competencia->id);
+        //$competencias->save();
+
+        $input['oculto']=Competencia::$estados['oculto'];
+
+        $competencia->t_addAdministradores($administradores);
+
+        return redirect()->to($competencia->tipoOrganizacionCompetencia->nombre.'/competencia/'.$competencia->id.'/portada');
     }
 
     /**
@@ -144,21 +151,21 @@ class CompetenciaController extends Controller
 
         $competencia->removeAdministradores();
 
-        $competencia->addAdministradores($administradores);
+        $competencia->t_addAdministradores($administradores);
 
         $competencia->update();
         if (Request::ajax()){
             return JSON_retorno::create()->setUrl(\URL::previous())->getAllJSON();
         }
 
-        return  redirect()->to('competencia/'.$competencia->id);
+        return  redirect()->to('competencias/'.$competencia->id);
 
 
     }
 
     public function deleteMsg(Competencia $competencia)
     {
-        $msg = Ajaxis::BtDeleting('Cuidado!!','¿Esta seguro de eliminar la competencia '.$competencia->name.' ?','/competencia/'. $competencia->id . '/delete');
+        $msg = Ajaxis::BtDeleting('Cuidado!!','¿Esta seguro de eliminar la competencias '.$competencia->name.' ?','/competencias/'. $competencia->id . '/delete');
         if(Request::ajax())
         {
             return $msg;

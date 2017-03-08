@@ -11,7 +11,7 @@
         <div>
             {{Form::open(array('id'=>'form_create_temporada','class'=>'form-inline'))}}
 
-            {{Form::hidden('competencia_id',$temporada->competencia->id)}}
+            {{--Form::hidden('competencia_id',$temporada->competencia->id)--}}
 
             {{Form::hidden('sub',$temporada->sub)}}
 

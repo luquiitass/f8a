@@ -142,7 +142,7 @@ class EquipoController extends Controller
 
             $equipo->removeAdministradores();
 
-            $equipo->addAdministradores($request->only('administradores'));
+            $equipo->t_addAdministradores($request->only('administradores'));
 
             $equipo->setFotoEscudo($nombre_image);
 
@@ -196,7 +196,7 @@ class EquipoController extends Controller
 
         $equipo->removeAdministradores();
 
-        $equipo->addAdministradores($request->only('administradores'));
+        $equipo->t_addAdministradores($request->only('administradores'));
 
         return redirect()->to('equipo');
 

@@ -1,15 +1,18 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: lucas
+ * Date: 23/02/17
+ * Time: 11:31
+ */
 
 namespace App\Http\Controllers;
 
-use App\Tabla_dataTable;
+
 use App\User;
+use Yajra\Datatables\Datatables;
 
-use Requests;
-use Yajra\Datatables\Facades\Datatables;
-
-class UserController extends Controller
-{
+class UserController extends Controller{
     /**
      * Display a listing of the resource.
      *
@@ -127,4 +130,5 @@ class UserController extends Controller
             })
             ->make(true);
     }
+
 }

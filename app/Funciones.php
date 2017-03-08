@@ -135,6 +135,29 @@ trait Funciones
         return $retorno;
     }
 
+    public static function corrimienDerechaExepUno($array,$numeroDeVueltas){
+        if ($numeroDeVueltas<0){
+            echo 'el numero de vultas debe ser mayor a 1';
+            return false;
+        }elseif ($numeroDeVueltas==0){
+            return $array;
+        }
+
+        $retorno[]=$array[0];
+        $retorno[]=last($array);
+
+        array_pull($array,count($array)-1);
+        array_pull($array,0);
+
+        $ret=array_merge($retorno,$array);
+
+        //dd($ret);
+        if ($numeroDeVueltas > 1){
+            $ret = Funciones::corrimienDerechaExepUno($ret,$numeroDeVueltas-1);
+        }
+        return $ret;
+    }
+
 
 
 }

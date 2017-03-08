@@ -26,7 +26,7 @@ return [
     'link_adm_equipo_nuevo'       => 'Nuevo Equipo',
 
     'link_adm_estadio_administrar'       => 'Administrar Estadios',
-    'link_adm_tipos_de_Torneo'       => 'Tipos de Torneo',
+    'link_adm_tipos_de_Organizacion_competencia'       => 'Tipos de Organizacion de Competencia',
     'link_adm_tipos_de_Fase'       => 'Tipos de Fase',
 
 

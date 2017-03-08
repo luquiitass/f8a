@@ -41,10 +41,18 @@ desired effect
 
             {{--@include('layouts.partials.contentheader')--}}
 
+
             <!-- Main content -->
-            <section class="content content-alignment">
-                <!-- Your Page Content Here -->
-                <div id="mensaje" class="mensaje_flot"></div>
+                <section class=" content content-alignment">
+                    <section class="content-header">
+                        @yield('titulo_seccion')
+                    </section>
+                    <!-- Your Page Content Here -->
+                <div id="mensaje" class="mensaje_flot">
+                    @include('mensajes.msj')
+                </div>
+
+
                 @yield('main-content')
             </section><!-- /.content -->
         </div><!-- /.content-wrapper -->

@@ -16,7 +16,7 @@ trait Administradores
     }
 
 
-    public function addAdministradores($users)
+    public function t_addAdministradores($users)
     {
         if (is_array($users)) {
             foreach ($users as $user) {
@@ -38,6 +38,16 @@ trait Administradores
         $users= array();
         $us = array();
         foreach ($this->users as $user){
+            $users[$user->id] = $user->nombre;
+            $us[] = $user->id;
+        }
+        return view('otros.selectUser',compact('us','users'))->render();
+    }
+
+    public function html_selectAdministradoes(){
+        $users= array();
+        $us = array();
+        foreach ($this->administradores as $user){
             $users[$user->id] = $user->nombre;
             $us[] = $user->id;
         }

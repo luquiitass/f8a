@@ -1,7 +1,20 @@
-@if($mensajes)
-<div class="alert alert-{{$tipoAalert}}">
-	@foreach($mensajes->mensaje as $mensaje)
-		<p>{{$mensaje}}</p>
-	@endforeach
-</div>
+@if(Session::has('success'))
+	<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+		{{Session::get('success')}}
+	</div>
+@endif
+
+@if(Session::has('danger'))
+	<div class="alert alert-danger">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+		{{Session::get('danger')}}
+	</div>
+@endif
+
+@if(Session::has('info'))
+	<div class="alert alert-info">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+		{{Session::get('success')}}
+	</div>
 @endif

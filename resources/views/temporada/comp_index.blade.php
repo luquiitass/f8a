@@ -30,7 +30,7 @@
                     {{$temporadas->all()[$i]->fin_con_formato()}}
                 </td>
                 <td>
-                    <a class="manita" href="{{route('temporada.configuraciones',['temporada'=>$temporadas->all()[$i]->id])}}">Ver</a>
+                    <a class="manita" href="{{url('/configuraciones/temporada/'.$temporadas->all()[$i]->id)}}">Ver</a>
                     <span class="separador"></span>
                     {{--<a class="manita edit" data-toggle="modal" data-target="#myModal" data-link="/temporada/{{$temporadas->all()[$i]->id}}/edit" href="">Editar</a>--}}
                     {{--<span class="separador"></span>--}}
@@ -40,7 +40,7 @@
             </tr>
         @endfor
         @else
-            <div class="alert alert-danger">
+            <div class="alert alert-warning">
                 Sin temporadas
             </div>
         @endif

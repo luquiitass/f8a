@@ -47,7 +47,7 @@ class TemporadaController extends Controller
             $temporada = $competencia->temporadaActiva();
         }
 
-        return view('temporada.admin.show_configuraciones',compact('competencia','temporada'));
+        return view('admin.temporada.show',compact('competencia','temporada'));
     }
 
     /**
@@ -95,7 +95,7 @@ class TemporadaController extends Controller
         $input['inicio']= $inicio->toDateTimeString();
         $input['fin']= $fin->toDateTimeString();
         $input['nombre']= $nombre;
-        //$input['sub'] = collect($competencia->temporadas)->where('nombre',$nombre)->count()+1;
+        //$input['sub'] = collect($competencias->temporadas)->where('nombre',$nombre)->count()+1;
 
         //dd($input);
         try{
@@ -106,7 +106,7 @@ class TemporadaController extends Controller
              return JSON_retorno::create()->setMensaje($e->getMessage(),'danger','true')->getAllJSON();
         }
 
-        $view = view('temporada.comp_index',['temporadas'=>$competencia->temporadas()->get()])->render();
+        $view = view('temporada.comp_index',['temporadas'=>$competencia->temporadas()->get(),'competencia'=>$competencia])->render();
         return JSON_retorno::create()
             ->setMensaje('Temporada guardada','success')
             ->setHtml('#contenedor_temporadas',$view)
@@ -159,7 +159,7 @@ class TemporadaController extends Controller
         $temporada->nombre =$input['nombre'];
         $temporada->inicio =new Carbon($input['inicio']);
         $temporada->fin =  new Carbon($input['fin']);
-        //$input['sub'] = collect($competencia->temporadas)->where('nombre',$temporada->nombre)->count()+1;
+        //$input['sub'] = collect($competencias->temporadas)->where('nombre',$temporada->nombre)->count()+1;
 
         //dd($input);
 
@@ -169,7 +169,7 @@ class TemporadaController extends Controller
         }catch (\Exception $e){
             return JSON_retorno::create()->setMensaje($e->getMessage(),'danger','true')->getAllJSON();
         }
-        //$view = view('temporada.comp_index',['temporadas'=>$competencia->temporadas()->get()])->render();
+        //$view = view('temporada.comp_index',['temporadas'=>$competencias->temporadas()->get()])->render();
 
         return JSON_retorno::create()->setUrl(\URL::previous())->getAllJSON();
             //JSON_retorno::create()->setHtml('#contenedor_temporadas',$view)->setMensaje('Temporada modificada','success')->getAllJSON();

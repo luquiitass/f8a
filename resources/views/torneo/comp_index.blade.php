@@ -1,17 +1,6 @@
 @if(!isset($temporada))
     Falta pasar las Torneos
 @else
-    <div>
-        <a class="btn btn-primary create" data-toggle="collapse" href="#collapse_torneo_nuevo">Agregar Torneo</a>
-        <div class="collapse" id="collapse_torneo_nuevo">
-            <div class="" id="contenedor_nuevo_torneo">
-                <div class="bg-white resaltar">
-                    <a  data-toggle="collapse" href="#collapse_torneo_nuevo" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                    @include('torneo.comp_create',compact('temporada'))
-                </div>
-            </div>
-        </div>
-    </div>
     <hr>
     @if(count($temporada->torneos) > 0)
         <table class="table">
@@ -31,7 +20,7 @@
                         <td>Posee {{$torneo->equipos->count()}} Equipos</td>
                         <td>
 
-                            <a class="manita " href="{{route('torneo.configuraciones',['torneo'=>$torneo->id])}}">Ver</a>
+                            <a class="manita " href="{{url($competencia->tipoOrganizacionCompetencia->nombre.'/configuraciones/torneo/'.$torneo->id)}}">Ver</a>
 
                             <span class="separador"></span>
 

@@ -12,7 +12,7 @@
                 <p><strong>Descripción: </strong>{{$competencia->descripcion}}</p>
                 <p><strong>Organizador de partidos: </strong>{{$competencia->org_partidos}}</p>
                 <p><strong>Administrador/es: </strong>{{$competencia->users->implode('email',',')}}</p>
-                <a class="btn btn-success" href="{{route('competencia.configuraciones',array('competencia'=>$competencia->id))}}">Administrar Competencia</a>
+                <a class="btn btn-success" href="{{route('competencias',array('competencias'=>$competencia->id))}}">Administrar Competencia</a>
             </div>
         </div>
 
@@ -27,7 +27,7 @@
                         <p><strong>Inicio: </strong>{{$temporada->inicio->format('d/m/Y')}}</p>
                         <p><strong>Fin: </strong>{{$temporada->fin->format('d/m/Y')}}</p>
                         <p><strong>Torneos: </strong>Esta temporada posee {{$temporada->torneos->count()}} torneos.</p>
-                        <a class="btn btn-info" href="{{route('temporada.configuraciones',['temporada'=>$temporada->id])}}">Administrar Temporada</a>
+                        <a class="btn btn-info" href="{{route('temporadas',['temporadas'=>$temporada->id])}}">Administrar Temporada</a>
                     </div>
                 </div>
 
@@ -80,7 +80,7 @@
             @else
                 <div class="alert alert-danger">
                     Esta Competencia no posee Temporadas
-                    <a href="{{route('temporadas.configuraciones',compact('competencia'))}}">Añadir Temporadas</a>
+                    <a href="{{route('temporadas.configuraciones',compact('competencias'))}}">Añadir Temporadas</a>
                 </div>
             @endif
         </div>

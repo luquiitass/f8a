@@ -32,7 +32,6 @@ class CompetenciaRequestUpdate extends Request
             //
             'nombre'=>'required|unique:competencias,nombre,'.$id.'|min:4',
             'descripcion'=>'required',
-            'org_partidos'=>'required',
             'administradores'=>'required'
         ];
     }

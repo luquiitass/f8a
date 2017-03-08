@@ -37,10 +37,12 @@
                     {{--<br>--}}
                 {{--</div>--}}
 
-                <div class="form-group">
-                    {{Form::label('organizador de partido')}}
-                    {{Form::select('org_partidos',array('admin_competencia'=>'administrado por organizador de la competencia','admin_equipo'=>'administrado por equipos'),null,array('class'=>'form-control'))}}
-                </div>
+                {{--@include('parametros.tiposOrganizacionCompetencia.comp_select')--}}
+
+                {{--<div class="form-group">--}}
+                    {{--{{Form::label('organizador de partido')}}--}}
+                    {{--{{Form::select('org_partidos',array('admin_competencia'=>'administrado por organizador de la competencia','admin_equipo'=>'administrado por equipos'),null,array('class'=>'form-control'))}}--}}
+                {{--</div>--}}
                 {{Form::submit('Guardar',array('class'=>'btn btn-primary btn-guardar center-block','type'=>'button'))}}
 
 

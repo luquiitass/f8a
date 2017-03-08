@@ -11,7 +11,7 @@
                    @include('equipo.comp_unEquipo',['equipo'=>$equipo])
                </td>
                 <td>
-                    <a class="manita edit" data-link="/torneo/{{$torneo->id}}/{{$equipo->id}}}/removeEquipo">Eliminar</a>
+                    <a class="manita edit" data-link="/torneo/{{$torneo->id}}/{{$equipo->id}}/removeEquipo">Eliminar</a>
                 </td>
             </tr>
         @endforeach

@@ -20,7 +20,7 @@
             @include('categoria.comp_select')
 
 
-            <a class="manita save_ajax btn btn-primary center-block" data-link="/equipo"  >Crear</a>
+            <a class="manita save_ajax btn btn-primary center-block" data-link="/admin/equipo"  >Crear</a>
 
             {{--Form::submit('Crear',array('class'=>'fomr-control btn btn-primary center-block'))--}}
             {{Form::close()}}

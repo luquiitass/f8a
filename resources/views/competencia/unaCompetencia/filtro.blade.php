@@ -13,7 +13,7 @@
                 </button>
                 <div class="dropdown-content">
                     @foreach($competencia->temporadas as $temp)
-                        <a href="{{route('competencias.configuraciones',array('competencia'=>$competencia->id,'temporada'=>$temp->id,'#temporadas'))}}">{{$temp->nombre}}</a>
+                        <a href="{{route('liga.configuracion.index',array('competencia'=>$competencia->id,'temporadas'=>$temp->id,'#temporadas'))}}">{{$temp->nombre}}</a>
                     @endforeach
                 </div>
             </div>
@@ -32,7 +32,7 @@
                     </button>
                     <div class="dropdown-content">
                         @foreach($temporada->torneos as $tor)
-                            <a href="{{route('competencias.configuraciones',['competencia'=>$competencia->id,'temporada'=>$temporada->id,'torneo'=>$tor->id.'#torneos'])}}">{{$tor->nombre}}</a>
+                            <a href="{{route('liga.configuracion.index',['competencia'=>$competencia->id,'temporada'=>$temporada->id,'torneo'=>$tor->id.'#torneos'])}}">{{$tor->nombre}}</a>
                         @endforeach
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                         Torneo
                     </div>
                     <div class="dropbtn radius_4p">
-                        Esta Temporada no posee tornos, <a href="{{route('temporada.configuraciones',['temporada'=>$temporada->id])}}" class="">Añadir Torneo</a>
+                        Esta Temporada no posee tornos, <a href="{{route('temporadas',['temporadas'=>$temporada->id])}}" class="">Añadir Torneo</a>
                     </div>
                 </div>
             @endif

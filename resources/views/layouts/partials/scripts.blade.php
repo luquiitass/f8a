@@ -31,11 +31,18 @@
 <script src="/plugins/datatables/jquery.dataTables.js"></script>
 <script src="/plugins/datatables/dataTables.bootstrap.js"></script>
 <script src="/plugins/datatables/dataTables.responsive.js"></script>
+{{--
+
+--}}
+<script src="{{asset('/plugins/timepicker/bootstrap-timepicker.js')}}"></script>
 
 <script src="{{asset('/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('/plugins/datepicker/bootstrap-datepicker.es.min.js')}}"></script>
-
+{{--
+<script src="{{asset('/plugins/jQueryUI/jquery-ui.js')}}"></script>
 <link href="{{ asset('plugins/datepicker/datepicker3.css') }}" rel="stylesheet" type="text/css" />
+--}}
+
 <link href="{{ asset('plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
 
 

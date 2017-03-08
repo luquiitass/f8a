@@ -25,9 +25,17 @@
     <link href="<?php echo e(asset('/plugins/datatables/jquery.dataTables.css')); ?>" rel="stylesheet" type="text/css" />
     <?php /*Mi Estilos*/ ?>
     <link href="<?php echo e(asset('/css/miCss.css')); ?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo e(asset('/css/main1.css')); ?>" rel="stylesheet" type="text/css" />
+<?php /*
 
+*/ ?>
     <link href="<?php echo e(asset('plugins/datepicker/datepicker3.css')); ?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo e(asset('plugins/timepicker/bootstrap-timepicker.css')); ?>" rel="stylesheet" type="text/css" />
+
+
     <link href="<?php echo e(asset('plugins/select2/select2.min.css')); ?>" rel="stylesheet" type="text/css" />
+
+    <link href="<?php echo e(asset('plugins/jQueryUI/css.css')); ?>" rel="stylesheet" type="text/css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

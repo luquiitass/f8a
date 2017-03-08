@@ -10,7 +10,37 @@
         });
     });
 
+    $(document).on('focus','.timepicker',function () {
+        $(this).timepicker({
+            minuteStep: 1,
+            showSeconds: true,
+            showMeridian: false,
+            defaultTime: false
+        });
+    });
 
+
+    $('div_datepicker',function () {
+        var dateFormat = "mm-dd-yy";
+        var inicio= $(this).find('.inicio');
+        var fin =$(this).find('.fin');
+        $(inicio).datepicker({
+            format: "dd-mm-yyyy",
+            language: "es",
+            autoclose: true
+        }).on( "change", function() {
+            to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+
+        to = $(fin).datepicker({
+            format: "dd-mm-yyyy",
+            language: "es",
+            autoclose: true,
+        }).on( "change", function() {
+            $(inicio).datepicker( "option", "maxDate", getDate( this ) );
+         });
+
+    });
     $(document).on('focus','.autocomplete',function () {
         var url = $(this).data('link');
         var form = $(this).data('form');
@@ -24,6 +54,7 @@
         });
 
     });
+
 
     $(document).on('click','.link',function (e) {
         var url = $(this).attr('href');
@@ -64,9 +95,21 @@
         });
     });
 
-
     /*  -------------------Alta-Edit  de Jugador--------------------*/
-        conUsuario('#form_create_jugador');
+
+
+function getDate( element ) {
+    var dateFormat = "mm-dd-yy";
+    var date;
+    try {
+        date =element.value;
+    } catch( error ) {
+        date = null;
+    }
+
+    return date;
+}
+conUsuario('#form_create_jugador');
 
         function conUsuario(form) {
             if ($(form).find('.con_usuario').length > 0){
@@ -288,6 +331,12 @@ function cargarSelect2() {
             }
         });
         s2.val(selects).trigger('change');
+    });
+}
+
+function cargarSelectCategoria() {
+    $(".select2-basic-multiple").select2({
+        placeholder: $(this).data('placeholder')
     });
 }
 

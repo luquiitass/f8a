@@ -45,19 +45,24 @@ class Equipo extends Model
         return $this->belongsTo(Categoria::class);
     }
 
+    public function grupos(){
+        return $this->belongsToMany(Grupo::class);
+    }
+
     public function hasEstadio($value){
         return $this->estadios()->where('nombre',$value)->count() > 0?true:false;
     }
 
 
-    public function getFotoEscudo(){
-        $default = '/img/avatar.png';
-        if (isset($this->foto_escudo))
+    public function getFotoEscudoAttribute(){
+        $default = asset('/img/escudo_default_2.png');
+        if (!is_null($this->attributes['foto_escudo']))
         {
-            return file_exists('imagenes/escudo/'.$this->foto_escudo)?'/imagenes/escudo/' . $this->foto_escudo : $default;
+            return asset($this->attributes['foto_escudo']);
         }
         return $default;
     }
+
 
     /* **********************  Relaciones   *****************************/
 
@@ -176,6 +181,22 @@ class Equipo extends Model
                 throw new Exception('Ya existe un equipo con este nombre y categoria. Debe asignarle un Alias para diferenciarlos');
             }
         }
+    }
+
+    public function partidosDeTorneo($id){
+        $partidos = Partido::join('fechas','fechas.id','=','partidos.fecha_id')
+            ->join('grupos','grupos.id','=','fechas.grupo_id')
+            ->join('fases','fases.id','=','grupos.fase_id')
+            ->join('torneos','torneos.id','=','fases.torneo_id')
+            ->where('torneos.id','=',$id)
+            ->where(function ($query){
+                $query->where('eq1_id','=',$this->id)
+                    ->orWhere('eq2_id','=',$this->id);
+            })
+            ->get();
+
+        return $partidos;
+
     }
 
 }

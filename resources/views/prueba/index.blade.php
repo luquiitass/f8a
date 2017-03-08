@@ -12,11 +12,7 @@
 
 
 @section('main-content')
-    <ul>
-        @foreach($result as $equipo)
-            <li>{{$equipo->nombre}}</li>
-        @endforeach
-    </ul>
+
 @endsection
 
 

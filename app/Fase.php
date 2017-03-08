@@ -25,6 +25,7 @@ class Fase extends Model
         return $this->hasMany(Grupo::class);
     }
 
+
     //----------------Relaciones-------------------------
 
 

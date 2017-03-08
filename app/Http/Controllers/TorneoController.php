@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Amranidev\Ajaxis\Ajaxis;
 use App\Equipo;
+use App\Fecha;
 use App\Http\JSON_retorno;
 use App\Http\Requests\TemporadaRequestStore;
 use App\Http\Requests\TemporadaRequestUpdate;
@@ -19,12 +20,33 @@ use Request;
 
 class TorneoController extends Controller
 {
+    public function equipos(Torneo $torneo){
+        $torneo = $torneo->cast();
+        $competencia=$torneo->temporada->competencia;
+        return view('torneo.admin.liga.torneo_equipos',compact('torneo','competencia'));
+    }
+
+    public function fechas( Torneo $torneo){
+        $competencia =$torneo->temporada->competencia;
+        return view('torneo.admin.liga.torneo_fechas',compact('torneo','competencia'));
+    }
+
+    public function resultados( Torneo $torneo,Fecha $fecha){
+        $competencia =$torneo->temporada->competencia;
+        return view('torneo.admin.liga.torneo_resultados',compact('torneo','competencia'));
+    }
+
+    public function calendario( Torneo $torneo,Fecha $fecha){
+        $competencia =$torneo->temporada->competencia;
+        return view('torneo.admin.liga.torneo_calendario',compact('torneo','competencia'));
+    }
     //
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Temporada $temporada)
     {
         //
@@ -34,17 +56,17 @@ class TorneoController extends Controller
 
 
     public function indexConfiguraciones(Temporada $temporada){
-        // = $temporada->torneoActivo();
+        // = $temporadas->torneoActivo();
         $competencia = $temporada->competencia;
 
         return view('torneo.admin.index_configuraciones',compact('competencia','temporada'));
-        //dd($competencia);
+        //dd($competencias);
     }
 
     public function showConfiguraciones(Torneo $torneo){
         $competencia = $torneo->temporada->competencia;
         return view('torneo.admin.show_configuraciones',compact('competencia','torneo'));
-        //dd($competencia);
+        //dd($competencias);
     }
 
     /**
@@ -87,7 +109,7 @@ class TorneoController extends Controller
             return JSON_retorno::create()->setMensaje($e->getMessage(),'danger','true')->getAllJSON();
         }
 
-        return JSON_retorno::create()->setUrl('configuraciones/temporada/'.$temporada->id)->getAllJSON();
+        return JSON_retorno::create()->setUrl('configuraciones/temporadas/'.$temporada->id)->getAllJSON();
     }
 
     /**
@@ -141,6 +163,8 @@ class TorneoController extends Controller
         try{
             //$torneo = new Torneo($input);
             //dd($torneo);
+            $torneo->validarUpdateTorneo();
+
             $torneo->update($input);
 
             $torneo->t_detach('categorias');
@@ -195,8 +219,18 @@ class TorneoController extends Controller
         return JSON_retorno::create()->setMensaje('Equipos Añadidos','success')->setUrl(\URL::previous())->getAllJSON();
     }
 
+    public function quitarEquipo(Torneo $torneo,Equipo $equipo){
+        $msg = Ajaxis::BtDeleting('Cuidado!!','¿Esta seguro de quitar al equipo '.$equipo->nombre.' de torneo '.$torneo->nombre.' ?','/torneo/'.$torneo->id.'/'.$equipo->id.'/removeEquipo');
+        if(Request::ajax())
+        {
+            return $msg;
+        }
+        return $msg;
+    }
+
     public function removeEquipo(Torneo $torneo,Equipo $equipo){
         try{
+            $torneo->validarDeletEquipo($equipo);
             $torneo->equipos()->detach($equipo->id);
         }catch (Exception $e){
             return JSON_retorno::create()->setMensaje($e->getMessage(),'danger','true')->getAllJSON();

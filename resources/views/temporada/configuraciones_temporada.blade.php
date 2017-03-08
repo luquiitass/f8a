@@ -8,7 +8,7 @@
     <a class="btn btn-primary create" data-toggle="collapse" href="#collapse_temporada_nueva">Nueva Temporada</a>
     <div class="collapse" id="collapse_temporada_nueva">
         <div class="resaltar" id="contenedor_nueva_temporada">
-            @include('temporada.comp_create',compact('competencia'))
+            @include('temporada.comp_create',compact('competencias'))
         </div>
     </div>
     <hr>

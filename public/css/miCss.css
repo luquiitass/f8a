@@ -1,5 +1,6 @@
 /*elementos*/
 
+
 /*Modificando elementos predefinidos* !important*/
 .content-wrapper, .right-side {
     background-color: #E9EBEE;
@@ -28,7 +29,10 @@
 textarea{
     height: 150px !important;
 }
-
+.btn.btn-app.btn-app-ganer {
+    background-color: #ea4717;
+    color: #FFFFFF;
+}
 
 
 .col-form{
@@ -202,8 +206,9 @@ form .btn
     font-weight: normal;
     position: fixed;
     z-index: 10000;
-    right: 30px;
-    top: 30px;
+    right: 6px;
+    top: 2px;
+    left: 6px;
 }
 
 .mensaje_flot>.formaa{
@@ -452,9 +457,66 @@ form .btn
 .cl-rojo{
     color: red;
 }
+.cl-negro-claro{
+    color: #777777!important;
+}
 
 a:hover.cl-rojo{
     color: #ff7e74 !important;
 }
 
 /*___________________Colores__________________*/
+
+
+/********************Partidos****************/
+.partido{
+    text-align: center;
+    align-items: center;
+}
+
+.eq1{
+    width: 200px;
+    display: inline-block;
+}
+
+.vs{
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+
+}
+
+.resultado{
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    margin: 0px 10px;
+}
+
+.eq2{
+    width: 200px;
+    display: inline-block;
+}
+
+.imagen_equipo{
+    display: inline-block;
+    height: 100px;
+}
+
+.imagen_equipo img{
+    display: block;
+    width: 65px;
+    height: 65px;
+    margin: auto;
+}
+
+.inline{
+    float: left;
+}
+.clearBoth{
+    clear: both;
+}
+
+
+
+/********************Partidos****************/

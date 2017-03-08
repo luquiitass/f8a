@@ -15,14 +15,14 @@ class AddForeingKeyToFechasOfGrupo extends Migration
         Schema::table('fechas', function (Blueprint $table) {
             //
 
-            $table->integer('equipo_libre_id')->nullable();
-            $table->foreign('equipo_libre_id')->references('id')->on('equipos');
-
-            $table->unsignedInteger('fecha_id')->nullable();
-            $table->foreign('fecha_id')->references('id')->on('fechas');
-
-            $table->unsignedInteger('grupo_id');
-            $table->foreign('grupo_id')->references('id')->on('grupos');
+//            $table->integer('equipo_libre_id')->nullable();
+//            $table->foreign('equipo_libre_id')->references('id')->on('equipos');
+//
+//            $table->unsignedInteger('fecha_id')->nullable();
+//            $table->foreign('fecha_id')->references('id')->on('fechas');
+//
+//            $table->unsignedInteger('grupo_id');
+//            $table->foreign('grupo_id')->references('id')->on('grupos');
         });
     }
 
